@@ -120,7 +120,7 @@ const mainBannerData = ref([
       <ul class="a1-part1-boxes">
         <li class="part1-box1 part1-box">
           <div class="part1-img">
-            <img src="/public/images/hong/smallbanner-coupon.png" alt="혜택1" />
+            <img src="/public/images/hong/s-banner-1.png" alt="혜택1" />
           </div>
           <div class="box-text box1-text">
             <h3>짐꾼 혜택 몰아보기</h3>
@@ -129,7 +129,7 @@ const mainBannerData = ref([
         </li>
         <li class="part1-box2 part1-box">
           <div class="part1-img">
-            <img src="/public/images/hong/smallbanner-protect.png" alt="혜택2" />
+            <img src="/public/images/hong/s-banner-2.png" alt="혜택2" />
           </div>
           <div class="box-text box2-text">
             <h3>꼼꼼하게 지키는 짐꾼 케어</h3>
@@ -138,7 +138,7 @@ const mainBannerData = ref([
         </li>
         <li class="part1-box3 part1-box">
           <div class="part1-img">
-            <img src="/public/images/hong/smallbanner-english.png" alt="혜택3" />
+            <img src="/public/images/hong/s-banner-3.png" alt="혜택3" />
           </div>
           <div class="box-text box3-text">
             <h3>Guid for Foreign Users</h3>
@@ -593,12 +593,17 @@ const mainBannerData = ref([
 
         .part1-img {
           width: 100%;
+          // width: 300px;
+          // height: 200px;
+         
           img {
             width: 100%;
           }
         }
         .box-text {
           padding: 18px 18px 22px 18px;
+          display: flex;
+          flex-direction: column;
           h3 {
             font-size: $text-font-XL;
             font-weight: bold;
@@ -940,13 +945,10 @@ const mainBannerData = ref([
     font-size: $text-font-XS !important;
   }
 }
-@media screen and (max-width: 1068px) {
-  // .box1-text p {
-  //   margin-bottom: 12px !important;
-  // }
-  // .box3-text p {
-  //   margin-bottom: 12px !important;
-  // }
+@media screen and (max-width: 1011px) {
+  .part1-box{
+    height: 247.22px !important;
+  }
 }
 @media screen and (max-width: 990px) {
   .box-text h3 {
@@ -967,17 +969,8 @@ const mainBannerData = ref([
   }
 }
 @media screen and (max-width: 881px) {
-  // .box2-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
 }
 @media screen and (max-width: 871px) {
-  // .box2-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
-  // .box3-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
   .a1-part3 {
     display: flex !important;
     flex-direction: column !important;
@@ -990,12 +983,6 @@ const mainBannerData = ref([
   }
 }
 @media screen and (max-width: 867px) {
-  // .box2-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
-  // .box1-text p {
-  //   margin-bottom: 20 !important;
-  // }
 }
 @media screen and (max-width: 859px) {
   .a1-part1-title h3 {
@@ -1005,17 +992,8 @@ const mainBannerData = ref([
     font-size: 14px !important;
     line-height: 18px !important;
   }
-  // .a1-part1-boxes .box1-text h3 {
-  //   margin-bottom: 21px !important;
-  // }
-  // .box2-text h3 {
-  //   margin-bottom: 21px !important;
-  // }
 }
 @media screen and (max-width: 841px) {
-  // .box2-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
 }
 @media screen and (max-width: 768px) {
   // 파트1 영역
@@ -1037,37 +1015,21 @@ const mainBannerData = ref([
   .a1-part1-boxes {
     width: 100% !important;
   }
+  
   // 예약미니 바
   .reservationMini {
     display: none !important;
   }
-  // .a1-part1-boxes .box1-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
 }
 @media screen and (max-width: 644px) {
-//   .a1-part1-boxes .box1-text h3 {
-//     margin-bottom: 21px !important;
-//   }
-//   .box2-text h3 {
-//     margin-bottom: 21px !important;
-//   }
+
 }
 @media screen and (max-width: 634px) {
-  // .a1-part1-boxes .box1-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
-  // .box2-text h3 {
-  //   margin-bottom: 8px !important;
-  // }
   .a1-part1-boxes {
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
   }
-  // .a1-part1-title h3 {
-  //   margin-bottom: 5px !important;
-  // }
   .a1-part1-title p {
     display: none !important;
   }
@@ -1076,20 +1038,35 @@ const mainBannerData = ref([
     flex-direction: row !important;
     width: 100% !important;
     min-width: 165px !important;
+    max-width: unset !important;
+    gap: 10px !important;
+    // max-height: 61px;
   }
   .part1-img {
-    width: 50% !important;
+    // width: 50% !important;
+    // width: 140px !important;
+    flex: 1;
+    // object-fit: cover !important; 
   }
   .part1-img img {
     display: block !important;
     width: 100% !important;
+    
+
   }
   .box-text {
+    flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: center !important;
     align-items: flex-start !important;
     padding: 10px !important;
+  }
+  .box-text h3{
+    font-size: 18px !important;
+  }
+  .box-text p{
+    font-size: 16px !important;
   }
 }
 @media screen and (max-width: 550px) {
@@ -1110,6 +1087,19 @@ const mainBannerData = ref([
   }
   .part3-box2 {
     width: 100%;
+  }
+}
+@media screen and (max-width: 475px){
+  .box-text h3{
+    font-size: 14px !important;
+  }
+  .box-text p{
+    font-size: 12px !important;
+  }
+}
+@media screen and (max-width: 403px){
+  .a1-part1-title h3{
+    font-size: 20px !important;
   }
 }
 </style>
