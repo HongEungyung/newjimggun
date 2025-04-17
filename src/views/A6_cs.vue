@@ -317,7 +317,7 @@ const nextPage = () => {
             <li class="quick-list">
               <router-link to="/charge">
                 <div class="quick-img quick-img2">
-                  <img src="/public/images/lee/bill.png" alt="핸드폰아이콘" />
+                  <img src="/public/images/lee/bill.png" alt="돈아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>요금</strong>이 궁금하신가요?</span>
@@ -326,9 +326,9 @@ const nextPage = () => {
               </router-link>
             </li>
             <li class="quick-list">
-              <router-link to="/inquiry">
+              <router-link to="/login">
                 <div class="quick-img">
-                  <img src="/public/images/lee/phone.png" alt="핸드폰아이콘" />
+                  <img src="/public/images/lee/consult.png" alt="헤드폰아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>상담</strong>이 필요하신가요?</span>
@@ -378,7 +378,7 @@ const nextPage = () => {
       <!-- 5. 문의하기 -->
       <div class="contact-section inner">
         <p>원하는 답변을 찾지 못하셨나요?</p>
-        <router-link>문의하기</router-link>
+        <router-link to="/login">문의하기</router-link>
       </div>
     </div>
   </section>
@@ -430,7 +430,9 @@ a {
         flex-direction: column;
         align-items: center;
         padding-bottom: 50px;
-        // background-color: $white;
+        @media screen and (max-width: 768px) {
+          padding-bottom: 20px;
+        }
 
         .quick-title {
           width: 100%;
@@ -452,6 +454,12 @@ a {
           width: 100%;
           margin-top: 30px;
           margin-bottom: 75px;
+          @media screen and (max-width: 768px) {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+          }
           .quick-list {
             display: flex;
             align-items: center;
@@ -460,6 +468,12 @@ a {
             box-shadow: $reservation-boxShadow;
             border-radius: 10px;
             background-color: $white;
+            @media screen and (max-width: 768px) {
+              // flex-direction: row;
+              width: 100% !important;
+              max-width: 600px !important;
+              // flex-direction: column;
+            }
             a {
               display: flex;
               width: 100%;
@@ -467,6 +481,13 @@ a {
               align-items: center;
               padding: 40px 0;
               gap: 30px;
+              @media screen and (max-width: 768px) {
+                flex-direction: row;
+                padding: 20px 20px;
+              }
+              @media screen and (max-width: 450px) {
+                padding: 20px 5px;
+              }
               .quick-img {
                 width: 100px;
                 height: 100px;
@@ -481,14 +502,35 @@ a {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
+                @media screen and (max-width: 768px) {
+                  gap: 15px;
+                }
                 .quick-text1 {
-                  font-size: 20px;
+                  font-size: $text-font-XL;
                   font-weight: 700;
+                  @media screen and (max-width: 768px) {
+                    font-size: $title-font-XS;
+                  }
+                  @media screen and (max-width: 450px) {
+                    font-size: $text-font-L;
+                    // padding: 20px 5px;
+                  }
+                  @media screen and (max-width: 390px) {
+                    font-size: $text-font-M;
+                  }
                 }
                 .quick-text2 {
                   padding-left: 5px;
                   font-size: $text-font-XS;
                   color: $font-light-gray;
+                  @media screen and (max-width: 768px) {
+                    font-size: $text-font-S;
+                    padding: 0;
+                    @media screen and (max-width: 450px) {
+                      font-size: $text-font-XS;
+                      // padding: 20px 5px;
+                    }
+                  }
                 }
               }
             }
@@ -540,6 +582,13 @@ a {
       display: flex;
       gap: 20px;
       margin-top: 20px;
+      @media screen and (max-width: 600px) {
+        gap: 5px;
+      }
+      @media screen and (max-width: 430px) {
+        flex-wrap: wrap;
+        // padding: 0;
+      }
       .category-btn {
         width: calc(100% / 6);
         padding: 10px 0;
@@ -549,6 +598,17 @@ a {
         background-color: $white;
         font-weight: bold;
         cursor: pointer;
+        @media screen and (max-width: 600px) {
+          font-size: 11px;
+        }
+        @media screen and (max-width: 430px) {
+          font-size: 11px;
+          width: calc(100% / 4);
+          margin: 5px auto;
+          padding: 10px 0;
+          justify-content: center;
+          align-items: center;
+        }
         &:hover,
         &.active {
           background-color: $primary-hover;
@@ -565,6 +625,9 @@ a {
       display: flex;
       flex-direction: column;
       align-items: center;
+      @media screen and (max-width: 430px){
+        margin-top: 20px;
+      }
       .faq-list {
         display: flex;
         flex-direction: column;
@@ -584,6 +647,9 @@ a {
             font-weight: 500;
             padding: 10px 20px;
             margin: 13px 0;
+            @media screen and (max-width: 490px){
+              font-size: $text-font-S;
+            }
           }
           .arrow {
             color: $input-select;
@@ -599,6 +665,9 @@ a {
             padding-left: 60px;
             padding-right: 60px;
             font-weight: 400;
+            @media screen and (max-width: 490px){
+              font-size: $text-font-S;
+            }
           }
         }
       }
