@@ -24,7 +24,7 @@ const selectArea = (area) => {
   <div v-if="isOpen" class="modal-overlay" @click.self="close">
     <div class="modal-content">
       <button class="close-btn" @click="close">
-        <img src="/public/images/kang/close.png" alt="close" />
+        <img src="/images/kang/close.png" alt="close" />
       </button>
       <div class="inqTitle">
         <h2>출발지 조회</h2>

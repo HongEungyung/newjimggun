@@ -203,7 +203,7 @@ const handleEmailVerification = () => {
     <div class="checkboxWrap">
       <input type="checkbox" v-model="terms" class="checkbox" />
       <p>회원가입약관</p>
-      <img src="/public/images/kang/moreView.png" alt="펼치기" class="moreView" @click="toggleTerms" />
+      <img src="/images/kang/moreView.png" alt="펼치기" class="moreView" @click="toggleTerms" />
     </div>
     <!-- 약관 펼쳐지는 내용 -->
     <div v-if="showTermsContent" class="termsContent">
@@ -216,7 +216,7 @@ const handleEmailVerification = () => {
     <div class="checkboxWrap">
       <input type="checkbox" v-model="privacy" class="checkbox" />
       <p>개인정보처리방침안내</p>
-      <img src="/public/images/kang/moreView.png" alt="펼치기" class="moreView" @click="togglePrivacy" />
+      <img src="/images/kang/moreView.png" alt="펼치기" class="moreView" @click="togglePrivacy" />
     </div>
     <!-- 개인정보 처리방침 펼쳐지는 내용 -->
     <div v-if="showPrivacyContent" class="termsContent">
@@ -244,6 +244,7 @@ const handleEmailVerification = () => {
           class="infoInput password"
           v-model="signUpData.password"
           @input="validatePasswordMatch"
+          autocomplete="new-password"
         />
         <button type="button" @click="togglePassword" class="toggle-password">
           <img

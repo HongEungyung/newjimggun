@@ -35,12 +35,18 @@ const handleLogin = () => {
 <template>
   <div class="a7-wrap">
     <div class="logoContainer">
-      <img src="/public/images/jimggun_logo.png" alt="로고" class="logo" />
+      <img src="/images/jimggun_logo.png" alt="로고" class="logo" />
     </div>
     <form>
       <div class="loginInputContainer">
         <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" />
-        <input type="password" placeholder="비밀번호" class="loginInput" v-model="formData.password" />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          class="loginInput"
+          v-model="formData.password"
+          autocomplete="current-password"
+        />
       </div>
     </form>
 

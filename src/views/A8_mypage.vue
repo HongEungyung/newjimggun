@@ -35,7 +35,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="ing-img img1">
-              <img src="/public/images/hong/mypage-reservation-icon.png" alt="진행중인 예약" />
+              <img src="/images/hong/mypage-reservation-icon.png" alt="진행중인 예약" />
             </div>
           </div>
           <!-- 첫번째 영역 박스 2 -->
@@ -48,7 +48,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="ing-img img2">
-              <img src="/public/images/hong/mypage-delivery-icon.png" alt="배송 진행중" />
+              <img src="/images/hong/mypage-delivery-icon.png" alt="배송 진행중" />
             </div>
           </div>
           <!-- 첫번째 영역 박스 3 -->
@@ -61,7 +61,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="ing-img img3">
-              <img src="/public/images/hong/mypage-coupon-icon.png" alt="보유 쿠폰" />
+              <img src="/images/hong/mypage-coupon-icon.png" alt="보유 쿠폰" />
             </div>
           </div>
           <!-- 첫번째 영역 박스 4 -->
@@ -74,7 +74,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="ing-img img4">
-              <img src="/public/images/hong/mypage-review-icon.png" alt="작성 후기" />
+              <img src="/images/hong/mypage-review-icon.png" alt="작성 후기" />
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@ onMounted(() => {
             <p>전체보기</p>
           </div>
 
-          <img src="/public/images/hong/mypage-review-empty-icon.png" alt="내가 작성한 후기" />
+          <img src="/images/hong/mypage-review-empty-icon.png" alt="내가 작성한 후기" />
         </div>
 
         <!-- 네번째 영역 -->

@@ -625,7 +625,7 @@ a {
       display: flex;
       flex-direction: column;
       align-items: center;
-      @media screen and (max-width: 430px){
+      @media screen and (max-width: 430px) {
         margin-top: 20px;
       }
       .faq-list {
@@ -647,7 +647,7 @@ a {
             font-weight: 500;
             padding: 10px 20px;
             margin: 13px 0;
-            @media screen and (max-width: 490px){
+            @media screen and (max-width: 490px) {
               font-size: $text-font-S;
             }
           }
@@ -665,7 +665,7 @@ a {
             padding-left: 60px;
             padding-right: 60px;
             font-weight: 400;
-            @media screen and (max-width: 490px){
+            @media screen and (max-width: 490px) {
               font-size: $text-font-S;
             }
           }
