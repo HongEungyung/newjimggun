@@ -154,10 +154,10 @@ const handlePhonePrefixChange = (event) => {
 
 <template>
   <div class="res_wrap">
-    <div class="res_inner">
+    <div class="res_inner" >
       <!-- 상단 -->
 
-      <section class="res_top">
+      <section class="res_top" >
         <div class="res_text_box">
           <p id="res_top_title">3분 안에 예약하고</p>
           <h2>짐꾼을 부르세요!</h2>
@@ -175,7 +175,7 @@ const handlePhonePrefixChange = (event) => {
         </div>
       </section>
       <!-- 하단 -->
-      <section class="res_order_wrap">
+      <section class="res_order_wrap" id="step3_inner">
         <form class="card_form card_box">
           <!-- 예약확인 영역 -->
           <h2 class="pay_title">예약정보<span>*</span></h2>
@@ -368,14 +368,14 @@ const handlePhonePrefixChange = (event) => {
                         <label>추가요금</label>
                         <strong class="right_price">0 원</strong>
                       </li>
-                      <li>
+                      <li id="coupon_area">
                         <label>쿠폰적용</label>
                         <div class="coupon_area">
                           <input
                             type="text"
                             placeholder="쿠폰번호를 입력해 주세요" />
                           <!-- 알림창 띄우기 쿠폰 번호를 입력해주세요 -->
-                          <span class="coupon_btn close_btn">적용</span>
+                          <span class="coupon_btn close_btn" id="coupon_apply">적용</span>
                           <span class="coupon_btn" style="display: none"
                             >취소</span
                           >
@@ -468,6 +468,11 @@ const handlePhonePrefixChange = (event) => {
 @import "/src/assets/variables";
 @import "/src/assets/resTop.scss";
 
+#step3_inner{
+  max-width: 800px;
+  margin: auto;
+}
+
 .progress_text p:nth-child(2) {
   // font-size: 1.875rem;
   font-weight: 600;
@@ -497,10 +502,9 @@ const handlePhonePrefixChange = (event) => {
       margin-bottom: 24px;
       > div {
         font-size: 15px;
+        font-weight: 500;
       }
-      // &:last-child{
-      //   margin-bottom: 20px;
-      // }
+     
     }
   }
 }
@@ -508,6 +512,14 @@ const handlePhonePrefixChange = (event) => {
   padding: 12px 35px;
   display: flex;
   flex-direction: row-reverse;
+  .edit_btn{
+
+    background-color: $font-light-gray;
+            &:hover{
+              background-color: $font-gray;
+              
+            }
+  }
 }
 .cart_line {
   border-bottom: 1px dashed $input-select;
@@ -593,9 +605,9 @@ const handlePhonePrefixChange = (event) => {
     font-weight: bold;
   }
   fieldset {
-    border: 2px solid $input-select;
-    border-radius: 20px;
-    padding: 10px 20px 12px;
+    // border: 2px solid $input-select;
+    // border-radius: 20px;
+    padding:  15px 0 0;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -608,7 +620,7 @@ const handlePhonePrefixChange = (event) => {
 }
 .res_pay_line {
   border-bottom: 1px dashed $input-select;
-  margin: 15px 0;
+  margin: 15px 0 20px;
 }
 .pay_order_box {
   --bs-gutter-x: 1.5rem;
@@ -622,13 +634,17 @@ const handlePhonePrefixChange = (event) => {
     flex: 0 0 auto;
     width: 50%;
     padding: 0 12px;
-    ul > li {
+    ul {
+      li:last-child {
+        margin: 0;
+      }
+    li {
       width: 100%;
-      margin: 23px 0;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       strong{
-        font-size: 14px;
+        font-size: 15px;
       }
       label {
         font-size: 13px;
@@ -640,17 +656,19 @@ const handlePhonePrefixChange = (event) => {
       }
       &:last-child strong {
         color: $primary-color;
+        font-size: 16px;
         font-weight: bold;
       }
       &:last-child label {
         font-weight: bold;
+        font-size: 14px;
       }
       // 쿠폰
       .coupon_area {
         input {
           text-align: center;
           padding: 10px;
-          width: 260px;
+          width: 200px;
           height: 30px;
           font-size: 13px;
           color: $font-light-gray;
@@ -663,20 +681,30 @@ const handlePhonePrefixChange = (event) => {
             box-shadow: $reservation-boxShadow;
           }
         }
+      }
         .coupon_btn {
           padding: 7.5px 8px;
           font-size: 14px;
           margin-left: 5px;
           font-weight: 300;
           cursor: pointer;
+          background-color: $font-light-gray;
+          &:hover{
+            background-color: $font-gray;
+            
+          }
         }
       }
     }
   }
 }
+#coupon_area{
+        display: flex;
+        align-items: center;
+      }
 // 이용약관 동의
 #agree_card {
-  padding: 35px 35px;
+  padding: 35px 30px;
   margin-top: 12px;
   border-radius: 10px;
   .agree {
@@ -770,19 +798,7 @@ height: 30%;
       background-color: $primary-hover;
     }
   }
-  // button {
-  //   background-color: $primary-color;
-  //   color: white;
-  //   border: none;
-  //   padding: 6px 12px;
-  //   border-radius: 4px;
-  //   cursor: pointer;
-  //   font-weight: bold;
-
-  //   &:hover {
-  //     background-color: $primary-hover;
-  //   }
-  // }
+  
 }
 }
 
@@ -794,5 +810,31 @@ height: 30%;
   position: absolute;
   top: 15px;
   right: 15px;
+}
+@media screen and (max-width: 768px){
+  // 예약 정보
+  .res_cart .cart_row li{
+    font-size: 14px;
+  }
+  // 예약자 정보
+  .nation_check label{
+    font-size: 14px;
+  }
+  .res_info_title{
+    font-size: 14px;
+  }
+  .res_info_input{
+    font-size: 13px;
+  }
+  // 결제 정보
+  .pay_order_box {
+    display: block;
+    .pay_order{
+      width: 100%;
+      ul{
+        padding-top: 20px;
+      }
+    }
+  }
 }
 </style>
