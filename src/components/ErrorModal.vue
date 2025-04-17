@@ -8,13 +8,32 @@
 </template>
 
 <script setup>
+import { onMounted, onBeforeUnmount } from 'vue';
+
 const props = defineProps({
-  message: String,
+  message: {
+    type: String,
+    required: true,
+  },
 });
+
 const emit = defineEmits(['close']);
 const close = () => emit('close');
-</script>
 
+const handleKeyDown = (e) => {
+  if (e.key === 'Enter') {
+    emit('close');
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+});
+</script>
 <style lang="scss" scoped>
 @import '../assets/variables';
 .error-modal {
