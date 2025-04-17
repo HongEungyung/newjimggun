@@ -1,7 +1,9 @@
 <script setup></script>
 
 <template>
-  <section class="charge-wrap inner">
+  
+  <section class="charge-wrap ">
+    <div class="charge-container inner">
     <!-- 요금안내 타이틀 -->
     <h2 class="charge-title"><span>배송 서비스 요금 안내</span></h2>
     <!-- 1. 요금안내 품목 -->
@@ -49,10 +51,13 @@
         </div>
       </li>
     </ul>
+  </div>
     <!-- 2. 사이즈 가격 측정 안내 -->
-    <div class="size-wrap">
-      <div class="size-info">
-        <ul class="size-text">
+    <div class="size-wrap ">
+    <div class="size-container ">
+      <div class="size-bg"></div>
+      <div class="size-info inner">
+        <ul class="size-text ">
           <li class="s-size size">
             <ul class="sub-info">
               <li class="size"><span>S 사이즈</span></li>
@@ -82,19 +87,20 @@
             </ul>
           </li>
         </ul>
-        <div class="size-img">
+        <div class="size-img ">
           <img src="/public/images/lee/sizeinfo.png" alt="사이즈예시" />
         </div>
-        <div class="size-bg"></div>
+        
       </div>
 
-      <p class="size-text-info">
+    </div>
+      <p class="size-text-info inner">
         <span>※최고 길이 또는 최고 무게에 따라 사이즈가 산정됩니다.</span>
         <span>ex) 무게가 18kg & 최고길이가 60cm인 캐리어 = M사이즈</span>
       </p>
-    </div>
+  </div>
     <!-- 3. 거리에 따른 추가요금 -->
-    <div class="distance-wrap">
+    <div class="distance-wrap inner">
       <h3 class="distance-title">추가요금 안내</h3>
       <ul class="distance-text">
         <li class="divide divide1">
@@ -166,6 +172,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  //   1. 요금 안내 품목
+  .charge-container{
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
   //   요금안내 타이틀
   .charge-title {
     width: 100%;
@@ -276,6 +289,7 @@
       }
     }
   }
+}
   //   2. 사이즈 가격 측정 안내
   .size-wrap {
     width: 100%;
@@ -283,7 +297,20 @@
     flex-direction: column;
     gap: 10px;
     margin-bottom: 100px;
-
+    
+    .size-container{
+      width: 100%;
+      position: relative;
+  .size-bg {
+      position: absolute;
+      top: 0;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: $sub-color;
+      z-index: -1;
+      max-width: unset;
+    }
     // background-color: $sub-color;
     .size-info {
       width: 100%;
@@ -297,16 +324,7 @@
         flex-direction: column;
         gap: 50px;
       }
-      .size-bg {
-        position: absolute;
-        top: 0;
-        left: -10000px;
-        width: 192000px;
-        height: 100%;
-        background-color: $sub-color;
-        z-index: -1;
-        max-width: unset;
-      }
+      
       .size-text {
         width: 50%;
         display: flex;
@@ -379,28 +397,31 @@
       }
     }
     // 2-1. size info text
-    .size-text-info {
+  }
+  .size-text-info {
+    display: flex;
+    width: 100%;
+    // max-width: 960px;
+    // padding-left: 50px;
+    padding: 0 50px;
+    // margin: 0;
+    gap: 10px;
+    @media screen and (max-width: 768px) {
       display: flex;
-      width: 100%;
-      max-width: 960px;
-      padding-left: 50px;
-      gap: 10px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    span {
+      font-size: $text-font-S;
+      color: $font-light-gray;
+      text-align: left;
+      font-weight: 300;
       @media screen and (max-width: 768px) {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
-      span {
-        font-size: $text-font-S;
-        color: $font-light-gray;
-        text-align: left;
-        font-weight: 300;
-        @media screen and (max-width: 768px) {
-          font-size: $text-font-XS;
-        }
+        font-size: $text-font-XS;
       }
     }
   }
+}
   // 3. 거리에 따른 추가요금
   .distance-wrap {
     width: 100%;

@@ -27,9 +27,9 @@ const confirmPayment = () => emit('next', { paymentComfirmed: true });
           <img src="../../../public/images/kang/google.png" alt="구글" class="icon" />구글 로그인
         </button>
       </router-link>
-      <router-link class="routerBtn routerBtn4">
+      <div class="routerBtn routerBtn4">
         <button @click="confirmPayment" class="loginBtn nonAccount">비회원으로 예약하기</button>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>

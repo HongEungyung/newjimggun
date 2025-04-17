@@ -296,57 +296,57 @@ const nextPage = () => {
 <template>
   <!-- cs 전체 레이아웃 -->
   <section class="cs-container">
-
-    <div class="cs-wrap inner">
+    <div class="cs-wrap">
       <!-- 0. 바로가기 -->
-
-      <div class="quick-wrap">
-      <div class="quick-bg"></div>
-        <h2 class="quick-title">짐꾼 고객센터</h2>
-        <ul class="quick-menu">
-          <li class="quick-list">
-            <router-link to="/information">
-              <div class="quick-img"> 
-                <img src="/public/images/lee/phone.png" alt="핸드폰아이콘" />
-              </div>
-              <p class="quick-text">
-              <span class="quick-text1"><strong>이용방법</strong>이 궁금하신가요?</span>
-              <span class="quick-text2">이용안내 보러가기 ></span>
-              </p>
-            </router-link>
-          </li>
-          <li class="quick-list">
-            <router-link to="/charge">
-              <div class="quick-img quick-img2">
-                <img src="/public/images/lee/bill.png" alt="핸드폰아이콘" />
-              </div>
-              <p class="quick-text">
-              <span class="quick-text1"><strong>요금</strong>이 궁금하신가요?</span>
-              <span class="quick-text2">요금안내 보러가기 ></span>
-              </p>
-            </router-link>
-          </li>
-          <li class="quick-list">
-            <router-link to="/inquiry">
-              <div class="quick-img">
-                <img src="/public/images/lee/phone.png" alt="핸드폰아이콘" />
-              </div>
-              <p class="quick-text">
-              <span class="quick-text1"><strong>상담</strong>이 필요하신가요?</span>
-              <span class="quick-text2">문의하러가기 ></span>
-              </p>
-            </router-link>
-          </li>
-        </ul>
+      <div class="quick-container">
+        <div class="quick-bg"></div>
+        <div class="quick-wrap inner">
+          <h2 class="quick-title">짐꾼 고객센터</h2>
+          <ul class="quick-menu">
+            <li class="quick-list">
+              <router-link to="/information">
+                <div class="quick-img">
+                  <img src="/public/images/lee/phone.png" alt="핸드폰아이콘" />
+                </div>
+                <p class="quick-text">
+                  <span class="quick-text1"><strong>이용방법</strong>이 궁금하신가요?</span>
+                  <span class="quick-text2">이용안내 보러가기 ></span>
+                </p>
+              </router-link>
+            </li>
+            <li class="quick-list">
+              <router-link to="/charge">
+                <div class="quick-img quick-img2">
+                  <img src="/public/images/lee/bill.png" alt="핸드폰아이콘" />
+                </div>
+                <p class="quick-text">
+                  <span class="quick-text1"><strong>요금</strong>이 궁금하신가요?</span>
+                  <span class="quick-text2">요금안내 보러가기 ></span>
+                </p>
+              </router-link>
+            </li>
+            <li class="quick-list">
+              <router-link to="/inquiry">
+                <div class="quick-img">
+                  <img src="/public/images/lee/phone.png" alt="핸드폰아이콘" />
+                </div>
+                <p class="quick-text">
+                  <span class="quick-text1"><strong>상담</strong>이 필요하신가요?</span>
+                  <span class="quick-text2">문의하러가기 ></span>
+                </p>
+              </router-link>
+            </li>
+          </ul>
+        </div>
       </div>
       <!-- 1. FAQ 제목 -->
-      <h2 class="cs-title"><span>고객님들이 자주묻는 질문</span></h2>
+      <h2 class="cs-title inner"><span>고객님들이 자주묻는 질문</span></h2>
       <!-- 2. 검색창 -->
-      <div class="cs-search">
+      <div class="cs-search inner">
         <input type="text" v-model="searchQuery" @input="handleInput" placeholder="무엇이 궁금하신가요?" />
       </div>
       <!-- 3. 카테고리 탭 영역 -->
-      <div class="cs-category">
+      <div class="cs-category inner">
         <button
           v-for="category in categories"
           :key="category.id"
@@ -356,7 +356,7 @@ const nextPage = () => {
         </button>
       </div>
       <!-- 4. 자주묻는 질문들 -->
-      <div class="cs-faqs">
+      <div class="cs-faqs inner">
         <div class="faq-list" v-for="faq in paginatedFAQs" :key="faq.id">
           <!--  4-1. 질문 -->
           <div class="faq-question" @click="toggleFAQ(faq.id)">
@@ -376,9 +376,9 @@ const nextPage = () => {
         </div>
       </div>
       <!-- 5. 문의하기 -->
-      <div class="contact-section">
+      <div class="contact-section inner">
         <p>원하는 답변을 찾지 못하셨나요?</p>
-        <router-link to="/inquiry">문의하기</router-link>
+        <router-link>문의하기</router-link>
       </div>
     </div>
   </section>
@@ -405,83 +405,91 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     // 0. 바로가기
-    .quick-wrap {
+    .quick-container {
       width: 100%;
-      max-width: 1000px;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 50px;
-      // background-color: $white;
-      .quick-bg{
+      .quick-bg {
         position: absolute;
         top: 0;
-        left: -10000;
-        width: 20000px;
+        left: 0;
+        width: 100%;
         height: 100%;
         background-color: $sub-color;
         z-index: -1;
       }
-      .quick-title {
+      .quick-wrap {
         width: 100%;
-        max-width: 400px;
-        height: 50px;
+        max-width: 1000px;
+        position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        background-color: $primary-color;
-        margin: 70px 0;
-        color: $white;
-        font-size: $text-font-L;
-      }
-      .quick-menu {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-around;
-        width: 100%;
-        margin-top: 30px;
-        margin-bottom: 75px;
-        .quick-list {
+        padding-bottom: 50px;
+        // background-color: $white;
+
+        .quick-title {
+          width: 100%;
+          max-width: 400px;
+          height: 50px;
           display: flex;
           align-items: center;
-          width: calc(100% / 3);
-          max-width: 270px;
-          box-shadow: $reservation-boxShadow;
-          border-radius: 10px;
-          background-color: $white;
-          a {
+          justify-content: center;
+          background-color: $primary-color;
+          margin: 70px 0;
+          color: $white;
+          font-size: $text-font-L;
+        }
+        .quick-menu {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          justify-content: space-around;
+          width: 100%;
+          margin-top: 30px;
+          margin-bottom: 75px;
+          .quick-list {
             display: flex;
-            width: 100%;
-            flex-direction: column;
             align-items: center;
-            padding: 40px 0;
-            gap: 30px;
-            .quick-img {
-              width: 100px;
-              height: 100px;
+            width: calc(100% / 3);
+            max-width: 270px;
+            box-shadow: $reservation-boxShadow;
+            border-radius: 10px;
+            background-color: $white;
+            a {
               display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-            .quick-img2{
-              padding-left: 10px;
-            }
-            .quick-text {
-              display: flex;
+              width: 100%;
               flex-direction: column;
-              gap: 10px;
-              .quick-text1{
-                font-size: 20px;
-                font-weight: 700;
+              align-items: center;
+              padding: 40px 0;
+              gap: 30px;
+              .quick-img {
+                width: 100px;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
               }
-              .quick-text2{
-                padding-left: 5px;
-                font-size: $text-font-XS;
-                color: $font-light-gray;
+              .quick-img2 {
+                padding-left: 10px;
+              }
+              .quick-text {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                .quick-text1 {
+                  font-size: 20px;
+                  font-weight: 700;
+                }
+                .quick-text2 {
+                  padding-left: 5px;
+                  font-size: $text-font-XS;
+                  color: $font-light-gray;
+                }
               }
             }
           }
@@ -499,12 +507,12 @@ a {
       span {
         // color: $primary-color;
       }
-      @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+      @media screen and (max-width: 768px) {
+        font-size: $title-font-S;
+      }
+      @media screen and (max-width: 390px) {
+        font-size: $title-font-XS;
+      }
     }
     // 2. 검색창
     .cs-search {
