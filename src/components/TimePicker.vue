@@ -1,11 +1,11 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted, nextTick } from "vue";
 
 const props = defineProps({
   isOpen: Boolean,
   position: Object,
 });
-
+// const
 const emit = defineEmits(["select", "close"]);
 
 const hours = Array.from({ length: 24 }, (_, i) => i);
@@ -15,6 +15,51 @@ const selectedMinute = ref(null);
 
 const hourScrollRef = ref(null);
 const minuteScrollRef = ref(null);
+
+// 현재 시간을 가져와서 10분 단위로 반올림하는 함수
+const getCurrentRoundedTime = () => {
+  const now = new Date();
+  let currentHour = now.getHours();
+  let currentMinute = now.getMinutes();
+
+  // 10분 단위로 반올림
+  currentMinute = Math.round(currentMinute / 10) * 10;
+
+  // 60분이 되면 시간을 1시간 증가
+  if (currentMinute === 60) {
+    currentHour = (currentHour + 1) % 24;
+    currentMinute = 0;
+  }
+
+  return { hour: currentHour, minute: currentMinute };
+};
+
+// 컴포넌트가 마운트될 때 현재 시간 설정
+onMounted(() => {
+  const { hour, minute } = getCurrentRoundedTime();
+  selectedHour.value = hour;
+  selectedMinute.value = minute;
+
+  // 스크롤 위치 조정
+  nextTick(() => {
+    if (hourScrollRef.value) {
+      const hourElement = hourScrollRef.value.querySelector(
+        `[data-value="${hour}"]`
+      );
+      if (hourElement) {
+        hourElement.scrollIntoView({ block: "center" });
+      }
+    }
+    if (minuteScrollRef.value) {
+      const minuteElement = minuteScrollRef.value.querySelector(
+        `[data-value="${minute}"]`
+      );
+      if (minuteElement) {
+        minuteElement.scrollIntoView({ block: "center" });
+      }
+    }
+  });
+});
 
 // 스크롤 이벤트 핸들러
 const handleScroll = (element, type) => {
