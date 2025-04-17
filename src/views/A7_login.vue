@@ -37,10 +37,13 @@ const handleLogin = () => {
     <div class="logoContainer">
       <img src="/public/images/jimggun_logo.png" alt="로고" class="logo" />
     </div>
-    <div class="loginInputContainer">
-      <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" />
-      <input type="password" placeholder="비밀번호" class="loginInput" v-model="formData.password" />
-    </div>
+    <form>
+      <div class="loginInputContainer">
+        <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" />
+        <input type="password" placeholder="비밀번호" class="loginInput" v-model="formData.password" />
+      </div>
+    </form>
+
     <button class="loginBtn" @click="handleLogin">로그인</button>
     <div class="textContainer">
       <p>아이디 찾기</p>

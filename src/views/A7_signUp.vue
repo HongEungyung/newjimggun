@@ -317,7 +317,7 @@ const handleEmailVerification = () => {
       <div class="btTextParent">
         <p class="btText"><strong>*휴대전화</strong>는 수하물 운송 서비스 이용시 필수</p>
       </div>
-      <button type="submit" class="signUpBtn" @click="handleSignup">회원가입</button>
+      <button type="submit" class="signUpBtn">회원가입</button>
     </form>
   </div>
 </template>
