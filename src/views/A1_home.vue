@@ -120,7 +120,7 @@ const mainBannerData = ref([
       <ul class="a1-part1-boxes">
         <li class="part1-box1 part1-box">
           <div class="part1-img">
-            <img src="/public/images/hong/s-banner-1.png" alt="혜택1" />
+            <img src="/images/hong/s-banner-1.png" alt="혜택1" />
           </div>
           <div class="box-text box1-text">
             <h3>짐꾼 혜택 몰아보기</h3>
@@ -129,7 +129,7 @@ const mainBannerData = ref([
         </li>
         <li class="part1-box2 part1-box">
           <div class="part1-img">
-            <img src="/public/images/hong/s-banner-2.png" alt="혜택2" />
+            <img src="/images/hong/s-banner-2.png" alt="혜택2" />
           </div>
           <div class="box-text box2-text">
             <h3>꼼꼼하게 지키는 짐꾼 케어</h3>
@@ -138,7 +138,7 @@ const mainBannerData = ref([
         </li>
         <li class="part1-box3 part1-box">
           <div class="part1-img">
-            <img src="/public/images/hong/s-banner-3.png" alt="혜택3" />
+            <img src="/images/hong/s-banner-3.png" alt="혜택3" />
           </div>
           <div class="box-text box3-text">
             <h3>Guid for Foreign Users</h3>
@@ -165,7 +165,7 @@ const mainBannerData = ref([
           <div class="p2-contents">
             <!-- 아이콘 -->
             <div class="p2-contents-icons">
-              <img src="/public/images/hong/part2-icon1.png" alt="해외출장" />
+              <img src="/images/hong/part2-icon1.png" alt="해외출장" />
               <h3>해외출장</h3>
             </div>
             <!-- 말풍선 글 -->
@@ -181,7 +181,7 @@ const mainBannerData = ref([
           <div class="p2-contents">
             <!-- 아이콘 -->
             <div class="p2-contents-icons">
-              <img src="/public/images/hong/part2-icon2.png" alt="골프투어" />
+              <img src="/images/hong/part2-icon2.png" alt="골프투어" />
               <h3>골프투어</h3>
             </div>
             <!-- 말풍선 글 -->
@@ -203,7 +203,7 @@ const mainBannerData = ref([
             </div>
             <!-- 아이콘 -->
             <div class="p2-contents-icons">
-              <img src="/public/images/hong/part2-icon3.png" alt="주말여행" />
+              <img src="/images/hong/part2-icon3.png" alt="주말여행" />
               <h3>주말여행</h3>
             </div>
           </div>
@@ -216,7 +216,7 @@ const mainBannerData = ref([
             </div>
             <!-- 아이콘 -->
             <div class="p2-contents-icons">
-              <img src="/public/images/hong/part2-icon4.png" alt="퇴근여행" />
+              <img src="/images/hong/part2-icon4.png" alt="퇴근여행" />
               <h3>퇴근여행</h3>
             </div>
           </div>
@@ -235,7 +235,7 @@ const mainBannerData = ref([
 
         <!-- 폰 이미지 -->
         <div class="phoneImg">
-          <img src="/public/images/hong/part3-phoneImg.png" alt="폰 이미지" />
+          <img src="/images/hong/part3-phoneImg.png" alt="폰 이미지" />
         </div>
         <!-- 텍스트 영역 전체 -->
         <div class="appTextPart">
@@ -252,7 +252,7 @@ const mainBannerData = ref([
             <!-- 안드로이드 -->
             <div class="androidBtn">
               <div class="androidBtnImg">
-                <img src="/public/images/hong/p3-playstore.png" alt="플레이스토어 로고" />
+                <img src="/images/hong/p3-playstore.png" alt="플레이스토어 로고" />
                 <span class="playstoreENG">Google Play</span>
               </div>
               <div class="androidBtnText">
@@ -263,7 +263,7 @@ const mainBannerData = ref([
             <!-- IOS -->
             <div class="appstoreBtn">
               <div class="appstoreBtnImg">
-                <img src="/public/images/hong/p3-appstore.png" alt="플레이스토어 로고" />
+                <img src="/images/hong/p3-appstore.png" alt="플레이스토어 로고" />
                 <span class="appstoreENG">App Store</span>
               </div>
               <div class="appstoreBtnText">
@@ -279,7 +279,7 @@ const mainBannerData = ref([
         <p>신규회원 모두에게 가입 즉시 사용할 수 있는 쿠폰을 넣어드립니다.</p>
         <p>할인 혜택으로 여행을 가볍게 시작해보세요</p>
         <div class="couponImg">
-          <img src="/public/images/hong/part3-coupon.png" alt="쿠폰 이미지" />
+          <img src="/images/hong/part3-coupon.png" alt="쿠폰 이미지" />
         </div>
       </div>
     </section>
@@ -947,7 +947,7 @@ const mainBannerData = ref([
 }
 @media screen and (max-width: 1011px) {
   .part1-box{
-    height: 247.22px !important;
+    gap: 10px !important;
   }
 }
 @media screen and (max-width: 990px) {
@@ -1045,19 +1045,17 @@ const mainBannerData = ref([
   .part1-img {
     // width: 50% !important;
     // width: 140px !important;
-    flex: 1;
+    flex: 1 !important;
     // object-fit: cover !important; 
   }
   .part1-img img {
     display: block !important;
     width: 100% !important;
-    
-
   }
   .box-text {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
+    flex: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
     justify-content: center !important;
     align-items: flex-start !important;
     padding: 10px !important;
@@ -1070,9 +1068,6 @@ const mainBannerData = ref([
   }
 }
 @media screen and (max-width: 550px) {
-  // .a1-part1-title h3 {
-  //   font-size: 20px !important;
-  // }
   // 파트 3 영역
   .part3-box1 {
     display: flex !important;
