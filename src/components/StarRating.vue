@@ -12,8 +12,8 @@ defineProps({
   },
 });
 
-const filledStar = '/images/kang/star-filled.png';
-const emptyStar = '/images/kang/star-empty.png';
+const filledStar = "/images/kang/star-filled.png";
+const emptyStar = "/images/kang/star-empty.png";
 </script>
 
 <style scoped>

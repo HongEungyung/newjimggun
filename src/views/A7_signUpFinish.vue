@@ -2,7 +2,7 @@
 <template>
   <div class="wrap">
     <h1>회원가입이 완료되었습니다</h1>
-    <img src="../../public/images/kang/congratulation.png" alt="회원가입 축하" />
+    <img src="/public/images/kang/congratulation.png" alt="회원가입 축하" />
   </div>
   <div class="textBox">
     <p class="topText">회원가입을 축하합니다!</p>

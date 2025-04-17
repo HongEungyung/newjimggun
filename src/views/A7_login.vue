@@ -35,7 +35,7 @@ const handleLogin = () => {
 <template>
   <div class="a7-wrap">
     <div class="logoContainer">
-      <img src="../../public/images/jimggun_logo.png" alt="로고" class="logo" />
+      <img src="/public/images/jimggun_logo.png" alt="로고" class="logo" />
     </div>
     <div class="loginInputContainer">
       <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" />
