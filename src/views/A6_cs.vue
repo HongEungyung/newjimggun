@@ -306,7 +306,7 @@ const nextPage = () => {
             <li class="quick-list">
               <router-link to="/information">
                 <div class="quick-img">
-                  <img src="/public/images/lee/phone.png" alt="핸드폰아이콘" />
+                  <img src="/public/images/lee/csphone.png" alt="핸드폰아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>이용방법</strong>이 궁금하신가요?</span>
@@ -625,7 +625,7 @@ a {
       display: flex;
       flex-direction: column;
       align-items: center;
-      @media screen and (max-width: 430px){
+      @media screen and (max-width: 430px) {
         margin-top: 20px;
       }
       .faq-list {
@@ -647,7 +647,7 @@ a {
             font-weight: 500;
             padding: 10px 20px;
             margin: 13px 0;
-            @media screen and (max-width: 490px){
+            @media screen and (max-width: 490px) {
               font-size: $text-font-S;
             }
           }
@@ -665,7 +665,7 @@ a {
             padding-left: 60px;
             padding-right: 60px;
             font-weight: 400;
-            @media screen and (max-width: 490px){
+            @media screen and (max-width: 490px) {
               font-size: $text-font-S;
             }
           }
