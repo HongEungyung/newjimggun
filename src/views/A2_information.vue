@@ -185,11 +185,11 @@ watch(activeTap, (newValue) => {
               <div class="fast-line"></div>
               <div class="fast-icon">
                 <span>01</span>
-                <img src="/public/images/lee/fastIcon1.png" alt="예약/결제 이미지" />
+                <img src="/images/lee/fastIcon1.png" alt="예약/결제 이미지" />
               </div>
             </div>
             <!-- <div class="a2-next">
-              <img src="/public/images/lee/nextstep.png" alt="화살표" />
+              <img src="/images/lee/nextstep.png" alt="화살표" />
             </div> -->
           </li>
           <li>
@@ -202,7 +202,7 @@ watch(activeTap, (newValue) => {
               <div class="fast-line"></div>
               <div class="fast-icon">
                 <span>02</span>
-                <img src="/public/images/lee/fastIcon2.png" alt="집 앞 픽업" />
+                <img src="/images/lee/fastIcon2.png" alt="집 앞 픽업" />
               </div>
             </div>
           </li>
@@ -216,7 +216,7 @@ watch(activeTap, (newValue) => {
               <div class="fast-line"></div>
               <div class="fast-icon">
                 <span>03</span>
-                <img src="/public/images/lee/fastIcon3.png" alt="예약/결제 이미지" />
+                <img src="/images/lee/fastIcon3.png" alt="예약/결제 이미지" />
               </div>
             </div>
           </li>
@@ -230,7 +230,7 @@ watch(activeTap, (newValue) => {
               <div class="fast-line"></div>
               <div class="fast-icon">
                 <span>04</span>
-                <img src="/public/images/lee/fastIcon4.png" alt="예약/결제 이미지" />
+                <img src="/images/lee/fastIcon4.png" alt="예약/결제 이미지" />
               </div>
             </div>
           </li>
@@ -244,10 +244,10 @@ watch(activeTap, (newValue) => {
             <div class="title-icon">
               <h4 class="pst-title">집 - 숙소</h4>
               <ul class="pst-icon">
-                <li><img src="/public/images/lee/house.png" alt="집아이콘" /></li>
-                <li><img src="/public/images/lee/arrow.png" alt="화살표" /></li>
+                <li><img src="/images/lee/house.png" alt="집아이콘" /></li>
+                <li><img src="/images/lee/arrow.png" alt="화살표" /></li>
                 <li>
-                  <img src="/public/images/lee/arrival.png" alt="도착아이콘" />
+                  <img src="/images/lee/arrival.png" alt="도착아이콘" />
                 </li>
               </ul>
             </div>
@@ -262,10 +262,10 @@ watch(activeTap, (newValue) => {
               <h4 class="pst-title">공항 - 집</h4>
               <ul class="pst-icon">
                 <li>
-                  <img src="/public/images/lee/airplane.png" alt="비행기아이콘" />
+                  <img src="/images/lee/airplane.png" alt="비행기아이콘" />
                 </li>
-                <li><img src="/public/images/lee/arrow.png" alt="화살표" /></li>
-                <li><img src="/public/images/lee/house.png" alt="집아이콘" /></li>
+                <li><img src="/images/lee/arrow.png" alt="화살표" /></li>
+                <li><img src="/images/lee/house.png" alt="집아이콘" /></li>
               </ul>
             </div>
             <ul class="pst-text">
@@ -278,11 +278,11 @@ watch(activeTap, (newValue) => {
               <h4 class="pst-title">공항 - 숙소</h4>
               <ul class="pst-icon">
                 <li>
-                  <img src="/public/images/lee/airplane.png" alt="비행기아이콘" />
+                  <img src="/images/lee/airplane.png" alt="비행기아이콘" />
                 </li>
-                <li><img src="/public/images/lee/arrow.png" alt="화살표" /></li>
+                <li><img src="/images/lee/arrow.png" alt="화살표" /></li>
                 <li>
-                  <img src="/public/images/lee/arrival.png" alt="도착아이콘" />
+                  <img src="/images/lee/arrival.png" alt="도착아이콘" />
                 </li>
               </ul>
             </div>
@@ -304,7 +304,7 @@ watch(activeTap, (newValue) => {
             <ul class="inquire-menu">
               <li class="inquire-list1 inquire-list">
                 <div class="iq-img">
-                  <img src="/public/images/lee/bike.png" alt="자전거아이콘" />
+                  <img src="/images/lee/bike.png" alt="자전거아이콘" />
                 </div>
                 <div class="iq-text">
                   <p class="iq-textp"><span>비포장</span> 또는 <span>부피가 큰</span> 품목</p>
@@ -313,7 +313,7 @@ watch(activeTap, (newValue) => {
               </li>
               <li class="inquire-list2 inquire-list">
                 <div class="iq-img">
-                  <img src="/public/images/lee/shopping-bag.png" alt="쇼핑백아이콘" />
+                  <img src="/images/lee/shopping-bag.png" alt="쇼핑백아이콘" />
                 </div>
                 <div class="iq-text">
                   <p class="iq-textp">입구가 <span>오픈되어</span> 있는 품목</p>
@@ -322,7 +322,7 @@ watch(activeTap, (newValue) => {
               </li>
               <li class="inquire-list3 inquire-list">
                 <div class="iq-img">
-                  <img src="/public/images/lee/icebox.png" alt="아이스박스아이콘" />
+                  <img src="/images/lee/icebox.png" alt="아이스박스아이콘" />
                 </div>
                 <div class="iq-text">
                   <p class="iq-textp"><span>식품, 식음료</span>를 포장한 박스</p>
@@ -338,7 +338,7 @@ watch(activeTap, (newValue) => {
               <ul class="diffcult-menu">
                 <li class="diffcult-list1 diffcult-list">
                   <div class="dc-icon">
-                    <img src="/public/images/lee/plant.png" alt="식물" />
+                    <img src="/images/lee/plant.png" alt="식물" />
                   </div>
                   <div class="dc-text">
                     <p class="dc-textp dc-textp1"><span>호흡</span>을 하는 모든 생명체</p>
@@ -347,7 +347,7 @@ watch(activeTap, (newValue) => {
                 </li>
                 <li class="diffcult-list2 diffcult-list">
                   <div class="dc-icon">
-                    <img src="/public/images/lee/jewel.png" alt="귀중품" />
+                    <img src="/images/lee/jewel.png" alt="귀중품" />
                   </div>
                   <div class="dc-text">
                     <p class="dc-textp dc-textp1"><span>도난</span>의 우려가 있는 품목</p>
@@ -356,7 +356,7 @@ watch(activeTap, (newValue) => {
                 </li>
                 <li class="diffcult-list3 diffcult-list">
                   <div class="dc-icon">
-                    <img src="/public/images/lee/fire.png" alt="성냥" />
+                    <img src="/images/lee/fire.png" alt="성냥" />
                   </div>
                   <div class="dc-text">
                     <p class="dc-textp dc-textp1"><span>폭발</span>의 위험이 있는 품목</p>
@@ -425,7 +425,7 @@ watch(activeTap, (newValue) => {
               <div class="safe-line"></div>
               <div class="safe-icon">
                 <span>01</span>
-                <img src="/public/images/lee/fastIcon1.png" alt="안전보관아이콘1" />
+                <img src="/images/lee/fastIcon1.png" alt="안전보관아이콘1" />
               </div>
             </div>
           </li>
@@ -443,7 +443,7 @@ watch(activeTap, (newValue) => {
               <div class="safe-line"></div>
               <div class="safe-icon">
                 <span>02</span>
-                <img src="/public/images/lee/safe2.png" alt="안전보관아이콘2" />
+                <img src="/images/lee/safe2.png" alt="안전보관아이콘2" />
               </div>
             </div>
           </li>
@@ -458,7 +458,7 @@ watch(activeTap, (newValue) => {
               <div class="safe-line"></div>
               <div class="safe-icon">
                 <span>03</span>
-                <img src="/public/images/lee/safe3.png" alt="안전보관아이콘3" />
+                <img src="/images/lee/safe3.png" alt="안전보관아이콘3" />
               </div>
             </div>
           </li>
@@ -473,7 +473,7 @@ watch(activeTap, (newValue) => {
               <div class="safe-line"></div>
               <div class="safe-icon">
                 <span>04</span>
-                <img src="/public/images/lee/safe4.png" alt="안전보관아이콘4" />
+                <img src="/images/lee/safe4.png" alt="안전보관아이콘4" />
               </div>
             </div>
           </li>
@@ -498,11 +498,11 @@ watch(activeTap, (newValue) => {
             <div class="cabinet-container">
               <div class="cabinet-img">
                 <div class="cabinetPicA">
-                  <img src="/public/images/lee/cabinetPicA.png" alt="캐비넷실사A" />
+                  <img src="/images/lee/cabinetPicA.png" alt="캐비넷실사A" />
                   <p>가로 : 100cm, 세로 : 100cm, 높이 : 100cm / 우체국 5호 박스 8개 정도 들어갑니다.</p>
                 </div>
                 <div class="cabinetA">
-                  <img src="/public/images/lee/cabinetA.png" alt="캐비넷A" />
+                  <img src="/images/lee/cabinetA.png" alt="캐비넷A" />
                 </div>
               </div>
             </div>
@@ -512,11 +512,11 @@ watch(activeTap, (newValue) => {
             <div class="cabinet-container">
               <div class="cabinet-img">
                 <div class="cabinetPicB">
-                  <img src="/public/images/lee/cabinetPicB.png" alt="캐비넷실사B" />
+                  <img src="/images/lee/cabinetPicB.png" alt="캐비넷실사B" />
                   <p>가로 : 100cm, 세로 : 100cm, 높이 : 200cm / 우체국 5호 박스 20개 정도 들어갑니다.</p>
                 </div>
                 <div class="cabinetB">
-                  <img src="/public/images/lee/cabinetB.png" alt="캐비넷B" />
+                  <img src="/images/lee/cabinetB.png" alt="캐비넷B" />
                 </div>
               </div>
             </div>
@@ -532,7 +532,7 @@ watch(activeTap, (newValue) => {
             <ul class="hard-menu1">
               <li class="hard1-list">
                 <div class="hard1-img">
-                  <img src="/public/images/lee/jewel.png" alt="귀중품" />
+                  <img src="/images/lee/jewel.png" alt="귀중품" />
                 </div>
                 <div class="hard1-text">
                   <p class="hard1-textp"><span>도난</span> 우려가 있는 품목</p>
@@ -541,7 +541,7 @@ watch(activeTap, (newValue) => {
               </li>
               <li class="hard1-list">
                 <div class="hard1-img">
-                  <img src="/public/images/lee/cake.png" alt="케이크" />
+                  <img src="/images/lee/cake.png" alt="케이크" />
                 </div>
                 <div class="hard1-text">
                   <p class="hard1-textp"><span>변질</span> 우려가 있는 품목</p>
@@ -550,7 +550,7 @@ watch(activeTap, (newValue) => {
               </li>
               <li class="hard1-list">
                 <div class="hard1-img">
-                  <img src="/public/images/lee/fire.png" alt="성냥" />
+                  <img src="/images/lee/fire.png" alt="성냥" />
                 </div>
                 <div class="hard1-text">
                   <p class="hard1-textp"><span>폭발</span> 위험이 있는 품목</p>
@@ -561,7 +561,7 @@ watch(activeTap, (newValue) => {
             <ul class="hard-menu2">
               <li class="hard2-list">
                 <div class="hard2-img">
-                  <img src="/public/images/lee/plant.png" alt="식물" />
+                  <img src="/images/lee/plant.png" alt="식물" />
                 </div>
                 <div class="hard2-text">
                   <p class="hard2-textp"><span>호흡</span>을 하는 모든 생명체</p>
@@ -570,7 +570,7 @@ watch(activeTap, (newValue) => {
               </li>
               <li class="hard2-list">
                 <div class="hard2-img hard2-bike">
-                  <img src="/public/images/lee/bike.png" class="hard2-bike" alt="자전거아이콘" />
+                  <img src="/images/lee/bike.png" class="hard2-bike" alt="자전거아이콘" />
                 </div>
                 <div class="hard2-text">
                   <p class="hard2-textp"><span>부피가 큰</span> 품목</p>
@@ -579,7 +579,7 @@ watch(activeTap, (newValue) => {
               </li>
               <li class="hard2-list">
                 <div class="hard2-img">
-                  <img src="/public/images/lee/hard6.png" alt="위험아이콘" />
+                  <img src="/images/lee/hard6.png" alt="위험아이콘" />
                 </div>
                 <div class="hard2-text">
                   <p class="hard2-textp"><span>법</span>에 위배되는 품목</p>
@@ -612,7 +612,7 @@ watch(activeTap, (newValue) => {
     </section>
   </div>
   <div class="img-url">
-    <img src="/public/images/lee/mapposition.png" alt="" />
+    <img src="/images/lee/mapposition.png" alt="" />
   </div>
 </template>
 
@@ -723,7 +723,7 @@ watch(activeTap, (newValue) => {
           display: block;
           width: 16px;
           height: 24px;
-          background: url("/public/images/lee/nextstep.png");
+          background: url("/images/lee/nextstep.png");
         }
       }
 
@@ -1403,7 +1403,7 @@ watch(activeTap, (newValue) => {
           display: block;
           width: 16px;
           height: 24px;
-          background: url("/public/images/lee/nextstep.png");
+          background: url("/images/lee/nextstep.png");
         }
       }
     }

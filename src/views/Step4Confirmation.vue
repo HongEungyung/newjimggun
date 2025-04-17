@@ -33,7 +33,7 @@ const formatPrice = (price) => {
         <!-- 프로그래스바 -->
         <div class="progress_bar">
           <img
-            src="/public/images/jung/reservation-bar3.png"
+            src="/images/jung/reservation-bar3.png"
             alt="예약진행바" />
         </div>
         <div class="progress_text">
@@ -48,14 +48,14 @@ const formatPrice = (price) => {
           <!-- 카드 상단 -->
           <div class="confirmation_top">
             <div class="conImg">
-              <img src="/public/images/jung/s4_check_icon.png" alt="예약완료" />
+              <img src="/images/jung/s4_check_icon.png" alt="예약완료" />
             </div>
             <div class="conTopTitle">
               <h2>예약이 <b>완료</b>되었습니다.</h2>
               <div class="conBtn">
                 <button type="button">
                   <img
-                    src="/public/images/jung/s4_btn_icon.png"
+                    src="/images/jung/s4_btn_icon.png"
                     alt="공유하기" />공유하기
                 </button>
               </div>
@@ -68,7 +68,7 @@ const formatPrice = (price) => {
               <div class="confirmation_title">
                 <span
                   ><img
-                    src="/public/images/jung/s4_date_icon.png"
+                    src="/images/jung/s4_date_icon.png"
                     alt="예약정보"
                 /></span>
                 <p>예약 정보</p>
@@ -115,7 +115,7 @@ const formatPrice = (price) => {
               <div class="confirmation_title">
                 <span
                   ><img
-                    src="/public/images/jung/s4_my_icon.png"
+                    src="/images/jung/s4_my_icon.png"
                     alt="예약자정보"
                 /></span>
                 <p>예약자 정보</p>
@@ -140,7 +140,7 @@ const formatPrice = (price) => {
               <div class="confirmation_title">
                 <span
                   ><img
-                    src="/public/images/jung/s4_pay_icon.png"
+                    src="/images/jung/s4_pay_icon.png"
                     alt="결제정보"
                 /></span>
                 <p>결제 정보</p>

@@ -336,7 +336,7 @@ onUnmounted(() => {
         <!-- 프로그래스바 -->
         <div class="progress_bar">
           <img
-            src="/public/images/icon/reservation-bar1.png"
+            src="/images/icon/reservation-bar1.png"
             alt="예약진행바" />
         </div>
         <div class="progress_text">
@@ -363,12 +363,12 @@ onUnmounted(() => {
                     v-if="toggleStates.departure.awesome"
                     class="fa accordion_icon">
                     <img
-                      src="/public/images/icon/toggleDown_icon.png"
+                      src="/images/icon/toggleDown_icon.png"
                       alt="아래아이콘" />
                   </span>
                   <span v-else class="fa accordion_icon">
                     <img
-                      src="/public/images/icon/toggleUp_icon.png"
+                      src="/images/icon/toggleUp_icon.png"
                       alt="아래아이콘" />
                   </span>
                 </div>
@@ -379,7 +379,7 @@ onUnmounted(() => {
                 <div class="row">
                   <label>출발지</label>
                   <div class="res_input">
-                    <img src="/public/images/icon/lens_icon.png" alt="돋보기" />
+                    <img src="/images/icon/lens_icon.png" alt="돋보기" />
                     <input
                       type="text"
                       :value="departurePlace"
@@ -398,7 +398,7 @@ onUnmounted(() => {
                 <div class="row">
                   <label>맡길 날짜</label>
                   <div class="res_input">
-                    <img src="/public/images/icon/data_icon.png" alt="달력" />
+                    <img src="/images/icon/data_icon.png" alt="달력" />
                     <input
                       class="date_input"
                       type="text"
@@ -413,7 +413,7 @@ onUnmounted(() => {
                 <div class="row">
                   <label>맡길 시간</label>
                   <div class="res_input">
-                    <img src="/public/images/icon/watch_icon.png" alt="시계" />
+                    <img src="/images/icon/watch_icon.png" alt="시계" />
                     <input
                       class="time_input"
                       type="text"
@@ -439,12 +439,12 @@ onUnmounted(() => {
                     v-if="toggleStates.arrival.awesome"
                     class="fa accordion_icon">
                     <img
-                      src="/public/images/icon/toggleDown_icon.png"
+                      src="/images/icon/toggleDown_icon.png"
                       alt="아래아이콘" />
                   </span>
                   <span v-else class="fa accordion_icon">
                     <img
-                      src="/public/images/icon/toggleUp_icon.png"
+                      src="/images/icon/toggleUp_icon.png"
                       alt="아래아이콘" />
                   </span>
                 </div>
@@ -455,7 +455,7 @@ onUnmounted(() => {
                 <div class="row">
                   <label>도착지</label>
                   <div class="res_input">
-                    <img src="/public/images/icon/lens_icon.png" alt="돋보기" />
+                    <img src="/images/icon/lens_icon.png" alt="돋보기" />
                     <input
                       type="text"
                       :value="arrivalPlace"
@@ -474,7 +474,7 @@ onUnmounted(() => {
                 <div class="row">
                   <label>찾을 날짜</label>
                   <div class="res_input">
-                    <img src="/public/images/icon/data_icon.png" alt="달력" />
+                    <img src="/images/icon/data_icon.png" alt="달력" />
                     <input
                       id="arrival_date"
                       class="date_input"
@@ -490,7 +490,7 @@ onUnmounted(() => {
                 <div class="row">
                   <label>찾을 시간</label>
                   <div class="res_input">
-                    <img src="/public/images/icon/watch_icon.png" alt="시계" />
+                    <img src="/images/icon/watch_icon.png" alt="시계" />
                     <input
                       id="arrival_time"
                       class="time_input"
@@ -516,12 +516,12 @@ onUnmounted(() => {
                     v-if="toggleStates.luggage.awesome"
                     class="fa accordion_icon">
                     <img
-                      src="/public/images/icon/toggleDown_icon.png"
+                      src="/images/icon/toggleDown_icon.png"
                       alt="아래아이콘" />
                   </span>
                   <span v-else class="fa accordion_icon">
                     <img
-                      src="/public/images/icon/toggleUp_icon.png"
+                      src="/images/icon/toggleUp_icon.png"
                       alt="아래아이콘" />
                   </span>
                 </div>
@@ -544,7 +544,7 @@ onUnmounted(() => {
                         type="button"
                         @click="changeQuantity(product.id, -1)">
                         <i
-                          ><img src="/public/images/icon/minus_icon.png" alt=""
+                          ><img src="/images/icon/minus_icon.png" alt=""
                         /></i>
                       </button>
                       <input v-model="product.quantity" min="0" max="5" />
@@ -552,7 +552,7 @@ onUnmounted(() => {
                         type="button"
                         @click="changeQuantity(product.id, 1)">
                         <i
-                          ><img src="/public/images/icon/plus_icon.png" alt=""
+                          ><img src="/images/icon/plus_icon.png" alt=""
                         /></i>
                       </button>
                     </div>
@@ -561,7 +561,7 @@ onUnmounted(() => {
                 <!-- 주의문 -->
                 <div class="cr_warning">
                   <i
-                    ><img src="/public/images/icon/warning_icon.png" alt=""
+                    ><img src="/images/icon/warning_icon.png" alt=""
                   /></i>
                   <span><strong>수하물 개당요금입니다.</strong></span>
                 </div>
@@ -590,8 +590,8 @@ onUnmounted(() => {
               <img
                 :src="
                   isDetailVisible
-                    ? '/public/images/icon/toggleDown_icon.png'
-                    : '/public/images/icon/toggleUp_icon.png'
+                    ? '/images/icon/toggleDown_icon.png'
+                    : '/images/icon/toggleUp_icon.png'
                 "
                 alt="모바일토글아이콘" />
             </div>

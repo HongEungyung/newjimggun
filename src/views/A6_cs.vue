@@ -306,7 +306,7 @@ const nextPage = () => {
             <li class="quick-list">
               <router-link to="/information">
                 <div class="quick-img">
-                  <img src="/public/images/lee/csphone.png" alt="핸드폰아이콘" />
+                  <img src="/images/lee/phone.png" alt="핸드폰아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>이용방법</strong>이 궁금하신가요?</span>
@@ -317,7 +317,7 @@ const nextPage = () => {
             <li class="quick-list">
               <router-link to="/charge">
                 <div class="quick-img quick-img2">
-                  <img src="/public/images/lee/bill.png" alt="돈아이콘" />
+                  <img src="/images/lee/bill.png" alt="돈아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>요금</strong>이 궁금하신가요?</span>
@@ -328,7 +328,7 @@ const nextPage = () => {
             <li class="quick-list">
               <router-link to="/login">
                 <div class="quick-img">
-                  <img src="/public/images/lee/consult.png" alt="헤드폰아이콘" />
+                  <img src="/images/lee/consult.png" alt="헤드폰아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>상담</strong>이 필요하신가요?</span>
