@@ -165,7 +165,7 @@ const handlePhonePrefixChange = (event) => {
         <!-- 프로그래스바 -->
         <div class="progress_bar">
           <img
-            src="/public/images/jung/reservation-bar2.png"
+            src="/images/jung/reservation-bar2.png"
             alt="예약진행바" />
         </div>
         <div class="progress_text">
@@ -598,6 +598,7 @@ const handlePhonePrefixChange = (event) => {
 #number_input {
   width: 85%;
   margin-left: 10px;
+  
 }
 // 결제 정보
 .res_pay_sl {
@@ -811,6 +812,21 @@ height: 30%;
   top: 15px;
   right: 15px;
 }
+@media screen and (max-width: 480px){
+  .res_pay_card {
+  padding: 25px 25px;
+  margin-top: 12px;
+  .cart_row{
+    padding: 0;
+  }
+}
+.res_cart{
+  padding: 25px 25px 0;
+}
+.edbtn{
+  padding: 12px 0;
+}
+}
 @media screen and (max-width: 768px){
   // 예약 정보
   .res_cart .cart_row li{
@@ -826,6 +842,12 @@ height: 30%;
   .res_info_input{
     font-size: 13px;
   }
+  .res_select{
+
+  }
+  #number_input{
+    width: 80%;
+  }
   // 결제 정보
   .pay_order_box {
     display: block;
@@ -835,6 +857,10 @@ height: 30%;
         padding-top: 20px;
       }
     }
+  }
+  // 이용약관 동의
+  .agree {
+font-size: 15px;
   }
 }
 </style>

@@ -11,7 +11,7 @@
       <li class="charge-list charge-list1">
         <div class="list-box">
           <div class="icon-box">
-            <img src="/public/images/lee/chargeIcon1.png" alt="케리어아이콘" />
+            <img src="/images/lee/chargeIcon1.png" alt="케리어아이콘" />
           </div>
           <div class="text-wrap">
             <p class="list-text">
@@ -25,7 +25,7 @@
       <li class="charge-list charge-list2">
         <div class="list-box">
           <div class="icon-box">
-            <img src="/public/images/lee/chargeIcon2.png" alt="가방아이콘" />
+            <img src="/images/lee/chargeIcon2.png" alt="가방아이콘" />
           </div>
           <div class="text-wrap">
             <p class="list-text">
@@ -39,7 +39,7 @@
       <li class="charge-list charge-list3">
         <div class="list-box">
           <div class="icon-box">
-            <img src="/public/images/lee/chargeIcon3.png" alt="골프가방아이콘" />
+            <img src="/images/lee/chargeIcon3.png" alt="골프가방아이콘" />
           </div>
           <div class="text-wrap">
             <p class="list-text">
@@ -88,7 +88,7 @@
           </li>
         </ul>
         <div class="size-img ">
-          <img src="/public/images/lee/sizeinfo.png" alt="사이즈예시" />
+          <img src="/images/lee/sizeinfo.png" alt="사이즈예시" />
         </div>
         
       </div>

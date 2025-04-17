@@ -14,17 +14,17 @@ const confirmPayment = () => emit('next', { paymentComfirmed: true });
     <div class="btn-warp">
       <router-link to="/signUp" class="routerBtn routerBtn1">
         <button class="loginBtn naver">
-          <img src="/public/images/kang/naver.png" alt="네이버" class="icon" /> 네이버 로그인
+          <img src="/images/kang/naver.png" alt="네이버" class="icon" /> 네이버 로그인
         </button>
       </router-link>
       <router-link to="/signUp" class="routerBtn routerBtn2">
         <button class="loginBtn kakao">
-          <img src="/public/images/kang/kakao.png" alt="카카오" class="icon" />카카오 로그인
+          <img src="/images/kang/kakao.png" alt="카카오" class="icon" />카카오 로그인
         </button>
       </router-link>
       <router-link to="/signUp" class="routerBtn routerBtn3">
         <button class="loginBtn google">
-          <img src="/public/images/kang/google.png" alt="구글" class="icon" />구글 로그인
+          <img src="/images/kang/google.png" alt="구글" class="icon" />구글 로그인
         </button>
       </router-link>
       <div class="routerBtn routerBtn4">
