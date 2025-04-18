@@ -701,5 +701,8 @@ onMounted(() => {
   .intro-current {
     grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
   }
+  .status-box {
+    display: block;
+  }
 }
 </style>
