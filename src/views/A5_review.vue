@@ -1,6 +1,19 @@
 <script setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect, onMounted } from 'vue';
 import StarRating from '@/components/StarRating.vue';
+
+// gotop버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
 // 더미 데이터 (변경되지 않는 초기 데이터)
 const dummyReviews = [
   {
@@ -95,6 +108,15 @@ const toggleReviews = () => {
 </script>
 
 <template>
+<!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+    <router-link to="/reservation" class="resBtn">
+      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <p>고용하기</p>
+    </router-link>
+  </div>
+
   <div class="A5-wrap">
     <div class="A5-inner">
       <div class="A5-h1-box">
@@ -141,6 +163,45 @@ const toggleReviews = () => {
 
 <style lang="scss" scoped>
 @import '/src/assets/variables';
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+  .resBtn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+    text-decoration: none;
+    padding: 13.5px 0;
+    p {
+      color: $white;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+  }
+}
+
 .A5-wrap {
   background-color: $sub-color;
   width: 100%;

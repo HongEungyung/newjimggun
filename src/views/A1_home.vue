@@ -1,9 +1,21 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/autoplay";
+
+// top버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
 // 슬라이드 이미지 데이터
 // 메인배너 더미데이터
 const mainBannerData = ref([
@@ -60,6 +72,15 @@ const mainBannerData = ref([
 </script>
 
 <template>
+  <!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+    <router-link to="/reservation" class="resBtn">
+      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <p>고용하기</p>
+    </router-link>
+  </div>
+
   <div class="main-wrap">
     <!-- 메인배너 슬라이드 -->
     <section class="visual">
@@ -159,18 +180,84 @@ const mainBannerData = ref([
 
       <!-- 파트2 - 내용 -->
       <div class="part2-contents-all">
-        <!-- 왼쪽 두개 -->
-        <div class="part2-left">
+        <!-- 파트 2 웹 용 -->
+        <div class="part2-web">
+          <!-- 왼쪽 두개 -->
+          <div class="part2-left">
+            <!-- 1 -->
+            <div class="p2-contents">
+              <!-- 아이콘 -->
+              <div class="p2-contents-icons">
+                <img src="/images/hong/part2-icon1.png" alt="해외출장" />
+                <h3>해외출장</h3>
+              </div>
+              <!-- 말풍선 글 1-->
+              <div class="p2-contents-texts1 p2-underline">
+                <h3>출장갈때, <span> 더 편하게 짐꾼! </span></h3>
+                <p>
+                  미팅 끝나고 가는 출장까지, <br />
+                  짐은 짐꾼에 맡기고 두 손 가볍게 <br />이동하세요!
+                </p>
+              </div>
+            </div>
+            <!-- 2 -->
+            <div class="p2-contents">
+              <!-- 아이콘 -->
+              <div class="p2-contents-icons">
+                <img src="/images/hong/part2-icon2.png" alt="골프투어" />
+                <h3>골프투어</h3>
+              </div>
+              <!-- 말풍선 글 2 -->
+              <div class="p2-contents-texts2 p2-underline">
+                <h3>골프투어도, <span> 더 즐겁게 짐꾼! </span></h3>
+                <p>골프, 스쿠버다이빙, 서핑, 스키! <br />즐거운만큼 무거운 취미 용품들 <br />짐꾼이 안전하게 배송해드릴게요!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오른쪽 두개 -->
+          <div class="part2-right">
+            <!-- 3 -->
+            <div class="p2-contents">
+              <!-- 말풍선 글 3 -->
+              <div class="p2-contents-texts3 p2-underline">
+                <h3>주말여행 갈 때, <span> 더 빠르게 짐꾼! </span></h3>
+                <p>짧은 주말을 이용해 떠나는 여행! <br />회사에 들고가자니 눈치보이는 <br />캐리어 짐꾼이 먼저 옮겨드릴게요!</p>
+              </div>
+              <!-- 아이콘 -->
+              <div class="p2-contents-icons">
+                <img src="/images/hong/part2-icon3.png" alt="주말여행" />
+                <h3>주말여행</h3>
+              </div>
+            </div>
+            <!-- 4 -->
+            <div class="p2-contents">
+              <!-- 말풍선 글 4 -->
+              <div class="p2-contents-texts4 p2-underline">
+                <h3>퇴근 후 여행, <span> 더 가볍게 짐꾼! </span></h3>
+                <p>사람 많고, 정신없는 출근시간 <br />지옥철에 크고 무거운 캐리어와 <br />함께 타는 건 이제 그만!</p>
+              </div>
+              <!-- 아이콘 -->
+              <div class="p2-contents-icons">
+                <img src="/images/hong/part2-icon4.png" alt="퇴근여행" />
+                <h3>퇴근여행</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 파트 2 768 용 -->
+        <div class="part2-tablet">
           <!-- 1 -->
-          <div class="p2-contents">
-            <!-- 아이콘 -->
-            <div class="p2-contents-icons">
-              <img src="/images/hong/part2-icon1.png" alt="해외출장" />
+          <div class="t-content1">
+            <!-- 아이콘 영역 -->
+            <div class="t-1-icon">
+              <img src="/public/images/hong/part2-icon1.png" alt="해외출장-T" />
               <h3>해외출장</h3>
             </div>
-            <!-- 말풍선 글 -->
-            <div class="p2-contents-texts">
-              <h3>출장갈때, 더 편하게 짐꾼!</h3>
+            <!-- 말풍선 영역 -->
+            <div class="t-1-bubble">
+              <h2>출장갈때, 더 편하게 짐꾼!</h2>
               <p>
                 미팅 끝나고 가는 출장까지, <br />
                 짐은 짐꾼에 맡기고 두 손 가볍게 <br />이동하세요!
@@ -178,45 +265,41 @@ const mainBannerData = ref([
             </div>
           </div>
           <!-- 2 -->
-          <div class="p2-contents">
-            <!-- 아이콘 -->
-            <div class="p2-contents-icons">
-              <img src="/images/hong/part2-icon2.png" alt="골프투어" />
-              <h3>골프투어</h3>
-            </div>
-            <!-- 말풍선 글 -->
-            <div class="p2-contents-texts">
-              <h3>골프투어도, 더 즐겁게 짐꾼!</h3>
-              <p>골프, 스쿠버다이빙, 서핑, 스키! <br />즐거운만큼 무거운 취미 용품들 <br />짐꾼이 안전하게 배송해드릴게요!</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 오른쪽 두개 -->
-        <div class="part2-right">
-          <!-- 3 -->
-          <div class="p2-contents">
-            <!-- 말풍선 글 -->
-            <div class="p2-contents-texts">
-              <h3>주말여행 갈 때, 더 빠르게 짐꾼!</h3>
+          <div class="t-content2">
+            <!-- 말풍선 영역 -->
+            <div class="t-2-bubble">
+              <h2>주말여행 갈 때, 더 빠르게 짐꾼!</h2>
               <p>짧은 주말을 이용해 떠나는 여행! <br />회사에 들고가자니 눈치보이는 <br />캐리어 짐꾼이 먼저 옮겨드릴게요!</p>
             </div>
-            <!-- 아이콘 -->
-            <div class="p2-contents-icons">
-              <img src="/images/hong/part2-icon3.png" alt="주말여행" />
+            <!-- 아이콘 영역 -->
+            <div class="t-2-icon">
+              <img src="/public/images/hong/part2-icon3.png" alt="주말여행-T" />
               <h3>주말여행</h3>
             </div>
           </div>
+          <!-- 3 -->
+          <div class="t-content3">
+            <!-- 아이콘 영역 -->
+            <div class="t-1-icon">
+              <img src="/public/images/hong/part2-icon2.png" alt="골프투어-T" />
+              <h3>골프투어</h3>
+            </div>
+            <!-- 말풍선 영역 -->
+            <div class="t-2-bubble">
+              <h2>골프투어도, 더 즐겁게 짐꾼!</h2>
+              <p>골프, 스쿠버다이빙, 서핑, 스키! <br />즐거운만큼 무거운 취미 용품들 <br />짐꾼이 안전하게 배송해드릴게요!</p>
+            </div>
+          </div>
           <!-- 4 -->
-          <div class="p2-contents">
-            <!-- 말풍선 글 -->
-            <div class="p2-contents-texts">
-              <h3>퇴근 후 여행, 더 가볍게 짐꾼!</h3>
+          <div class="t-content4">
+            <!-- 말풍선 영역 -->
+            <div class="t-2-bubble">
+              <h2>퇴근 후 여행, 더 가볍게 짐꾼!</h2>
               <p>사람 많고, 정신없는 출근시간 <br />지옥철에 크고 무거운 캐리어와 <br />함께 타는 건 이제 그만!</p>
             </div>
-            <!-- 아이콘 -->
-            <div class="p2-contents-icons">
-              <img src="/images/hong/part2-icon4.png" alt="퇴근여행" />
+            <!-- 아이콘 영역 -->
+            <div class="t-2-icon">
+              <img src="/public/images/hong/part2-icon4.png" alt="퇴근여행-T" />
               <h3>퇴근여행</h3>
             </div>
           </div>
@@ -292,6 +375,44 @@ const mainBannerData = ref([
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 20px;
+}
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+  .resBtn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+    text-decoration: none;
+    padding: 13.5px 0;
+    p {
+      color: $white;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+  }
 }
 .main-wrap {
   width: 100%;
@@ -595,7 +716,7 @@ const mainBannerData = ref([
           width: 100%;
           // width: 300px;
           // height: 200px;
-         
+
           img {
             width: 100%;
           }
@@ -646,126 +767,359 @@ const mainBannerData = ref([
     .part2-contents-all {
       display: flex;
       justify-content: center;
-      gap: 100px;
-      //   왼쪽 둘
-      .part2-left {
+
+      // 웹 용
+      .part2-web {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 45px;
-        // 1
-        .p2-contents {
+        align-items: center;
+        gap: 75px;
+        @media screen and (max-width: 768px) {
+          display: none !important;
+        }
+        //   왼쪽 둘
+        .part2-left {
           display: flex;
-          align-items: center;
-          gap: 75px;
-          // 아이콘
-          .p2-contents-icons {
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 45px;
+          // 1
+          .p2-contents {
             display: flex;
-            flex-direction: column;
-            text-align: center;
-            gap: 10px;
-            width: 100px;
-            img {
-              width: 100%;
+            align-items: center;
+            gap: 75px;
+            // 아이콘
+            .p2-contents-icons {
+              display: flex;
+              flex-direction: column;
+              text-align: center;
+              gap: 10px;
+              width: 100px;
+              img {
+                width: 100%;
+              }
+              h3 {
+                font-size: $title-font-S;
+                font-weight: 600; //semibold
+              }
             }
-            h3 {
-              font-size: $title-font-S;
-              font-weight: 600; //semibold
+            // 말풍선 글 1
+            .p2-contents-texts1 {
+              background-color: $white;
+              position: relative;
+              width: 255px;
+              padding: 30px;
+              border-radius: 10px;
+              border-bottom-left-radius: 0;
+              &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: -30px;
+                // transform: translateY(50%);
+                transform: scaleX(-1);
+                transform: scaleY(-1);
+                width: 0;
+                height: 0;
+                border-left: 30px solid transparent;
+                // border-right: 30px solid transparent;
+                border-top: 25px solid $white;
+              }
+              h3 {
+                font-size: $text-font-M;
+                font-weight: 600;
+                margin-bottom: 10px;
+              }
+              p {
+                font-size: $text-font-S;
+                line-height: 16px;
+                color: $font-gray;
+              }
+            }
+            // 말풍선 글 2
+            .p2-contents-texts2 {
+              background-color: $white;
+              position: relative;
+              width: 255px;
+              padding: 30px;
+              border-radius: 10px;
+              border-top-left-radius: 0;
+              &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -30px;
+                transform: scaleY(-1);
+                width: 0;
+                height: 0;
+                border-left: 30px solid transparent;
+                // border-right: 30px solid transparent;
+                border-bottom: 25px solid $white;
+              }
+              h3 {
+                font-size: $text-font-M;
+                font-weight: 600;
+                margin-bottom: 10px;
+              }
+              p {
+                font-size: $text-font-S;
+                line-height: 16px;
+                color: $font-gray;
+              }
+            }
+            // 말풍선 underline
+            .p2-underline {
+              span {
+                position: relative;
+                &::after {
+                  content: "";
+                  position: absolute;
+                  left: -2%;
+                  right: -2%;
+                  bottom: 0;
+                  height: 5px;
+                  background-color: rgba(255, 111, 0, 0.5);
+                }
+              }
             }
           }
-          // 말풍선 글
-          .p2-contents-texts {
-            background-color: $white;
-            position: relative;
-            width: 255px;
-            padding: 30px;
-            border-radius: 10px;
-            border-bottom-left-radius: 0;
-            &::after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              left: -30px;
-              // transform: translateY(50%);
-              transform: scaleX(-1);
-              transform: scaleY(-1);
-              width: 0;
-              height: 0;
-              border-left: 30px solid transparent;
-              // border-right: 30px solid transparent;
-              border-top: 25px solid $white;
+        }
+
+        // 오른쪽 둘
+        .part2-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 45px;
+          // 3
+          .p2-contents {
+            display: flex;
+            align-items: center;
+            gap: 70px;
+            // 아이콘
+            .p2-contents-icons {
+              display: flex;
+              flex-direction: column;
+              text-align: center;
+              gap: 10px;
+              width: 100px;
+              img {
+                width: 100%;
+              }
+              h3 {
+                font-size: $title-font-S;
+                font-weight: 600; //semibold
+              }
             }
-            h3 {
-              font-size: $text-font-M;
-              font-weight: 600;
-              margin-bottom: 10px;
+            // 말풍선 글 3
+            .p2-contents-texts3 {
+              background-color: $white;
+              position: relative;
+              width: 255px;
+              padding: 30px;
+              border-radius: 10px;
+              border-bottom-right-radius: 0;
+              &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                right: -30px;
+                transform: translateY(-50%);
+                transform: scaleY(-1);
+                width: 0;
+                height: 0;
+                // border-left: 50px solid transparent;
+                border-right: 30px solid transparent;
+                border-top: 25px solid $white;
+              }
+              h3 {
+                font-size: $text-font-M;
+                font-weight: 600;
+                margin-bottom: 10px;
+              }
+              p {
+                font-size: $text-font-S;
+                line-height: 16px;
+                color: $font-gray;
+              }
             }
-            p {
-              font-size: $text-font-S;
-              line-height: 16px;
-              color: $font-gray;
+            // 말풍선 글 4
+            .p2-contents-texts4 {
+              background-color: $white;
+              position: relative;
+              width: 255px;
+              padding: 30px;
+              border-radius: 10px;
+              border-top-right-radius: 0;
+              &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: -30px;
+                transform: translateY(-50%);
+                transform: scaleY(-1);
+                width: 0;
+                height: 0;
+                // border-left: 50px solid transparent;
+                border-right: 30px solid transparent;
+                border-bottom: 25px solid $white;
+              }
+              h3 {
+                font-size: $text-font-M;
+                font-weight: 600;
+                margin-bottom: 10px;
+              }
+              p {
+                font-size: $text-font-S;
+                line-height: 16px;
+                color: $font-gray;
+              }
+            }
+            // 말풍선 underline
+            .p2-underline {
+              span {
+                position: relative;
+                &::after {
+                  content: "";
+                  position: absolute;
+                  left: -2%;
+                  right: -2%;
+                  bottom: 0;
+                  height: 5px;
+                  background-color: rgba(255, 111, 0, 0.5);
+                }
+              }
             }
           }
         }
       }
 
-      // 오른쪽 둘
-      .part2-right {
-        display: flex;
+      // 768 용
+      .part2-tablet {
+        display: none;
+        height: auto;
+        // display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 45px;
-        // 3
-        .p2-contents {
+        gap: 50px;
+        @media screen and (max-width: 768px) {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 50px !important;
+        }
+        // 1
+        .t-content1 {
           display: flex;
           align-items: center;
-          gap: 70px;
-          // 아이콘
-          .p2-contents-icons {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            gap: 10px;
-            width: 100px;
-            img {
-              width: 100%;
-            }
-            h3 {
-              font-size: $title-font-S;
-              font-weight: 600; //semibold
-            }
+          gap: 75px;
+        }
+        // 2
+        .t-content2 {
+          display: flex;
+          align-items: center;
+          gap: 75px;
+        }
+        // 3
+        .t-content3 {
+          display: flex;
+          align-items: center;
+          gap: 75px;
+        }
+        // 4
+        .t-content4 {
+          display: flex;
+          align-items: center;
+          gap: 75px;
+        }
+        // 왼쪽 아이콘 영역
+        .t-1-icon {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          gap: 10px;
+          width: 100px;
+          img {
+            width: 100%;
           }
-          // 말풍선 글
-          .p2-contents-texts {
-            background-color: $white;
-            position: relative;
-            width: 255px;
-            padding: 30px;
-            border-radius: 10px;
-            border-bottom-right-radius: 0;
-            &::after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              right: -30px;
-              transform: translateY(-50%);
-              transform: scaleY(-1);
-              width: 0;
-              height: 0;
-              // border-left: 50px solid transparent;
-              border-right: 30px solid transparent;
-              border-top: 25px solid $white;
-            }
-            h3 {
-              font-size: $text-font-M;
-              font-weight: 600;
-              margin-bottom: 10px;
-            }
-            p {
-              font-size: $text-font-S;
-              line-height: 16px;
-              color: $font-gray;
-            }
+          h3 {
+            font-size: $title-font-S;
+            font-weight: 600; //semibold
+          }
+        }
+        // 왼쪽 말풍선 영역
+        .t-1-bubble {
+          background-color: $white;
+          position: relative;
+          width: 255px;
+          padding: 30px;
+          border-radius: 10px;
+          border-bottom-left-radius: 0;
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: -30px;
+            transform: scaleX(-1);
+            transform: scaleY(-1);
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-top: 25px solid $white;
+          }
+          h2 {
+            font-size: $text-font-M;
+            font-weight: 600;
+            margin-bottom: 10px;
+          }
+          p {
+            font-size: $text-font-S;
+            line-height: 16px;
+            color: $font-gray;
+          }
+        }
+        // 오른쪽 말풍선 영역
+        .t-2-bubble {
+          background-color: $white;
+          position: relative;
+          width: 255px;
+          padding: 30px;
+          border-radius: 10px;
+          border-bottom-right-radius: 0;
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: -30px;
+            transform: translateY(-50%);
+            transform: scaleY(-1);
+            width: 0;
+            height: 0;
+            // border-left: 50px solid transparent;
+            border-right: 30px solid transparent;
+            border-top: 25px solid $white;
+          }
+          h2 {
+            font-size: $text-font-M;
+            font-weight: 600;
+            margin-bottom: 10px;
+          }
+          p {
+            font-size: $text-font-S;
+            line-height: 16px;
+            color: $font-gray;
+          }
+        }
+        // 오른쪽 아이콘 영역
+        .t-2-icon {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          gap: 10px;
+          width: 100px;
+          img {
+            width: 100%;
+          }
+          h3 {
+            font-size: $title-font-S;
+            font-weight: 600; //semibold
           }
         }
       }
@@ -946,8 +1300,11 @@ const mainBannerData = ref([
   }
 }
 @media screen and (max-width: 1011px) {
-  .part1-box{
-    gap: 10px !important;
+  .box1-text p {
+    margin-bottom: 12px !important;
+  }
+  .box3-text p {
+    margin-bottom: 12px !important;
   }
 }
 @media screen and (max-width: 990px) {
@@ -993,9 +1350,24 @@ const mainBannerData = ref([
     line-height: 18px !important;
   }
 }
-@media screen and (max-width: 841px) {
+@media screen and (max-width: 801px) {
+  .box1-text h3 {
+    margin-bottom: 22px !important;
+  }
+  .box2-text h3 {
+    margin-bottom: 22px !important;
+  }
+}
+@media screen and (max-width: 784px) {
+  .box2-text h3 {
+    margin-bottom: 8px !important;
+  }
 }
 @media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
   // 파트1 영역
   .a1-part1 {
     display: flex !important;
@@ -1015,14 +1387,27 @@ const mainBannerData = ref([
   .a1-part1-boxes {
     width: 100% !important;
   }
-  
+  .box1-text h3 {
+    margin-bottom: 8px !important;
+  }
+  .box1-text p {
+    margin-bottom: unset !important;
+  }
+  .box3-text p {
+    margin-bottom: unset !important;
+  }
   // 예약미니 바
   .reservationMini {
     display: none !important;
   }
 }
-@media screen and (max-width: 644px) {
-
+@media screen and (max-width: 751px) {
+  .box1-text p {
+    margin-bottom: 12px !important;
+  }
+  .box3-text p {
+    margin-bottom: 12px !important;
+  }
 }
 @media screen and (max-width: 634px) {
   .a1-part1-boxes {
@@ -1046,7 +1431,7 @@ const mainBannerData = ref([
     // width: 50% !important;
     // width: 140px !important;
     flex: 1 !important;
-    // object-fit: cover !important; 
+    // object-fit: cover !important;
   }
   .part1-img img {
     display: block !important;
@@ -1060,10 +1445,10 @@ const mainBannerData = ref([
     align-items: flex-start !important;
     padding: 10px !important;
   }
-  .box-text h3{
+  .box-text h3 {
     font-size: 18px !important;
   }
-  .box-text p{
+  .box-text p {
     font-size: 16px !important;
   }
 }
@@ -1084,16 +1469,16 @@ const mainBannerData = ref([
     width: 100%;
   }
 }
-@media screen and (max-width: 475px){
-  .box-text h3{
+@media screen and (max-width: 475px) {
+  .box-text h3 {
     font-size: 14px !important;
   }
-  .box-text p{
+  .box-text p {
     font-size: 12px !important;
   }
 }
-@media screen and (max-width: 403px){
-  .a1-part1-title h3{
+@media screen and (max-width: 403px) {
+  .a1-part1-title h3 {
     font-size: 20px !important;
   }
 }

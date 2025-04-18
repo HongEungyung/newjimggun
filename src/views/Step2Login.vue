@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+
 // 결제 , step
 const emit = defineEmits(['next', 'prev']);
 defineProps({ resevationData: Object });
@@ -9,8 +10,7 @@ const confirmPayment = () => emit('next', { paymentComfirmed: true });
 </script>
 
 <template>
-  
-  <div class="login-btn-box">
+<div class="login-btn-box">
     <div class="btn-warp">
       <router-link to="/signUp" class="routerBtn routerBtn1">
         <button class="loginBtn naver">
@@ -36,6 +36,7 @@ const confirmPayment = () => emit('next', { paymentComfirmed: true });
 
 <style lang="scss" scoped>
 @import '/src/assets/variables';
+
 .login-btn-box {
   max-width: 520px;
   margin: auto;
