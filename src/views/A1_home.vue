@@ -85,6 +85,7 @@ const mainBannerData = ref([
       <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <p>고용하기</p>
     </div>
+    <!-- 발표날에는 다시 ↓ 이걸로 바꿔놓기 -->
     <!-- <div class="resBtn" @click="goToReservation" style="cursor: pointer">
       <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <p>고용하기</p>
@@ -135,9 +136,9 @@ const mainBannerData = ref([
             <input type="text" id="mini1" placeholder="2025.03.22 / 11:00" />
           </div>
         </form>
-        <div class="mini-button">
+        <router-link to="/reservation" class="mini-button">
           <p>바로 예약</p>
-        </div>
+        </router-link>
       </div>
     </section>
 
@@ -266,8 +267,8 @@ const mainBannerData = ref([
               <h3>해외출장</h3>
             </div>
             <!-- 말풍선 영역 -->
-            <div class="t-1-bubble">
-              <h2>출장갈때, 더 편하게 짐꾼!</h2>
+            <div class="t-1-bubble p2-underline">
+              <h2>출장갈때, <span>더 편하게 짐꾼!</span></h2>
               <p>
                 미팅 끝나고 가는 출장까지, <br />
                 짐은 짐꾼에 맡기고 두 손 가볍게 <br />이동하세요!
@@ -277,8 +278,8 @@ const mainBannerData = ref([
           <!-- 2 -->
           <div class="t-content2">
             <!-- 말풍선 영역 -->
-            <div class="t-2-bubble">
-              <h2>주말여행 갈 때, 더 빠르게 짐꾼!</h2>
+            <div class="t-2-bubble p2-underline">
+              <h2>주말여행 갈 때, <span>더 빠르게 짐꾼!</span></h2>
               <p>짧은 주말을 이용해 떠나는 여행! <br />회사에 들고가자니 눈치보이는 <br />캐리어 짐꾼이 먼저 옮겨드릴게요!</p>
             </div>
             <!-- 아이콘 영역 -->
@@ -295,16 +296,16 @@ const mainBannerData = ref([
               <h3>골프투어</h3>
             </div>
             <!-- 말풍선 영역 -->
-            <div class="t-2-bubble">
-              <h2>골프투어도, 더 즐겁게 짐꾼!</h2>
+            <div class="t-1-bubble p2-underline">
+              <h2>골프투어도, <span>더 즐겁게 짐꾼!</span></h2>
               <p>골프, 스쿠버다이빙, 서핑, 스키! <br />즐거운만큼 무거운 취미 용품들 <br />짐꾼이 안전하게 배송해드릴게요!</p>
             </div>
           </div>
           <!-- 4 -->
           <div class="t-content4">
             <!-- 말풍선 영역 -->
-            <div class="t-2-bubble">
-              <h2>퇴근 후 여행, 더 가볍게 짐꾼!</h2>
+            <div class="t-2-bubble p2-underline">
+              <h2>퇴근 후 여행, <span>더 가볍게 짐꾼!</span></h2>
               <p>사람 많고, 정신없는 출근시간 <br />지옥철에 크고 무거운 캐리어와 <br />함께 타는 건 이제 그만!</p>
             </div>
             <!-- 아이콘 영역 -->
@@ -669,6 +670,7 @@ const mainBannerData = ref([
         justify-content: center;
         align-items: center;
         width: 16%;
+        text-decoration: none;
         cursor: pointer;
         // border-radius: 50px;
         // margin: 10px;
@@ -1013,31 +1015,72 @@ const mainBannerData = ref([
         @media screen and (max-width: 768px) {
           display: flex !important;
           flex-direction: column !important;
-          gap: 50px !important;
+        }
+        @media screen and (max-width: 390px) {
+          gap: 30px !important;
+        }
+        // 말풍선 underline
+        .p2-underline {
+          span {
+            position: relative;
+            &::after {
+              content: "";
+              position: absolute;
+              left: -2%;
+              right: -2%;
+              bottom: 0;
+              height: 5px;
+              background-color: rgba(255, 111, 0, 0.5);
+            }
+          }
         }
         // 1
         .t-content1 {
           display: flex;
           align-items: center;
           gap: 75px;
+          @media screen and (max-width: 768px) {
+            gap: 50px !important;
+          }
+          @media screen and (max-width: 390px) {
+            gap: 30px !important;
+          }
         }
         // 2
         .t-content2 {
           display: flex;
           align-items: center;
           gap: 75px;
+          @media screen and (max-width: 768px) {
+            gap: 50px !important;
+          }
+          @media screen and (max-width: 390px) {
+            gap: 30px !important;
+          }
         }
         // 3
         .t-content3 {
           display: flex;
           align-items: center;
           gap: 75px;
+          @media screen and (max-width: 768px) {
+            gap: 50px !important;
+          }
+          @media screen and (max-width: 390px) {
+            gap: 30px !important;
+          }
         }
         // 4
         .t-content4 {
           display: flex;
           align-items: center;
           gap: 75px;
+          @media screen and (max-width: 768px) {
+            gap: 50px !important;
+          }
+          @media screen and (max-width: 390px) {
+            gap: 30px !important;
+          }
         }
         // 왼쪽 아이콘 영역
         .t-1-icon {
@@ -1046,12 +1089,19 @@ const mainBannerData = ref([
           text-align: center;
           gap: 10px;
           width: 100px;
+          @media screen and (max-width: 390px) {
+            width: 70px !important;
+            gap: 20px !important;
+          }
           img {
             width: 100%;
           }
           h3 {
             font-size: $title-font-S;
             font-weight: 600; //semibold
+            @media screen and (max-width: 390px) {
+              font-size: 20px !important;
+            }
           }
         }
         // 왼쪽 말풍선 영역
@@ -1059,9 +1109,16 @@ const mainBannerData = ref([
           background-color: $white;
           position: relative;
           width: 255px;
-          padding: 30px;
+          padding: 30px 50px;
           border-radius: 10px;
           border-bottom-left-radius: 0;
+          @media screen and (max-width: 768px) {
+            width: 300px !important;
+          }
+          @media screen and (max-width: 390px) {
+            width: 200px !important;
+            padding: 20px 25px !important;
+          }
           &::after {
             content: "";
             position: absolute;
@@ -1078,11 +1135,17 @@ const mainBannerData = ref([
             font-size: $text-font-M;
             font-weight: 600;
             margin-bottom: 10px;
+            @media screen and (max-width: 390px) {
+              font-size: 14px !important;
+            }
           }
           p {
             font-size: $text-font-S;
             line-height: 16px;
             color: $font-gray;
+            @media screen and (max-width: 390px) {
+              font-size: 12px !important;
+            }
           }
         }
         // 오른쪽 말풍선 영역
@@ -1090,9 +1153,16 @@ const mainBannerData = ref([
           background-color: $white;
           position: relative;
           width: 255px;
-          padding: 30px;
+          padding: 30px 50px;
           border-radius: 10px;
           border-bottom-right-radius: 0;
+          @media screen and (max-width: 768px) {
+            width: 300px !important;
+          }
+          @media screen and (max-width: 390px) {
+            width: 200px !important;
+            padding: 20px 25px !important;
+          }
           &::after {
             content: "";
             position: absolute;
@@ -1110,11 +1180,17 @@ const mainBannerData = ref([
             font-size: $text-font-M;
             font-weight: 600;
             margin-bottom: 10px;
+            @media screen and (max-width: 390px) {
+              font-size: 14px !important;
+            }
           }
           p {
             font-size: $text-font-S;
             line-height: 16px;
             color: $font-gray;
+            @media screen and (max-width: 390px) {
+              font-size: 12px !important;
+            }
           }
         }
         // 오른쪽 아이콘 영역
@@ -1124,12 +1200,19 @@ const mainBannerData = ref([
           text-align: center;
           gap: 10px;
           width: 100px;
+          @media screen and (max-width: 390px) {
+            width: 70px !important;
+            gap: 20px !important;
+          }
           img {
             width: 100%;
           }
           h3 {
             font-size: $title-font-S;
             font-weight: 600; //semibold
+            @media screen and (max-width: 390px) {
+              font-size: 20px !important;
+            }
           }
         }
       }
