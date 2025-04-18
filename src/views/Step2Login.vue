@@ -1,112 +1,215 @@
 <script setup>
-import { ref } from 'vue';
+import { useAuthStore } from "../stores/auth";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+const authStore = useAuthStore();
+const router = useRouter();
 
-// 결제 , step
-const emit = defineEmits(['next', 'prev']);
+//추가
+const emit = defineEmits(["next", "prev"]);
 defineProps({ resevationData: Object });
 const agree = ref(false);
-const prevStep = () => emit('prev');
-const confirmPayment = () => emit('next', { paymentComfirmed: true });
+const prevStep = () => emit("prev");
+const confirmPayment = () => emit("next", { paymentComfirmed: true });
+//추가 끝
+const formData = ref({
+  userId: "",
+  password: "",
+});
+
+const handleLogin = () => {
+  const savedData = JSON.parse(localStorage.getItem("userDatas") || "[]");
+
+  const userData = Array.isArray(savedData)
+    ? savedData.find(
+        (u) =>
+          u.userId === formData.value.userId &&
+          u.password === formData.value.password
+      )
+    : null;
+
+  if (userData) {
+    authStore.login({
+      email: userData.email,
+      name: userData.name,
+      phone: userData.phone,
+      userId: userData.userId,
+      password: userData.password,
+    });
+    router.push("/");
+  } else {
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+  }
+};
 </script>
 
 <template>
-<div class="login-btn-box">
-    <div class="btn-warp">
-      <router-link to="/signUp" class="routerBtn routerBtn1">
-        <button class="loginBtn naver">
-          <img src="/images/kang/naver.png" alt="네이버" class="icon" /> 네이버 로그인
-        </button>
-      </router-link>
-      <router-link to="/signUp" class="routerBtn routerBtn2">
-        <button class="loginBtn kakao">
-          <img src="/images/kang/kakao.png" alt="카카오" class="icon" />카카오 로그인
-        </button>
-      </router-link>
-      <router-link to="/signUp" class="routerBtn routerBtn3">
-        <button class="loginBtn google">
-          <img src="/images/kang/google.png" alt="구글" class="icon" />구글 로그인
-        </button>
-      </router-link>
-      <div class="routerBtn routerBtn4">
-        <button @click="confirmPayment" class="loginBtn nonAccount">비회원으로 예약하기</button>
+  <div class="a7-wrap">
+    <div class="logoContainer">
+      <img src="/images/jimggun_logo.png" alt="로고" class="logo" />
+    </div>
+    <form>
+      <div class="loginInputContainer">
+        <input
+          type="text"
+          placeholder="아이디"
+          class="loginInput"
+          v-model="formData.userId"
+          autocomplete="username" />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          class="loginInput"
+          v-model="formData.password"
+          autocomplete="current-password" />
+      </div>
+    </form>
+
+    <button class="loginBtn" @click="handleLogin">로그인</button>
+    <div class="routerBtn routerBtn4">
+      <button
+        @click="confirmPayment"
+        class="loginBtn nonAccount"
+        id="nonAccount">
+        비회원으로 예약하기
+      </button>
+    </div>
+    <div class="textContainer">
+      <p>아이디 찾기</p>
+      <p>비밀번호 찾기</p>
+      <div class="routerContainer">
+        <router-link to="/signUp" class="goSignUp">회원가입</router-link>
+      </div>
+    </div>
+
+    <div class="snsLoginContainer">
+      <div class="snsIconBox">
+        <div class="snsIcon naver">
+          <img src="/images/kang/naver.png" alt="네이버" />
+        </div>
+        <div class="snsIcon kakao">
+          <img src="/images/kang/kakao.png" alt="카카오" />
+        </div>
+        <div class="snsIcon google">
+          <img src="/images/kang/google.png" alt="구글" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import '/src/assets/variables';
+@import "/src/assets/variables";
 
-.login-btn-box {
-  max-width: 520px;
+.a7-wrap {
+  max-width: 510px;
   margin: auto;
   padding-top: 100px;
+  flex-direction: column;
   text-align: center;
+  font-family: $font-family;
 }
 a {
   text-decoration: none;
+  color: $font-primary;
 }
-// 로그인 버튼
-.btn-warp {
+//로고
+.logo {
+  width: 126px;
+}
+//인풋
+.loginInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-top: 50px;
+}
+.loginInput {
+  width: 88%;
+  height: 60px;
+  border: 1px solid $input-select;
+  border-radius: 10px;
+  font-size: 14px;
+  color: $font-light-gray;
+  padding: 21px 23px;
+}
+//로그인 버튼
+.loginBtn {
+  width: 88%;
+  height: 60px;
+  background-color: $primary-color;
+  color: $white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 60px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.loginBtn:hover {
+  background-color: $primary-hover;
+}
+//아이디 찾기 비밀번호 찾기 회원가입
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  gap: 10px;
+  margin-top: 30px;
+  color: $font-light-gray;
+}
+.textContainer p {
+  border-right: 1px solid $font-light-gray;
+  padding-right: 10px;
+}
+.goSignUp {
+  color: $font-light-gray;
+}
+//간편 로그인
+.snsLoginContainer {
+  margin-top: 50px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  gap: 15px;
 }
-.routerBtn {
-  width: 100%;
-  cursor: default;
-}
-// 간편 로그인
-.loginBtn {
-  // width: 507px;
-  width: 97.5%;
-  height: 60px;
-  font-size: 18px;
-  font-weight: bold;
-  // margin-bottom: 15px;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  border-radius: 10px;
+
+.snsIconBox {
   display: flex;
+
+  gap: 50px;
+}
+.snsIcon {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
   cursor: pointer;
 }
+
 .naver {
-  background-color: $naver-color;
-  color: #fff;
-}
-.naver > .icon,
-.kakao > .icon {
-  display: block;
-  margin-left: 10px;
-  margin-right: 141px;
+  background: $naver-color;
 }
 .kakao {
-  background-color: $kakao-color;
-  color: $font-primary;
+  background: $kakao-color;
 }
 .google {
-  color: $font-primary;
-  margin-bottom: 30px;
-  background-color: #fff;
-  border: $input-select, 1px, solid;
+  background-color: $bg-light;
 }
-.google > .icon {
-  display: block;
-  margin-left: 10px;
-  margin-right: 157px;
-}
+// 비회원 예약하기 추가
 .nonAccount {
-  background-color: $bg-primary;
-  color: $font-primary;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 100px;
+  background-color: #d5d5dc;
+  color: $font-light-gray;
+  font-weight: 600;
+  &:hover {
+    background-color: #c5c5d0;
+  }
+}
+#nonAccount {
+  margin-top: 10px;
 }
 </style>

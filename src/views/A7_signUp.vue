@@ -234,7 +234,7 @@ const handleEmailVerification = () => {
     <form class="signup-form" @submit.prevent="handleSignup">
       <div class="infoWrap">
         <span class="star">*</span> <span class="infoSectionTitle">아이디</span>
-        <input type="text" v-model="signUpData.userId" placeholder="아이디" class="infoInput ID" />
+        <input type="text" v-model="signUpData.userId" placeholder="아이디" class="infoInput ID" autocomplete="username"/>
       </div>
       <div class="infoWrap">
         <span class="star">*</span> <span class="infoSectionTitle">비밀번호</span>
@@ -262,6 +262,7 @@ const handleEmailVerification = () => {
           class="infoInput passwordCheck"
           v-model="signUpData.passwordCheck"
           @input="validatePasswordMatch"
+          autocomplete="new-password"
         />
         <button type="button" @click="togglePassword2" class="toggle-password">
           <img
