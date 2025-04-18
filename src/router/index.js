@@ -4,6 +4,7 @@ import A2_information from "@/views/A2_information.vue";
 import A3_charge from "@/views/A3_charge.vue";
 import A4_reservation from "@/views/A4_reservation.vue";
 import A5_review from "@/views/A5_review.vue";
+import A5_reviewPost from "@/views/A5_reviewPost.vue";
 import A6_cs from "@/views/A6_cs.vue";
 import A7_login from "@/views/A7_login.vue";
 import A7_signUp from "@/views/A7_signUp.vue";
@@ -16,6 +17,7 @@ const routes = [
   { path: "/charge", component: A3_charge },
   { path: "/reservation", component: A4_reservation },
   { path: "/review", component: A5_review },
+  { path: "/reviewPost", component: A5_reviewPost },
   { path: "/cs", component: A6_cs },
   { path: "/login", component: A7_login },
   { path: "/signUp", component: A7_signUp },
