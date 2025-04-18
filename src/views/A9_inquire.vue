@@ -42,17 +42,17 @@
           <!-- 2-1. 문의유형 -->
           <div class="inquire-group">
             <label for="category" class="category-title"><span>1. 문의유형</span></label>
-          <div class="a9group1">
-            <select name="category" id="category" required>
-              <option value="">선택하세요</option>
-              <option value="reservation">예약 관련</option>
-              <option value="service">서비스 관련</option>
-              <option value="payment">결제 관련</option>
-              <option value="cancellation">취소/환불</option>
-              <option value="etc">기타 문의</option>
-            </select>
+            <div class="a9group1">
+              <select name="category" id="category" required>
+                <option value="">선택하세요</option>
+                <option value="reservation">예약 관련</option>
+                <option value="service">서비스 관련</option>
+                <option value="payment">결제 관련</option>
+                <option value="cancellation">취소/환불</option>
+                <option value="etc">기타 문의</option>
+              </select>
+            </div>
           </div>
-        </div>
           <!-- 2-2. 이름 -->
           <div class="inquire-group a9group2">
             <label for="name"><span>2. 이름</span></label>
@@ -61,12 +61,12 @@
           <!-- 2-3. 이메일 -->
           <div class="inquire-group a9group2">
             <label for="name"><span>3. 이메일</span></label>
-            <input type="email" id="name" required />
+            <input type="email" id="email" required />
           </div>
           <!-- 2-4. 연락처 -->
           <div class="inquire-group a9group2">
             <label for="name"><span>4. 연락처</span></label>
-            <input type="phone" id="name" required />
+            <input type="phone" id="phone" required />
           </div>
           <!-- 2-5. 문의내용 -->
           <div class="inquire-group a9group3">
@@ -76,20 +76,28 @@
           <!-- 2-6. 첨부파일 -->
           <div class="inquire-group a9group4">
             <label for="name"><span>6. 첨부파일</span></label>
-            <input type="file" id="name" required />
+            <div class="file-box">
+              <input type="file" id="file" required />
+            </div>
           </div>
           <!-- 2-7. 개인정보 동의 -->
-          <div class="inquire-group a9group5">
-            <label class="checkbox-label">
+          <div class="a9group5">
+            <div class="radio-wrap">
               <span>개인정보 수집 및 이용 동의 안내</span>
-              <span>동의함</span>
-              <input type="radio" name="agree" required />
-              <span>동의안함</span>
-              <input type="radio" name="agree" required />
-            </label>
+              <div class="radio-check">
+                <label class="radio-label1">
+                  <span>동의함</span>
+                  <input type="radio" name="agree" required />
+                </label>
+                <label class="radio-label2">
+                  <span>동의안함</span>
+                  <input type="radio" name="agree" required />
+                </label>
+              </div>
+            </div>
           </div>
           <!-- 2-8. 문의하기 버튼 -->
-          <button class="inquire-btn">문의하기</button>
+          <button type="submit" class="inquire-btn">문의하기</button>
         </form>
       </div>
     </div>
@@ -202,11 +210,14 @@
       .inquire-form {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         // align-items: center;
-        gap: 20px;
+        gap: 25px;
         // from 그룹 전체
         .inquire-group {
           width: 100%;
+          max-width: 500px;
           display: flex;
           flex-direction: column;
           gap: 5px;
@@ -223,21 +234,88 @@
             border-radius: 10px;
             outline: none;
             border: none;
+            color: $font-light-gray;
             font-size: $text-font-S;
             padding: 10px;
             height: 45px;
           }
           // 2-1. 문의유형
-        
-        .a9group1 {
-          max-width: 500px;
-          #category {
-            border: none;
-            outline: none;
+          .a9group1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            background-color: $white;
+            border-radius: 10px;
+            #category {
+              width: 100%;
+              max-width: 480px;
+              border: none;
+              outline: none;
+              padding: 14px 5px;
+              font-size: $text-font-M;
+              color: $font-light-gray;
+              border-radius: 10px;
+            }
           }
         }
+        // 2-5. 문의내용
+        .a9group3 {
+          width: 100%;
+          // background-color: $white;
+          textarea {
+            border: none;
+            outline: none;
+            resize: none;
+            border-radius: 10px;
+            color: $font-light-gray;
+            font-size: $text-font-S;
+            font-weight: 500;
+            height: 150px;
+            padding: 10px;
+          }
         }
-        
+        //
+        .a9group4 {
+          .file-box {
+            background-color: $white;
+            border-radius: 10px;
+          }
+        }
+        // 2-7. 개인정보 동의
+        .a9group5 {
+          width: 100%;
+          max-width: 500px;
+          .radio-wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            span{
+              color: $font-light-gray;
+            font-size: $text-font-S;
+            }
+            .radio-check{
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              .radio-label1{
+                display: flex;
+                align-items: center;
+                gap: 3px;
+              }
+              .radio-label2{
+                display: flex;
+                align-items: center;
+                gap: 3px;
+              }
+            }
+          }
+        }
+        .inquire-btn{
+          
+        }
       }
     }
   }
