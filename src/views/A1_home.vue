@@ -81,7 +81,7 @@ const mainBannerData = ref([
   <!-- gotop 버튼 -->
   <div class="topBtnWrap">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <div class="resBtn" @click="goToReservation" style="cursor: pointer">
+    <div class="resBtn" style="cursor: pointer">
       <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <p>고용하기</p>
     </div>
