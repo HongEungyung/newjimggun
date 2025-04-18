@@ -1,5 +1,18 @@
 <script setup>
-import { reactive, ref, computed, watch } from "vue";
+import { reactive, ref, computed, watch, onMounted } from "vue";
+
+// gotop버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
 // 질문 별 주제 카테고리 데이터 더미
 const categories = [
   { id: "all", name: "전체" },
@@ -294,6 +307,15 @@ const nextPage = () => {
 </script>
 
 <template>
+<!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+    <router-link to="/reservation" class="resBtn">
+      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <p>고용하기</p>
+    </router-link>
+  </div>
+
   <!-- cs 전체 레이아웃 -->
   <section class="cs-container">
     <div class="cs-wrap">
@@ -386,6 +408,44 @@ const nextPage = () => {
 
 <style lang="scss" scoped>
 @import "/src/assets/variables";
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+  .resBtn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+    text-decoration: none;
+    padding: 13.5px 0;
+    p {
+      color: $white;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+  }
+}
 
 .inner {
   max-width: 1240px;
