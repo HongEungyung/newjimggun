@@ -54,7 +54,10 @@ const goToNextStep = (data) => {
   resevationData.value = { ...resevationData.value, ...data };
   console.log("다음단계로 이동", resevationData.value);
 
-  if (currentStep.value < steps.length) currentStep.value++;
+  if (currentStep.value < steps.length) {
+    currentStep.value++;
+    window.scrollTo(0, 0);
+  }
 };
 
 // 이전 단계로 이동
@@ -62,7 +65,10 @@ const goToPrevStep = (data) => {
   if (data) {
     resevationData.value = { ...resevationData.value, ...data };
   }
-  if (currentStep.value > 1) currentStep.value--;
+  if (currentStep.value > 1) {
+    currentStep.value--;
+    window.scrollTo(0, 0);
+  }
 };
 </script>
 

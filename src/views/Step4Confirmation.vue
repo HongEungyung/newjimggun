@@ -280,6 +280,10 @@ const formatPhoneNumber = (phone) => {
   font-weight: bold;
 }
 @media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
   .conBtn {
     top: 0;
   }

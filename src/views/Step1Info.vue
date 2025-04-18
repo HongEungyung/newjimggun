@@ -876,7 +876,15 @@ onUnmounted(() => {
       border: 1px solid rgba(255, 111, 0, 0.5);
       cursor: pointer;
       i {
-        width: 100%;
+        // background-color: #fff;
+        width: 12px;
+        height: 12px;
+        display: block;
+        margin: auto;
+        img{
+          width: 100%;
+          
+        }
       }
     }
     input {
@@ -1078,6 +1086,10 @@ onUnmounted(() => {
 }
 // 테블릿
 @media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
   // 본문
   #res_content {
     width: 100%;
@@ -1106,7 +1118,7 @@ onUnmounted(() => {
     left: 0px;
     bottom: 0px;
     border-radius: 10px 10px 0 0;
-    background-color: $bg-light;
+    background-color: #eee;
     padding: 0 15px 15px;
     .rrb_price div {
       font-size: 18px;
@@ -1114,18 +1126,19 @@ onUnmounted(() => {
 
     .rrb_mb {
       display: block;
-      background-color: $bg-light;
+      background-color: #eee;
       padding: 5px 15px 0;
       border-radius: 0.5rem;
       cursor: pointer;
       text-align: center;
       margin: auto;
       width: 3rem;
-      margin-top: -20px;
+      margin-top: -15px;
       transition: all 0.3s ease;
 
       .mb_toggle_btn {
         width: 16px;
+       
         img {
           width: 100%;
         }

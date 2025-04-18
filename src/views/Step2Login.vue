@@ -204,12 +204,18 @@ a {
 .nonAccount {
   background-color: #d5d5dc;
   color: $font-light-gray;
-  font-weight: 600;
+  font-weight: 500;
   &:hover {
     background-color: #c5c5d0;
   }
 }
 #nonAccount {
   margin-top: 10px;
+}
+@media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
 }
 </style>
