@@ -11,7 +11,11 @@ const route = useRoute();
 const router = useRouter();
 // console.log(route.params);
 const emit = defineEmits(["next", "prev"]);
-defineProps({ resevationData: Object });
+const props = defineProps({
+  resevationData: Object,
+  editMode: Boolean,
+  reservationDetails: Object,
+});
 const name = ref("");
 const phone = ref("");
 const luggageCount = ref(1);
@@ -203,6 +207,22 @@ const openTimePicker = (type, event) => {
     top: rect.bottom + window.scrollY + 5,
     left: rect.left + window.scrollX,
   };
+
+  // departure_time 클릭 시 현재 시간 기준으로, arrival_time 클릭 시 departure_time 값 기준으로 설정
+  if (type === "departure") {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = Math.round(now.getMinutes() / 10) * 10;
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    departureTime.value = `${hours}:${formattedMinutes}`;
+  } else if (type === "arrival") {
+    if (!departureTime.value) {
+      openModal("출발 시간을 먼저 선택해주세요.");
+      return;
+    }
+    arrivalTime.value = departureTime.value;
+  }
+
   isTimePickerOpen.value = true;
 };
 
@@ -316,6 +336,27 @@ const handleResize = () => {
 onMounted(() => {
   handleResize();
   window.addEventListener("resize", handleResize);
+
+  // 이전 데이터 불러오기
+  if (props.resevationData?.reservationDetails) {
+    const details = props.resevationData.reservationDetails;
+    departurePlace.value = details.departurePlace || "";
+    selectedDepartureDate.value = details.departureDate || "";
+    departureTime.value = details.departureTime || "";
+    arrivalPlace.value = details.arrivalPlace || "";
+    selectedArrivalDate.value = details.arrivalDate || "";
+    arrivalTime.value = details.arrivalTime || "";
+
+    // 수하물 데이터 복원
+    if (details.luggage && Array.isArray(details.luggage)) {
+      details.luggage.forEach((item) => {
+        const product = products.value.find((p) => p.name === item.name);
+        if (product) {
+          product.quantity = item.quantity;
+        }
+      });
+    }
+  }
 });
 
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
@@ -335,9 +376,7 @@ onUnmounted(() => {
         </div>
         <!-- 프로그래스바 -->
         <div class="progress_bar">
-          <img
-            src="/images/icon/reservation-bar1.png"
-            alt="예약진행바" />
+          <img src="/images/icon/reservation-bar1.png" alt="예약진행바" />
         </div>
         <div class="progress_text">
           <p>예약하기</p>
@@ -416,6 +455,7 @@ onUnmounted(() => {
                     <img src="/images/icon/watch_icon.png" alt="시계" />
                     <input
                       class="time_input"
+                      id="departure_time"
                       type="text"
                       :value="departureTime"
                       readonly
@@ -543,26 +583,20 @@ onUnmounted(() => {
                       <button
                         type="button"
                         @click="changeQuantity(product.id, -1)">
-                        <i
-                          ><img src="/images/icon/minus_icon.png" alt=""
-                        /></i>
+                        <i><img src="/images/icon/minus_icon.png" alt="" /></i>
                       </button>
                       <input v-model="product.quantity" min="0" max="5" />
                       <button
                         type="button"
                         @click="changeQuantity(product.id, 1)">
-                        <i
-                          ><img src="/images/icon/plus_icon.png" alt=""
-                        /></i>
+                        <i><img src="/images/icon/plus_icon.png" alt="" /></i>
                       </button>
                     </div>
                   </li>
                 </ul>
                 <!-- 주의문 -->
                 <div class="cr_warning">
-                  <i
-                    ><img src="/images/icon/warning_icon.png" alt=""
-                  /></i>
+                  <i><img src="/images/icon/warning_icon.png" alt="" /></i>
                   <span><strong>수하물 개당요금입니다.</strong></span>
                 </div>
                 <!-- 도움말 -->
@@ -664,6 +698,7 @@ onUnmounted(() => {
   <TimePicker
     v-if="isTimePickerOpen"
     :type="timePickerType"
+    :initialTime="timePickerType === 'arrival' ? departureTime : undefined"
     @select="handleTimeSelect"
     @close="isTimePickerOpen = false"
     :style="{
@@ -755,13 +790,11 @@ onUnmounted(() => {
   justify-content: space-between;
   label {
     font-weight: 600;
-    
   }
   input {
     position: relative;
     width: 466px;
-    
-    
+
     height: 45px;
     font-size: $text-font-M;
     font-weight: 500;
@@ -779,8 +812,7 @@ onUnmounted(() => {
   // 아이콘
   .res_input {
     position: relative;
-    
-    
+
     img {
       position: absolute;
       top: 25%;
@@ -833,7 +865,6 @@ onUnmounted(() => {
     white-space: nowrap;
     margin-left: 20px;
     color: $font-gray;
-   
   }
   // 수하물 버튼
   .cr_btn_area {
@@ -1031,45 +1062,41 @@ onUnmounted(() => {
 .rrb_mb {
   display: none;
 }
-@media screen and (max-width: 1050px){
-  
-.row{
-  input{
-    width: 430px;
+@media screen and (max-width: 1050px) {
+  .row {
+    input {
+      width: 430px;
+    }
   }
 }
-}
-@media screen and (max-width: 900px){
-  
-.row{
-  input{
-    width: 380px;
+@media screen and (max-width: 900px) {
+  .row {
+    input {
+      width: 380px;
+    }
   }
-}
 }
 // 테블릿
 @media screen and (max-width: 768px) {
-  
   // 본문
-    #res_content {
+  #res_content {
+    width: 100%;
+    display: block;
+    min-height: unset;
+    .row {
+      label {
+        display: none;
+      }
+      .res_input {
         width: 100%;
-        display: block;
-        min-height: unset;
-        .row {
-          label{
-          display: none;
-        }
-        .res_input{
-          width: 100%;
-          
-        }
-        input{
-          width: 100%;
-        }
+      }
+      input {
+        width: 100%;
       }
     }
+  }
 
-// 입력 결과값
+  // 입력 결과값
   #res_result_box {
     width: 100%;
     float: none;
@@ -1081,10 +1108,10 @@ onUnmounted(() => {
     border-radius: 10px 10px 0 0;
     background-color: $bg-light;
     padding: 0 15px 15px;
-    .rrb_price div{
-font-size: 18px;
+    .rrb_price div {
+      font-size: 18px;
     }
-    
+
     .rrb_mb {
       display: block;
       background-color: $bg-light;
@@ -1106,42 +1133,41 @@ font-size: 18px;
     }
   }
 }
-@media screen and (max-width: 480px){
-.row{
-  input{
-    border-radius: 8px;
-        font-size: 14px;
+@media screen and (max-width: 480px) {
+  .row {
+    input {
+      border-radius: 8px;
+      font-size: 14px;
+    }
   }
-}
-.row_box h3{
-  font-size: 16px;
-}
-// 수하물
-.luggage_box h3{
-  font-size: 16px;
-}
-.cr_name_area p{
+  .row_box h3 {
+    font-size: 16px;
+  }
+  // 수하물
+  .luggage_box h3 {
+    font-size: 16px;
+  }
+  .cr_name_area p {
     display: flex;
     flex-direction: column;
-    
   }
 
-.carrier_list {
-  padding: 30px 0 15px;
-.cr_name{
-  font-size: 16px;
-}
-.cr_txt{
-  font-size: 13px;
-  margin-left: 0;
-  margin-top: 5px;
-}
-}
-.cr_help_text{
-font-size: 12px;
-}
-.cr_warning strong{
-font-size: 15px;
-}
+  .carrier_list {
+    padding: 30px 0 15px;
+    .cr_name {
+      font-size: 16px;
+    }
+    .cr_txt {
+      font-size: 13px;
+      margin-left: 0;
+      margin-top: 5px;
+    }
+  }
+  .cr_help_text {
+    font-size: 12px;
+  }
+  .cr_warning strong {
+    font-size: 15px;
+  }
 }
 </style>

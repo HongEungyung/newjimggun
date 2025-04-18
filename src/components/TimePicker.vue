@@ -4,6 +4,7 @@ import { ref, watch, onMounted, nextTick } from "vue";
 const props = defineProps({
   isOpen: Boolean,
   position: Object,
+  initialTime: String,
 });
 // const
 const emit = defineEmits(["select", "close"]);
@@ -34,17 +35,23 @@ const getCurrentRoundedTime = () => {
   return { hour: currentHour, minute: currentMinute };
 };
 
-// 컴포넌트가 마운트될 때 현재 시간 설정
+// 컴포넌트가 마운트될 때 초기 시간 설정
 onMounted(() => {
-  const { hour, minute } = getCurrentRoundedTime();
-  selectedHour.value = hour;
-  selectedMinute.value = minute;
+  if (props.initialTime) {
+    const [hours, minutes] = props.initialTime.split(":").map(Number);
+    selectedHour.value = hours;
+    selectedMinute.value = minutes;
+  } else {
+    const { hour, minute } = getCurrentRoundedTime();
+    selectedHour.value = hour;
+    selectedMinute.value = minute;
+  }
 
   // 스크롤 위치 조정
   nextTick(() => {
     if (hourScrollRef.value) {
       const hourElement = hourScrollRef.value.querySelector(
-        `[data-value="${hour}"]`
+        `[data-value="${selectedHour.value}"]`
       );
       if (hourElement) {
         hourElement.scrollIntoView({ block: "center" });
@@ -52,7 +59,7 @@ onMounted(() => {
     }
     if (minuteScrollRef.value) {
       const minuteElement = minuteScrollRef.value.querySelector(
-        `[data-value="${minute}"]`
+        `[data-value="${selectedMinute.value}"]`
       );
       if (minuteElement) {
         minuteElement.scrollIntoView({ block: "center" });
@@ -106,6 +113,20 @@ watch([selectedHour, selectedMinute], () => {
 const handleSet = () => {
   emit("close");
 };
+
+// 시간 옵션 클릭 핸들러 추가
+const handleOptionClick = (element, type, value) => {
+  if (type === "hour") {
+    selectedHour.value = value;
+  } else {
+    selectedMinute.value = value;
+  }
+
+  // 클릭된 옵션을 스크롤의 센터에 위치시키기
+  nextTick(() => {
+    element.scrollIntoView({ block: "center", behavior: "smooth" });
+  });
+};
 </script>
 
 <template>
@@ -126,7 +147,8 @@ const handleSet = () => {
                     :key="hour"
                     class="time-option"
                     :class="{ selected: selectedHour === hour }"
-                    :data-value="hour">
+                    :data-value="hour"
+                    @click="handleOptionClick($event.target, 'hour', hour)">
                     {{ hour.toString().padStart(2, "0") }}
                   </div>
                 </div>
@@ -148,7 +170,8 @@ const handleSet = () => {
                     :key="minute"
                     class="time-option"
                     :class="{ selected: selectedMinute === minute }"
-                    :data-value="minute">
+                    :data-value="minute"
+                    @click="handleOptionClick($event.target, 'minute', minute)">
                     {{ minute.toString().padStart(2, "0") }}
                   </div>
                 </div>
@@ -276,7 +299,7 @@ const handleSet = () => {
 }
 
 .time-option:hover {
-  /* background: #f5f5f5; */
+  background: #f5f5f5;
 }
 
 .time-option.selected {

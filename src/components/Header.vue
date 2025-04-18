@@ -14,6 +14,13 @@ const handleLogout = () => {
   authStore.logout();
   router.push("/"); // 원하면 '/login'으로 변경 가능
 };
+
+// 예약하기 클릭 시 첫 화면으로 이동
+const handleReservationClick = () => {
+  router.push("/reservation");
+  // 예약 페이지의 첫 화면으로 이동하기 위해 이벤트 발생
+  window.dispatchEvent(new CustomEvent("resetToFirstStep"));
+};
 </script>
 
 <template>
@@ -29,7 +36,11 @@ const handleLogout = () => {
       <ul class="headerNav">
         <li><router-link to="/information">이용안내</router-link></li>
         <li><router-link to="/charge">요금안내</router-link></li>
-        <li><router-link to="/reservation">예약하기</router-link></li>
+        <li>
+          <router-link to="/reservation" @click="handleReservationClick"
+            >예약하기</router-link
+          >
+        </li>
         <li><router-link to="/review">고객후기</router-link></li>
         <li><router-link to="/cs">고객센터</router-link></li>
       </ul>
@@ -37,7 +48,9 @@ const handleLogout = () => {
         <!-- 로그인 상태일 때 -->
         <template v-if="isLoggedIn">
           <router-link to="/mypage">마이페이지</router-link>
-          <router-link to="/" @click.prevent="handleLogout">로그아웃</router-link>
+          <router-link to="/" @click.prevent="handleLogout"
+            >로그아웃</router-link
+          >
         </template>
 
         <!-- 로그아웃 상태일 때 -->

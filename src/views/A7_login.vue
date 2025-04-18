@@ -39,7 +39,7 @@ const handleLogin = () => {
     </div>
     <form>
       <div class="loginInputContainer">
-        <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" />
+        <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" autocomplete="username"/>
         <input
           type="password"
           placeholder="비밀번호"
