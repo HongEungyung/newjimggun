@@ -1,28 +1,31 @@
 <script setup>
-import { useAuthStore } from '../stores/auth';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useAuthStore } from "../stores/auth";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 const authStore = useAuthStore();
 const router = useRouter();
 
 //추가
-// 결제 , step
-const emit = defineEmits(['next', 'prev']);
+const emit = defineEmits(["next", "prev"]);
 defineProps({ resevationData: Object });
 const agree = ref(false);
-const prevStep = () => emit('prev');
-const confirmPayment = () => emit('next', { paymentComfirmed: true });
+const prevStep = () => emit("prev");
+const confirmPayment = () => emit("next", { paymentComfirmed: true });
 //추가 끝
 const formData = ref({
-  userId: '',
-  password: '',
+  userId: "",
+  password: "",
 });
 
 const handleLogin = () => {
-  const savedData = JSON.parse(localStorage.getItem('userDatas') || '[]');
+  const savedData = JSON.parse(localStorage.getItem("userDatas") || "[]");
 
   const userData = Array.isArray(savedData)
-    ? savedData.find((u) => u.userId === formData.value.userId && u.password === formData.value.password)
+    ? savedData.find(
+        (u) =>
+          u.userId === formData.value.userId &&
+          u.password === formData.value.password
+      )
     : null;
 
   if (userData) {
@@ -33,9 +36,9 @@ const handleLogin = () => {
       userId: userData.userId,
       password: userData.password,
     });
-    router.push('/');
+    router.push("/");
   } else {
-    alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.");
   }
 };
 </script>
@@ -47,21 +50,30 @@ const handleLogin = () => {
     </div>
     <form>
       <div class="loginInputContainer">
-        <input type="text" placeholder="아이디" class="loginInput" v-model="formData.userId" autocomplete="username"/>
+        <input
+          type="text"
+          placeholder="아이디"
+          class="loginInput"
+          v-model="formData.userId"
+          autocomplete="username" />
         <input
           type="password"
           placeholder="비밀번호"
           class="loginInput"
           v-model="formData.password"
-          autocomplete="current-password"
-        />
+          autocomplete="current-password" />
       </div>
     </form>
 
     <button class="loginBtn" @click="handleLogin">로그인</button>
-    <div class="routerBtn routerBtn4" >
-        <button @click="confirmPayment" class="loginBtn nonAccount" id="nonAccount">비회원으로 예약하기</button>
-      </div>
+    <div class="routerBtn routerBtn4">
+      <button
+        @click="confirmPayment"
+        class="loginBtn nonAccount"
+        id="nonAccount">
+        비회원으로 예약하기
+      </button>
+    </div>
     <div class="textContainer">
       <p>아이디 찾기</p>
       <p>비밀번호 찾기</p>
@@ -81,36 +93,16 @@ const handleLogin = () => {
         <div class="snsIcon google">
           <img src="/images/kang/google.png" alt="구글" />
         </div>
-<div class="login-btn-box">
-    <div class="btn-warp">
-      <router-link to="/signUp" class="routerBtn routerBtn1">
-        <button class="loginBtn naver">
-          <img src="/images/kang/naver.png" alt="네이버" class="icon" /> 네이버 로그인
-        </button>
-      </router-link>
-      <router-link to="/signUp" class="routerBtn routerBtn2">
-        <button class="loginBtn kakao">
-          <img src="/images/kang/kakao.png" alt="카카오" class="icon" />카카오 로그인
-        </button>
-      </router-link>
-      <router-link to="/signUp" class="routerBtn routerBtn3">
-        <button class="loginBtn google">
-          <img src="/images/kang/google.png" alt="구글" class="icon" />구글 로그인
-        </button>
-      </router-link>
-      <div class="routerBtn routerBtn4">
-        <button @click="confirmPayment" class="loginBtn nonAccount">비회원으로 예약하기</button>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import '/src/assets/variables';
+@import "/src/assets/variables";
+
 .a7-wrap {
   max-width: 510px;
-.login-btn-box {
-  max-width: 520px;
   margin: auto;
   padding-top: 100px;
   flex-direction: column;
@@ -208,17 +200,16 @@ a {
 .google {
   background-color: $bg-light;
 }
-// 비회원 예약하기 추가 
-.nonAccount{
-  background-color: #D5D5DC;
+// 비회원 예약하기 추가
+.nonAccount {
+  background-color: #d5d5dc;
   color: $font-light-gray;
   font-weight: 600;
-  &:hover{
-    background-color: #C5C5D0;
+  &:hover {
+    background-color: #c5c5d0;
   }
- 
 }
-#nonAccount{
+#nonAccount {
   margin-top: 10px;
 }
 </style>
