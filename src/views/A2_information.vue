@@ -650,6 +650,10 @@ watch(activeTap, (newValue) => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  @media screen and (max-width: 768px) {
+  // gotop 버튼
+    display: none !important;
+}
   .topBtn {
     color: $primary-color;
     font-size: 40px;

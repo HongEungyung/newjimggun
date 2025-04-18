@@ -39,52 +39,54 @@
       <!-- 2. 문의하기 오른쪽 영역 -->
       <div class="inquire-right">
         <form class="inquire-form">
-        <!-- 2-1. 문의유형 -->
+          <!-- 2-1. 문의유형 -->
           <div class="inquire-group">
-          <label for="category">1. 문의유형</label>
+            <label for="category" class="category-title"><span>1. 문의유형</span></label>
+          <div class="a9group1">
             <select name="category" id="category" required>
-            <option value="">선택하세요</option>
-            <option value="reservation">예약 관련</option>
-            <option value="service">서비스 관련</option>
-            <option value="payment">결제 관련</option>
-            <option value="cancellation">취소/환불</option>
-            <option value="etc">기타 문의</option>
-          </select>
+              <option value="">선택하세요</option>
+              <option value="reservation">예약 관련</option>
+              <option value="service">서비스 관련</option>
+              <option value="payment">결제 관련</option>
+              <option value="cancellation">취소/환불</option>
+              <option value="etc">기타 문의</option>
+            </select>
           </div>
+        </div>
           <!-- 2-2. 이름 -->
-          <div class="inquire-group">
-          <label for="name">2. 이름</label>
-          <input type="text" id="name" required>
+          <div class="inquire-group a9group2">
+            <label for="name"><span>2. 이름</span></label>
+            <input type="text" id="name" required />
           </div>
           <!-- 2-3. 이메일 -->
-          <div class="inquire-group">
-          <label for="name">3. 이메일</label>
-          <input type="email" id="name" required>
+          <div class="inquire-group a9group2">
+            <label for="name"><span>3. 이메일</span></label>
+            <input type="email" id="name" required />
           </div>
           <!-- 2-4. 연락처 -->
-          <div class="inquire-group">
-          <label for="name">4. 연락처</label>
-          <input type="phone" id="name" required>
+          <div class="inquire-group a9group2">
+            <label for="name"><span>4. 연락처</span></label>
+            <input type="phone" id="name" required />
           </div>
           <!-- 2-5. 문의내용 -->
-          <div class="inquire-group">
-          <label for="name">5. 문의내용</label>
-          <textarea id="content" rows="4"></textarea>
+          <div class="inquire-group a9group3">
+            <label for="name"><span>5. 문의내용</span></label>
+            <textarea id="content" rows="4"></textarea>
           </div>
           <!-- 2-6. 첨부파일 -->
-          <div class="inquire-group">
-          <label for="name">6. 첨부파일</label>
-          <input type="file" id="name" required>
+          <div class="inquire-group a9group4">
+            <label for="name"><span>6. 첨부파일</span></label>
+            <input type="file" id="name" required />
           </div>
           <!-- 2-7. 개인정보 동의 -->
-          <div class="inquire-group">
+          <div class="inquire-group a9group5">
             <label class="checkbox-label">
-            <span>개인정보 수집 및 이용 동의 안내</span>
-            <span>동의함</span>
-            <input  type="radio" name="agree" required />
-            <span>동의안함</span>
-            <input  type="radio" name="agree" required />
-          </label>
+              <span>개인정보 수집 및 이용 동의 안내</span>
+              <span>동의함</span>
+              <input type="radio" name="agree" required />
+              <span>동의안함</span>
+              <input type="radio" name="agree" required />
+            </label>
           </div>
           <!-- 2-8. 문의하기 버튼 -->
           <button class="inquire-btn">문의하기</button>
@@ -194,7 +196,49 @@
     }
     // 2.문의하기 오른쪽 영역
     .inquire-right {
+      width: 100%;
+      position: relative;
       flex: 1;
+      .inquire-form {
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        gap: 20px;
+        // from 그룹 전체
+        .inquire-group {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          label {
+            span {
+              font-weight: bold;
+              font-size: $text-font-M;
+              color: $font-light-gray;
+            }
+          }
+          input {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            outline: none;
+            border: none;
+            font-size: $text-font-S;
+            padding: 10px;
+            height: 45px;
+          }
+          // 2-1. 문의유형
+        
+        .a9group1 {
+          max-width: 500px;
+          #category {
+            border: none;
+            outline: none;
+          }
+        }
+        }
+        
+      }
     }
   }
 }
