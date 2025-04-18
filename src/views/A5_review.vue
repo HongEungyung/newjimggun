@@ -128,7 +128,7 @@ const toggleReviews = () => {
   <div class="A5-wrap">
     <div class="A5-inner">
       <div class="A5-h1-box">
-        <h1 class="A5-h1">고객후기</h1>
+        <h1 class="A5-h1">고객 후기</h1>
       </div>
 
       <div class="review-box" v-for="(review, index) in visibleReviews" :key="index">
@@ -238,7 +238,7 @@ const toggleReviews = () => {
 .A5-h1 {
   // font-size: $title-font-XS;
   font-size: $text-font-L;
-  letter-spacing: 6px;
+  // letter-spacing: 6px;
 }
 
 // 리뷰 박스
@@ -309,8 +309,8 @@ const toggleReviews = () => {
 .toggle-content-btn {
   background: none;
   border: none;
-  color: $font-gray;
-  font-size: 18px;
+  color: $input-select;
+  font-size: 20px;
   cursor: pointer;
 }
 //이미지
@@ -372,6 +372,12 @@ const toggleReviews = () => {
   }
   .review-rating {
     margin: 0 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
   }
 }
 @media screen and (max-width: 730px) {

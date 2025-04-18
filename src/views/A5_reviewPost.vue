@@ -180,6 +180,12 @@ form {
   }
 }
 //반응형
+@media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
+}
 @media screen and (max-width: 510px) {
   form {
     .name-rating-box {

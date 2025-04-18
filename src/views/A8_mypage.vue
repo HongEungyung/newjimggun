@@ -1,22 +1,14 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-// gotop버튼
 const smoothlyBtn = ref(null);
-onMounted(() => {
-  smoothlyBtn.value?.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  });
-});
 
 const userName = ref('');
 const REVIEW_KEY = 'userReviews'; // 로컬스토리지 키
 const reviewCount = ref(0); // 작성 후기 수
 const myReviews = ref([]);
+const filledStar = '/images/kang/star-filled.png'; // 채워진 별 이미지
+const emptyStar = '/images/kang/star-empty.png'; // 빈 별 이미지
 
 onMounted(() => {
   const savedUser = JSON.parse(localStorage.getItem('user') || '{}');
@@ -25,12 +17,20 @@ onMounted(() => {
   reviewCount.value = savedReviews.length;
   const saved = JSON.parse(localStorage.getItem(REVIEW_KEY) || '[]');
   myReviews.value = saved;
+  // gotop버튼
+  smoothlyBtn.value?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  });
 });
 </script>
 
 <template>
-<!-- gotop 버튼 -->
-<div class="topBtnWrap">
+  <!-- gotop 버튼 -->
+  <div class="topBtnWrap">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
     <router-link to="/reservation" class="resBtn">
       <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
@@ -198,7 +198,15 @@ onMounted(() => {
           <ul v-else class="my-review-list">
             <li v-for="(review, index) in myReviews.slice(0, 2)" :key="index">
               <div>{{ review.title }}</div>
-              <!-- <div>{{ review.rating }}</div> -->
+              <div class="review-rating">
+                <img
+                  v-for="i in 5"
+                  :key="i"
+                  :src="i <= review.rating ? filledStar : emptyStar"
+                  alt="별점"
+                  class="star-img"
+                />
+              </div>
             </li>
           </ul>
         </div>
@@ -250,7 +258,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import "/src/assets/variables";
+@import '/src/assets/variables';
 // gotop 버튼
 .topBtnWrap {
   position: fixed;
@@ -585,6 +593,16 @@ onMounted(() => {
             font-weight: bold;
             margin-bottom: 15px;
             color: $font-primary;
+            .review-rating {
+              display: flex;
+              gap: 4px;
+              margin-top: 4px;
+            }
+
+            .star-img {
+              width: 20px;
+              height: 20px;
+            }
           }
         }
       }

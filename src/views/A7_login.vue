@@ -177,4 +177,10 @@ a {
 .google {
   background-color: $bg-light;
 }
+@media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
+}
 </style>
