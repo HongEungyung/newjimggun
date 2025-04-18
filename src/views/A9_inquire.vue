@@ -1,4 +1,23 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+// 문의하기 확인 모달
+const showConfirmModal = ref(false)
+// 문의하기 접수 완료 모달
+const confirmModal = ref(false)
+
+// 문의하기 버튼 클릭시
+function submitInquiry() {
+  showConfirmModal.value = true;
+}
+
+// 첫번째 모달 확인버튼 클릭 시 다음 모달 등장
+const confirmModal1 = ()=>{
+  confirmModal.value = true
+  showConfirmModal.value = false
+
+}
+</script>
 
 <template>
   <!-- 문의하기 전체 레이아웃 -->
@@ -38,7 +57,7 @@
       </div>
       <!-- 2. 문의하기 오른쪽 영역 -->
       <div class="inquire-right">
-        <form class="inquire-form">
+        <form class="inquire-form" @submit.prevent="submitInquiry">
           <!-- 2-1. 문의유형 -->
           <div class="inquire-group">
             <label for="category" class="category-title"><span>1. 문의유형</span></label>
@@ -101,6 +120,21 @@
         </form>
       </div>
     </div>
+    <!-- 3. 문의하기 확인 모달 -->
+    <div class="inquire-modal" v-if="showConfirmModal">
+      <div class="modal-content">
+        <p>문의를 접수하시겠습니까?</p>
+        <button class="inquire-confirm" @click="confirmModal1">확인</button>
+        <button class="modal-close" @click="showConfirmModal = false">닫기</button>
+      </div>
+    </div>
+    <!-- 4. 문의하기 접수 완료 모달 -->
+    <div class="inquire-modal1" v-if="confirmModal">
+    <div class="modal-content1">
+      <p>접수가 완료되었습니다.</p>
+      <router-link to="/cs">확인</router-link>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -119,6 +153,11 @@
     display: flex;
     // margin-top: 100px;
     padding-top: 100px;
+    padding-bottom: 50px;
+    @media screen and (max-width : 768px){
+      flex-direction: column;
+      gap: 70px;
+    }
     // 1. 문의하기 왼쪽 영역
     .inquire-left {
       display: flex;
@@ -126,6 +165,7 @@
       flex-direction: column;
       align-items: center;
       gap: 60px;
+      
       // 1-1. 문의하기 타이틀
       .inquire-title {
         width: 100%;
@@ -207,6 +247,7 @@
       width: 100%;
       position: relative;
       flex: 1;
+      
       .inquire-form {
         display: flex;
         flex-direction: column;
@@ -276,7 +317,7 @@
             padding: 10px;
           }
         }
-        //
+        // 2-6. 첨부파일
         .a9group4 {
           .file-box {
             background-color: $white;
@@ -292,20 +333,20 @@
             display: flex;
             align-items: center;
             gap: 25px;
-            span{
+            span {
               color: $font-light-gray;
-            font-size: $text-font-S;
+              font-size: $text-font-S;
             }
-            .radio-check{
+            .radio-check {
               display: flex;
               align-items: center;
               gap: 15px;
-              .radio-label1{
+              .radio-label1 {
                 display: flex;
                 align-items: center;
                 gap: 3px;
               }
-              .radio-label2{
+              .radio-label2 {
                 display: flex;
                 align-items: center;
                 gap: 3px;
@@ -313,10 +354,94 @@
             }
           }
         }
-        .inquire-btn{
-          
+        // 2-8. 문의하기 버튼
+        .inquire-btn {
+          width: 100%;
+          max-width: 240px;
+          background-color: $primary-color;
+          border-radius: 10px;
+          font-weight: bold;
+          border: none;
+          color: #fff;
+          padding: 6px 12px;
+          font-size: 14px;
+          margin-top: 20px;
+          &:hover {
+            background-color: $primary-hover;
+          }
         }
       }
+    }
+  }
+  // 3. 문의하기 모달 영역
+  .inquire-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    .modal-content {
+      background-color: white;
+
+      padding: 40px 30px;
+      border-radius: 8px;
+      text-align: center;
+      .modal-content p {
+        color: $font-primary;
+        font-family: $font-family;
+      }
+      button{
+        padding: 10px 20px;
+        margin-top: 30px;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .modal-close {
+        margin-left: 5px;
+      }
+    }
+  }
+  // 4. 문의하기 접수 완료 모달
+  .inquire-modal1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    .modal-content1 {
+      background-color: white;
+
+      padding: 40px 30px;
+      border-radius: 8px;
+      text-align: center;
+      .modal-content p {
+        color: $font-primary;
+        font-family: $font-family;
+      }
+      a{
+        display: block;
+        padding: 10px 20px;
+        margin-top: 30px;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
     }
   }
 }

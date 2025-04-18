@@ -347,7 +347,8 @@ const nextPage = () => {
                 </p>
               </router-link>
             </li>
-            <li class="quick-list">
+            <!-- 여기 -->
+            <li class="quick-list quick-list3">
               <router-link to="/inquire">
                 <div class="quick-img">
                   <img src="/images/lee/consult.png" alt="헤드폰아이콘" />
