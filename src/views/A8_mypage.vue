@@ -14,10 +14,17 @@ onMounted(() => {
 });
 
 const userName = ref('');
+const REVIEW_KEY = 'userReviews'; // 로컬스토리지 키
+const reviewCount = ref(0); // 작성 후기 수
+const myReviews = ref([]);
 
 onMounted(() => {
   const savedUser = JSON.parse(localStorage.getItem('user') || '{}');
   userName.value = savedUser.name || '사용자';
+  const savedReviews = JSON.parse(localStorage.getItem(REVIEW_KEY) || '[]');
+  reviewCount.value = savedReviews.length;
+  const saved = JSON.parse(localStorage.getItem(REVIEW_KEY) || '[]');
+  myReviews.value = saved;
 });
 </script>
 
@@ -90,7 +97,7 @@ onMounted(() => {
             <div class="ing-text">
               <span>작성 후기</span>
               <div class="ing-text-p">
-                <p class="ing-number">0</p>
+                <p class="ing-number">{{ reviewCount }}</p>
                 <p>건</p>
               </div>
             </div>
@@ -162,8 +169,13 @@ onMounted(() => {
               </div>
               <span>2025.01.25 - 2025.01.26</span>
             </div>
-            <div class="sec-box1-status status3">
-              <p>배송 완료</p>
+            <div class="status-box">
+              <div class="sec-box1-status status3-1">
+                <p><router-link to="/reviewPost"> 리뷰 쓰기</router-link></p>
+              </div>
+              <div class="sec-box1-status status3-2">
+                <p>배송 완료</p>
+              </div>
             </div>
           </div>
         </div>
@@ -179,7 +191,16 @@ onMounted(() => {
             <p>전체보기</p>
           </div>
 
-          <img src="/images/hong/mypage-review-empty-icon.png" alt="내가 작성한 후기" />
+          <!-- 후기 없을 때 -->
+          <img v-if="myReviews.length === 0" src="/images/hong/mypage-review-empty-icon.png" alt="내가 작성한 후기" />
+
+          <!-- 후기 있을 때 -->
+          <ul v-else class="my-review-list">
+            <li v-for="(review, index) in myReviews.slice(0, 2)" :key="index">
+              <div>{{ review.title }}</div>
+              <!-- <div>{{ review.rating }}</div> -->
+            </li>
+          </ul>
         </div>
 
         <!-- 네번째 영역 -->
@@ -275,6 +296,9 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  a {
+    text-decoration: none;
+  }
   //   내용 전체
   .mypage-all {
     display: flex;
@@ -470,11 +494,24 @@ onMounted(() => {
             background-color: #fef8e8;
             border-radius: 50px;
           }
-          .status3 {
-            padding: 5px 12px;
-            color: #45a6ff;
-            background-color: #e8f9fe;
-            border-radius: 50px;
+          .status-box {
+            display: flex;
+            gap: 10px;
+            .status3-1 {
+              padding: 5px 12px;
+
+              background-color: #fff3fa;
+              border-radius: 50px;
+              a {
+                color: #fe688c;
+              }
+            }
+            .status3-2 {
+              padding: 5px 12px;
+              color: #45a6ff;
+              background-color: #e8f9fe;
+              border-radius: 50px;
+            }
           }
         }
         .sec-box1 {
@@ -530,6 +567,25 @@ onMounted(() => {
           transform: translate(-50%, -50%);
           height: 38.26px;
           width: 50px;
+        }
+        // 내가 쓴 리뷰 제목
+        .my-review-list {
+          list-style: none;
+          padding: 0;
+          margin-top: 10px;
+
+          li {
+            border: 1px solid $input-select;
+            border-radius: 10px;
+            padding: 32px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: $font-primary;
+          }
         }
       }
       // 네번째 영역

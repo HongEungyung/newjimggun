@@ -2,6 +2,16 @@
 import { computed, ref, watchEffect, onMounted } from 'vue';
 import StarRating from '@/components/StarRating.vue';
 
+const STORAGE_KEY = 'userReviews';
+const reviews = ref([]);
+
+onMounted(() => {
+  const savedReviews = localStorage.getItem(STORAGE_KEY);
+  if (savedReviews) {
+    reviews.value = JSON.parse(savedReviews);
+  }
+});
+
 // gotop버튼
 const smoothlyBtn = ref(null);
 onMounted(() => {
@@ -59,12 +69,10 @@ const getThreeImages = (images) => {
   }
   return filled;
 };
-// 로컬스토리지에서 불러올 데이터
-// 사용자가 새롭게 작성한 리뷰를 저장하고 불러오는 역할
-const reviews = ref([]);
+
 //더미데이터 + 로컬스토리지데이터 합치기
 
-const allReviews = computed(() => [...dummyReviews, ...reviews.value]);
+const allReviews = computed(() => [...reviews.value].reverse().concat(dummyReviews));
 // 이름 마스킹
 function maskedName(name) {
   const [user, domain] = name.split('@');
@@ -124,16 +132,16 @@ const toggleReviews = () => {
       </div>
 
       <div class="review-box" v-for="(review, index) in visibleReviews" :key="index">
-        <div class="writerRating">
+        <div class="writerRating" @click="toggleContent(index)">
           <h2 class="review-writer">{{ maskedName(review.name) }} 님 감사합니다!</h2>
           <StarRating :rating="review.rating" class="review-rating" />
         </div>
 
-        <div class="review-header">
-          <h3 class="review-title" @click="toggleContent(index)">
+        <div class="review-header" @click="toggleContent(index)">
+          <h3 class="review-title">
             {{ review.title }}
           </h3>
-          <button class="toggle-content-btn" @click="toggleContent(index)">
+          <button class="toggle-content-btn" @click.stop="toggleContent(index)">
             {{ expandedStates[index] ? '▲' : '▼' }}
           </button>
         </div>
@@ -230,6 +238,7 @@ const toggleReviews = () => {
 .A5-h1 {
   // font-size: $title-font-XS;
   font-size: $text-font-L;
+  letter-spacing: 6px;
 }
 
 // 리뷰 박스
@@ -256,6 +265,7 @@ const toggleReviews = () => {
 //제목
 .writerRating {
   display: flex;
+  cursor: pointer;
 }
 .review-header {
   display: flex;
@@ -263,6 +273,7 @@ const toggleReviews = () => {
   justify-content: space-between;
   padding: 0 90px; // 좌우 정렬 위치 조정 (기존 .review-title padding과 맞춤)
   margin-top: 10px;
+  cursor: pointer;
 
   @media screen and (max-width: 440px) {
     padding: 0 40px;
@@ -298,8 +309,8 @@ const toggleReviews = () => {
 .toggle-content-btn {
   background: none;
   border: none;
-  color: $input-select;
-  font-size: 14px;
+  color: $font-gray;
+  font-size: 18px;
   cursor: pointer;
 }
 //이미지
