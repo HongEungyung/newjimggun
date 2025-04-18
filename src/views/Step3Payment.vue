@@ -856,6 +856,10 @@ const handlePhonePrefixChange = (event) => {
   }
 }
 @media screen and (max-width: 768px) {
+  // gotop 버튼
+  .topBtnWrap {
+    display: none !important;
+  }
   // 예약 정보
   .res_cart .cart_row li {
     font-size: 14px;
