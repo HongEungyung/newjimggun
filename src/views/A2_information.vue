@@ -1,5 +1,18 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
+
+// top버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
 const activeTap = ref("delivery");
 
 // 지도 객체를 전역 변수로 선언
@@ -154,6 +167,15 @@ watch(activeTap, (newValue) => {
 </script>
 
 <template>
+<!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+    <router-link to="/reservation" class="resBtn">
+      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <p>고용하기</p>
+    </router-link>
+  </div>
+
   <!-- 전체 레이아웃 -->
   <div class="info-wrap">
     <!--  -->
@@ -618,6 +640,45 @@ watch(activeTap, (newValue) => {
 
 <style lang="scss" scoped>
 @import "/src/assets/variables";
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+  .resBtn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+    text-decoration: none;
+    padding: 13.5px 0;
+    p {
+      color: $white;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+  }
+}
+
 // 전체 레이아웃
 .info-wrap {
   width: 100%;

@@ -1,5 +1,18 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+
+// gotop버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
 // 결제 , step
 const emit = defineEmits(["next", "prev"]);
 const props = defineProps({
@@ -22,6 +35,11 @@ const formatPrice = (price) => {
 </script>
 
 <template>
+<!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+  </div>
+
   <div class="res_wrap">
     <div class="res_inner">
       <!-- 상단 -->
@@ -172,7 +190,29 @@ const formatPrice = (price) => {
 @import "/src/assets/variables";
 @import "/src/assets/resTop.scss";
 
-
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+}
 
 .progress_text p:last-child {
   // font-size: 1.875rem;

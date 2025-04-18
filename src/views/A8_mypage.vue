@@ -1,6 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+// gotop버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
 const userName = ref('');
 
 onMounted(() => {
@@ -10,6 +22,15 @@ onMounted(() => {
 </script>
 
 <template>
+<!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+    <router-link to="/reservation" class="resBtn">
+      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <p>고용하기</p>
+    </router-link>
+  </div>
+
   <!-- 페이지 전체 -->
   <div class="mypage-wrap">
     <!-- 마이페이지 콘텐츠 all -->
@@ -209,6 +230,45 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "/src/assets/variables";
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+  .resBtn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+    text-decoration: none;
+    padding: 13.5px 0;
+    p {
+      color: $white;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+  }
+}
+
 // 페이지 전체
 .mypage-wrap {
   background-color: $sub-color;
