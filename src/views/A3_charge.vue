@@ -268,7 +268,7 @@ onMounted(() => {
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    margin-top: 30px;
+    // margin-top: 30px;
     margin-bottom: 75px;
     @media screen and (max-width: 768px) {
       flex-direction: column;
@@ -466,6 +466,7 @@ onMounted(() => {
     // padding-left: 50px;
     padding: 0 50px;
     // margin: 0;
+    flex-direction: row-reverse;
     gap: 10px;
     @media screen and (max-width: 768px) {
       display: flex;
@@ -555,6 +556,7 @@ onMounted(() => {
     .distance-info {
       width: 100%;
       display: flex;
+      flex-direction: row-reverse;
       margin-top: 20px;
       @media screen and (max-width: 768px) {
         flex-direction: column;

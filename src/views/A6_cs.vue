@@ -328,7 +328,7 @@ const nextPage = () => {
             <li class="quick-list">
               <router-link to="/information">
                 <div class="quick-img">
-                  <img src="/images/lee/phone.png" alt="핸드폰아이콘" />
+                  <img src="/images/lee/csphone.png" alt="핸드폰아이콘" />
                 </div>
                 <p class="quick-text">
                   <span class="quick-text1"><strong>이용방법</strong>이 궁금하신가요?</span>
@@ -348,7 +348,7 @@ const nextPage = () => {
               </router-link>
             </li>
             <li class="quick-list">
-              <router-link to="/login">
+              <router-link to="/inquire">
                 <div class="quick-img">
                   <img src="/images/lee/consult.png" alt="헤드폰아이콘" />
                 </div>
@@ -397,7 +397,7 @@ const nextPage = () => {
           <button @click="nextPage" :disabled="currentPage === totalPages">다음</button>
         </div>
       </div>
-      <!-- 5. 문의하기 -->
+      <!-- 5. 문의하기 -->  
       <div class="contact-section inner">
         <p>원하는 답변을 찾지 못하셨나요?</p>
         <router-link to="/login">문의하기</router-link>
@@ -489,7 +489,7 @@ a {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 50px;
+        padding-bottom: 70px;
         @media screen and (max-width: 768px) {
           padding-bottom: 20px;
         }
@@ -512,8 +512,8 @@ a {
           align-items: center;
           justify-content: space-around;
           width: 100%;
-          margin-top: 30px;
-          margin-bottom: 75px;
+          // margin-top: 30px;
+          // margin-bottom: 75px;
           @media screen and (max-width: 768px) {
             flex-direction: column;
             justify-content: center;
@@ -622,7 +622,9 @@ a {
       display: flex;
       align-items: center;
       justify-content: center;
+      
       input {
+        
         max-width: 650px;
         width: 100%;
         padding: 10px;
@@ -642,6 +644,10 @@ a {
       display: flex;
       gap: 20px;
       margin-top: 20px;
+      padding: 0;
+      @media screen and (max-width: 700px){
+        padding: 0 20px;
+      }
       @media screen and (max-width: 600px) {
         gap: 5px;
       }
@@ -774,8 +780,8 @@ a {
         display: block;
         width: 90px;
         height: 40px;
-        background-color: $sub-color;
-        color: $font-light-gray;
+        background-color: $primary-color;
+        color: $white;
         border: 1px solid rgba(118, 118, 118, 0.5);
         border-radius: 10px;
         font-size: $text-font-M;
