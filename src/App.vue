@@ -1,22 +1,21 @@
 <script setup>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
 const route = useRoute();
-const isPopup = computed(() => route.query.popup === 'true');
+const isPopup = computed(() => route.query.popup === "true");
 </script>
 
 <template>
+  <Header class="header" v-if="!isPopup" />
 
-    <Header class="header" v-if="!isPopup"/>
- 
   <main>
     <router-view></router-view>
   </main>
   <footer>
-    <Footer v-if="!isPopup"/>
+    <Footer v-if="!isPopup" />
   </footer>
 </template>
 

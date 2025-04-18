@@ -4,6 +4,7 @@ import Step2Login from "./Step2Login.vue";
 import Step3Payment from "./Step3Payment.vue";
 import Step4Confirmation from "./Step4Confirmation.vue";
 import { computed, ref, onMounted, onUnmounted } from "vue";
+
 // 현재 단계
 const currentStep = ref(1);
 const steps = [Step2Login, Step1Info, Step3Payment, Step4Confirmation];

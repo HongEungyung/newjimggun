@@ -5,6 +5,18 @@ import ModalInquire from "@/components/ModalInquire.vue"; // 모달 컴포넌트
 import DatePicker from "@/components/DatePicker.vue"; // 날짜 선택 컴포넌트 임포트
 import TimePicker from "@/components/TimePicker.vue";
 
+// gotop버튼
+const smoothlyBtn = ref(null);
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
 const isModalOpen = ref(false);
 const route = useRoute();
 // useRouter() 라우트를 변경(이동)할때 사용 (push(), replace(), go())
@@ -366,6 +378,11 @@ onUnmounted(() => {
 </script>
 
 <template>
+<!-- gotop 버튼 -->
+<div class="topBtnWrap">
+    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
+  </div>
+
   <div class="res_wrap">
     <div class="res_inner">
       <!-- 상단 -->
@@ -723,6 +740,31 @@ onUnmounted(() => {
 @import "/src/assets/cards";
 @import "/src/assets/variables"; // 반드시 최상단!
 @import "/src/assets/resTop.scss";
+
+// gotop 버튼
+.topBtnWrap {
+  position: fixed;
+  right: 100px;
+  bottom: 60px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .topBtn {
+    color: $primary-color;
+    font-size: 40px;
+    text-decoration: none;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    background-color: $white;
+    text-align: center;
+    box-shadow: $info-boxShadow;
+  }
+}
+
 .progress_text p:first-child {
   // font-size: 1.875rem;
   font-weight: 600;
