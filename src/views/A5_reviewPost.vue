@@ -152,6 +152,8 @@ form {
     width: 90%;
     height: 400px;
     padding: 11.5px 10px;
+    resize: none; 
+    font-family: inherit; // 부모 폰트 상속
   }
   .submitBtn {
     max-width: 600px;

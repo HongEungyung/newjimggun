@@ -234,7 +234,13 @@ const handleEmailVerification = () => {
     <form class="signup-form" @submit.prevent="handleSignup">
       <div class="infoWrap">
         <span class="star">*</span> <span class="infoSectionTitle">아이디</span>
-        <input type="text" v-model="signUpData.userId" placeholder="아이디" class="infoInput ID" autocomplete="username"/>
+        <input
+          type="text"
+          v-model="signUpData.userId"
+          placeholder="아이디"
+          class="infoInput ID"
+          autocomplete="username"
+        />
       </div>
       <div class="infoWrap">
         <span class="star">*</span> <span class="infoSectionTitle">비밀번호</span>
