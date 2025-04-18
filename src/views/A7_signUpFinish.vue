@@ -70,4 +70,9 @@ img {
   margin-bottom: 50px;
   cursor: pointer;
 }
+@media screen and (max-width: 390px) {
+  h1 {
+    font-size: 28px;
+  }
+}
 </style>

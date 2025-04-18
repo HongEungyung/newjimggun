@@ -5,7 +5,9 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const STORAGE_KEY = 'userReviews';
 const NAME_KEY = 'userName';
-
+import ErrorModal from '@/components/ErrorModal.vue';
+const showErrorModal = ref(false);
+const errorMessage = ref('');
 const newReview = ref({
   name: '',
   title: '',
@@ -16,6 +18,11 @@ const newReview = ref({
 
 const reviews = ref([]);
 
+//모달 닫으면 리뷰 페이지로 이동
+function handleModalClose() {
+  showErrorModal.value = false;
+  router.push('/review');
+}
 // 1. mount 시 이름 로드
 onMounted(() => {
   const savedName = localStorage.getItem(NAME_KEY);
@@ -28,7 +35,11 @@ onMounted(() => {
     reviews.value = JSON.parse(savedReviews);
   }
 });
-
+// 알림
+const handleReviewPost = () => {
+  errorMessage.value = '리뷰가 등록 되었습니다.';
+  showErrorModal.value = true;
+};
 function submitReview() {
   if (
     !newReview.value.name ||
@@ -58,10 +69,7 @@ function submitReview() {
     images: [],
   };
 
-  // 알림
-  alert('리뷰가 등록되었습니다!');
-  // 리뷰페이지로 이동
-  router.push('/review');
+  handleReviewPost();
 }
 //사진 등록
 function handleImageUpload(event) {
@@ -86,26 +94,44 @@ function handleImageUpload(event) {
 // 사진 개수 조건 체크
 </script>
 <template>
-  <div class="review-form">
-    <form @submit.prevent="submitReview">
-      <input v-model="newReview.title" placeholder="제목" class="input-title" />
-      <div class="name-rating-box">
-        <input v-model="newReview.name" placeholder="이름" class="input-name" />
-        <StarRatingInput v-model="newReview.rating" class="input-rating" />
+  <ErrorModal v-if="showErrorModal" :message="errorMessage" @close="handleModalClose" />
+  <div class="review-wrap">
+    <div class="review-form">
+      <div class="review-form-left">
+        <h2 class="review-title">이용 후기</h2>
       </div>
+      <div class="review-form-right">
+        <form @submit.prevent="submitReview">
+          <input v-model="newReview.title" placeholder="제목" class="input-title" />
+          <div class="name-rating-box">
+            <input v-model="newReview.name" placeholder="이름" class="input-name" />
+            <StarRatingInput v-model="newReview.rating" class="input-rating" />
+          </div>
 
-      <textarea v-model="newReview.content" placeholder="리뷰 내용을 입력해 주세요" class="input-content" />
-      <input type="file" multiple accept="image/*" @change="handleImageUpload" />
+          <textarea v-model="newReview.content" placeholder="리뷰 내용을 입력해 주세요" class="input-content" />
+          <input type="file" multiple accept="image/*" @change="handleImageUpload" />
 
-      <div class="image-preview">
-        <img v-for="(img, idx) in newReview.images" :key="idx" :src="img" alt="업로드된 이미지" class="preview-img" />
+          <div class="image-preview">
+            <img
+              v-for="(img, idx) in newReview.images"
+              :key="idx"
+              :src="img"
+              alt="업로드된 이미지"
+              class="preview-img"
+            />
+          </div>
+          <button type="submit" class="submitBtn" @click="handleReviewPost">리뷰 등록</button>
+        </form>
       </div>
-      <button type="submit" class="submitBtn">리뷰 등록</button>
-    </form>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
 @import '/src/assets/variables';
+.review-wrap {
+  width: 100%;
+  background-color: $sub-color;
+}
 .review-form {
   max-width: 1240px;
   margin: auto;
@@ -113,71 +139,99 @@ function handleImageUpload(event) {
   font-family: $font-family;
   // min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 100px;
+  // justify-content: center;
+  // align-items: center;
 }
-form {
-  max-width: 600px;
-  width: 100%;
-  margin: 70px auto;
+
+//왼쪽
+.review-form-left {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  gap: 25px;
   align-items: center;
-
-  // 인풋
-  .input-title {
-    max-width: 600px;
-    width: 90%;
-    font-size: 16px;
-    padding: 11.5px 10px;
+  gap: 60px;
+  // 이용 후기
+  .review-title {
+    width: 100%;
+    font-size: $title-font-L + 4px;
+    font-weight: bold;
+    text-align: center;
   }
-  .name-rating-box {
+}
+//오른쪽
+.review-form-right {
+  width: 100%;
+  position: relative;
+  flex: 1;
+  form {
+    // max-width: 600px;
+    // width: 100%;
+    // margin: 70px auto;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 25px;
+    // align-items: center;
     display: flex;
-    gap: 30px;
-    max-width: 600px;
-    width: 90%;
-
-    .input-name {
-      width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // align-items: center;
+    gap: 25px;
+    // 인풋
+    .input-title {
+      max-width: 600px;
+      width: 90%;
       font-size: 16px;
       padding: 11.5px 10px;
     }
-    .input-rating {
-      padding: 8.5px 8.5px;
-    }
-  }
-  .input-content {
-    max-width: 600px;
-    width: 90%;
-    height: 400px;
-    padding: 11.5px 10px;
-    resize: none; 
-    font-family: inherit; // 부모 폰트 상속
-  }
-  .submitBtn {
-    max-width: 600px;
-    width: 90%;
-    font-size: 16px;
-    padding: 11.5px 10px;
-    background-color: $primary-color;
-    color: $white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  // 이미지 미리보기
-  .image-preview {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    .name-rating-box {
+      display: flex;
+      gap: 30px;
+      max-width: 600px;
+      width: 90%;
 
-    .preview-img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
+      .input-name {
+        width: 100%;
+        font-size: 16px;
+        padding: 11.5px 10px;
+      }
+      .input-rating {
+        padding: 8.5px 8.5px;
+      }
+    }
+    .input-content {
+      max-width: 600px;
+      width: 90%;
+      height: 400px;
+      padding: 11.5px 10px;
+      resize: none;
+      font-family: inherit; // 부모 폰트 상속
+    }
+    .submitBtn {
+      max-width: 600px;
+      width: 90%;
+      font-size: 16px;
+      padding: 11.5px 10px;
+      background-color: $primary-color;
+      color: $white;
+      border: none;
       border-radius: 6px;
-      border: 1px solid $font-light-gray;
+      cursor: pointer;
+    }
+    // 이미지 미리보기
+    .image-preview {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      .preview-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid $font-light-gray;
+      }
     }
   }
 }

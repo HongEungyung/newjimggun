@@ -557,17 +557,17 @@ h2 {
 //반응형
 @media screen and (max-width: 540px) {
   .checkboxWrap {
-    width: 360px;
+    width: 340px;
   }
   .wrap {
-    width: 360px;
+    width: 340px;
     padding-top: 50px;
   }
   .infoWrap {
-    width: 360px;
+    width: 340px;
   }
   .signUpBtn {
-    width: 340px;
+    width: 330px;
   }
   .name {
     padding-left: 42px;
@@ -586,5 +586,12 @@ h2 {
 
     margin-right: 10px;
   }
+  .errorText {
+  color: $error-color;
+  font-size: 14px;
+  position: absolute;
+  left: 110px;
+  top: 48px;
+}
 }
 </style>
