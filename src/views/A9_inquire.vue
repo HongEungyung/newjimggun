@@ -1,10 +1,31 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+
+// 입력 값 저장할 ref들
+const name = ref('');
+const email = ref('');
+const phone = ref('');
+
+// onMounted에서 로컬스토리지 불러오기
+onMounted(() => {
+  const userDataRaw = localStorage.getItem('userDatas');
+  if (userDataRaw) {
+    try {
+      const userList = JSON.parse(userDataRaw);
+      const user = userList[0] || {};
+      name.value = user.name || '';
+      email.value = user.email || '';
+      phone.value = user.phone || '';
+    } catch (e) {
+      console.error('userdatas 파싱 오류:', e);
+    }
+  }
+});
 
 // 문의하기 확인 모달
-const showConfirmModal = ref(false)
+const showConfirmModal = ref(false);
 // 문의하기 접수 완료 모달
-const confirmModal = ref(false)
+const confirmModal = ref(false);
 
 // 문의하기 버튼 클릭시
 function submitInquiry() {
@@ -12,11 +33,10 @@ function submitInquiry() {
 }
 
 // 첫번째 모달 확인버튼 클릭 시 다음 모달 등장
-const confirmModal1 = ()=>{
-  confirmModal.value = true
-  showConfirmModal.value = false
-
-}
+const confirmModal1 = () => {
+  confirmModal.value = true;
+  showConfirmModal.value = false;
+};
 </script>
 
 <template>
@@ -75,17 +95,17 @@ const confirmModal1 = ()=>{
           <!-- 2-2. 이름 -->
           <div class="inquire-group a9group2">
             <label for="name"><span>2. 이름</span></label>
-            <input type="text" id="name" required />
+            <input type="text" id="name" v-model="name" required />
           </div>
           <!-- 2-3. 이메일 -->
           <div class="inquire-group a9group2">
             <label for="name"><span>3. 이메일</span></label>
-            <input type="email" id="email" required />
+            <input type="email" id="email" v-model="email" required />
           </div>
           <!-- 2-4. 연락처 -->
           <div class="inquire-group a9group2">
             <label for="name"><span>4. 연락처</span></label>
-            <input type="phone" id="phone" required />
+            <input type="phone" id="phone" v-model="phone" required />
           </div>
           <!-- 2-5. 문의내용 -->
           <div class="inquire-group a9group3">
@@ -130,16 +150,16 @@ const confirmModal1 = ()=>{
     </div>
     <!-- 4. 문의하기 접수 완료 모달 -->
     <div class="inquire-modal1" v-if="confirmModal">
-    <div class="modal-content1">
-      <p>접수가 완료되었습니다.</p>
-      <router-link to="/cs">확인</router-link>
+      <div class="modal-content1">
+        <p>접수가 완료되었습니다.</p>
+        <router-link to="/cs">확인</router-link>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import "/src/assets/variables";
+@import '/src/assets/variables';
 .inner {
   max-width: 1240px;
   margin: 0 auto;
@@ -154,7 +174,7 @@ const confirmModal1 = ()=>{
     // margin-top: 100px;
     padding-top: 100px;
     padding-bottom: 50px;
-    @media screen and (max-width : 768px){
+    @media screen and (max-width: 768px) {
       flex-direction: column;
       gap: 70px;
     }
@@ -165,7 +185,7 @@ const confirmModal1 = ()=>{
       flex-direction: column;
       align-items: center;
       gap: 60px;
-      
+
       // 1-1. 문의하기 타이틀
       .inquire-title {
         width: 100%;
@@ -247,7 +267,7 @@ const confirmModal1 = ()=>{
       width: 100%;
       position: relative;
       flex: 1;
-      
+
       .inquire-form {
         display: flex;
         flex-direction: column;
@@ -366,6 +386,7 @@ const confirmModal1 = ()=>{
           padding: 6px 12px;
           font-size: 14px;
           margin-top: 20px;
+          cursor: pointer;
           &:hover {
             background-color: $primary-hover;
           }
@@ -395,7 +416,7 @@ const confirmModal1 = ()=>{
         color: $font-primary;
         font-family: $font-family;
       }
-      button{
+      button {
         padding: 10px 20px;
         margin-top: 30px;
         background-color: $primary-color;
@@ -431,7 +452,7 @@ const confirmModal1 = ()=>{
         color: $font-primary;
         font-family: $font-family;
       }
-      a{
+      a {
         display: block;
         padding: 10px 20px;
         margin-top: 30px;
@@ -441,7 +462,6 @@ const confirmModal1 = ()=>{
         border-radius: 5px;
         cursor: pointer;
       }
-      
     }
   }
 }
