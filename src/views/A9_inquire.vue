@@ -174,9 +174,9 @@ const confirmModal1 = () => {
     // margin-top: 100px;
     padding-top: 100px;
     padding-bottom: 50px;
-    @media screen and (max-width: 768px) {
-      flex-direction: column;
-      gap: 70px;
+    @media screen and (max-width : 768px){
+      flex-direction: column !important;
+      gap: 70px !important;
     }
     // 1. 문의하기 왼쪽 영역
     .inquire-left {
