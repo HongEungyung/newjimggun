@@ -98,18 +98,30 @@ function handleImageUpload(event) {
   <div class="review-wrap">
     <div class="review-form">
       <div class="review-form-left">
-        <h2 class="review-title">이용 후기</h2>
+        <h2 class="review-title">고객 후기</h2>
+        <p>고객님의 소중한 후기를 남겨주세요.</p>
       </div>
       <div class="review-form-right">
         <form @submit.prevent="submitReview">
-          <input v-model="newReview.title" placeholder="제목" class="input-title" />
-          <div class="name-rating-box">
-            <input v-model="newReview.name" placeholder="이름" class="input-name" />
-            <StarRatingInput v-model="newReview.rating" class="input-rating" />
+          <div class="post-group">
+            <label for="name"><span>1. 제목</span></label>
+            <input v-model="newReview.title" placeholder="제목" class="input-title" />
           </div>
-
-          <textarea v-model="newReview.content" placeholder="리뷰 내용을 입력해 주세요" class="input-content" />
-          <input type="file" multiple accept="image/*" @change="handleImageUpload" />
+          <div class="post-group">
+            <label for="name"><span>2. 이름</span></label>
+            <div class="name-rating-box">
+              <input v-model="newReview.name" placeholder="이름" class="input-name" />
+              <StarRatingInput v-model="newReview.rating" class="input-rating" />
+            </div>
+          </div>
+          <div class="post-group">
+            <label for="name"><span>3. 리뷰내용</span></label>
+            <textarea v-model="newReview.content" placeholder="리뷰 내용을 입력해 주세요" class="input-content" />
+          </div>
+          <div class="post-group">
+            <label for="name"><span>4. 이미지 업로드</span></label>
+            <input type="file" multiple accept="image/*" @change="handleImageUpload" />
+          </div>
 
           <div class="image-preview">
             <img
@@ -135,13 +147,14 @@ function handleImageUpload(event) {
 .review-form {
   max-width: 1240px;
   margin: auto;
-
   font-family: $font-family;
-  // min-height: 100vh;
   display: flex;
   padding-top: 100px;
-  // justify-content: center;
-  // align-items: center;
+  padding-bottom: 50px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 70px;
+  }
 }
 
 //왼쪽
@@ -151,12 +164,17 @@ function handleImageUpload(event) {
   flex-direction: column;
   align-items: center;
   gap: 60px;
-  // 이용 후기
+  // 고객 후기
   .review-title {
     width: 100%;
     font-size: $title-font-L + 4px;
     font-weight: bold;
     text-align: center;
+  }
+  p {
+    font-size: $text-font-XL;
+    font-weight: bold;
+    color: $font-light-gray;
   }
 }
 //오른쪽
@@ -165,20 +183,19 @@ function handleImageUpload(event) {
   position: relative;
   flex: 1;
   form {
-    // max-width: 600px;
-    // width: 100%;
-    // margin: 70px auto;
-    // display: flex;
-    // flex-direction: column;
-    // gap: 25px;
-    // align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // align-items: center;
     gap: 25px;
     // 인풋
+    input {
+      border-radius: 10px;
+      outline: none;
+      border: none;
+      color: $font-light-gray;
+      font-size: $text-font-S;
+    }
     .input-title {
       max-width: 600px;
       width: 90%;
@@ -208,11 +225,27 @@ function handleImageUpload(event) {
       resize: none;
       font-family: inherit; // 부모 폰트 상속
     }
+    .post-group {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      label {
+        span {
+          font-weight: bold;
+          font-size: $text-font-M;
+          color: $font-light-gray;
+        }
+      }
+    }
+
     .submitBtn {
-      max-width: 600px;
-      width: 90%;
-      font-size: 16px;
-      padding: 11.5px 10px;
+      max-width: 240px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 6px 12px;
       background-color: $primary-color;
       color: $white;
       border: none;
