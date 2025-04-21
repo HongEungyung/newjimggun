@@ -174,8 +174,8 @@ const toggleMenu = () => {
     display: none !important;
     flex-direction: column !important;
     position: absolute !important;
-    top: 60px !important;
-    right: 10px !important;
+    top:90px !important;
+    right: 0px !important;
     background-color: #fff !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     padding: 1rem !important;
