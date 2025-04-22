@@ -99,7 +99,16 @@ function handleImageUpload(event) {
     <div class="review-form">
       <div class="review-form-left">
         <h2 class="review-title">고객 후기</h2>
-        <p>고객님의 소중한 후기를 남겨주세요.</p>
+        <div class="left-content-box">
+          <div class="left-text-box">
+            <p>고객님의 소중한 후기를 남겨주세요.</p>
+            <p>
+              후기를 써주시면 다음 짐꾼을 이용할 때 <br />
+              사용할 수 있는 쿠폰을 드립니다!
+            </p>
+          </div>
+          <a class="coupon">쿠폰 확인하기 ></a>
+        </div>
       </div>
       <div class="review-form-right">
         <form @submit.prevent="submitReview">
@@ -120,7 +129,9 @@ function handleImageUpload(event) {
           </div>
           <div class="post-group">
             <label for="name"><span>4. 이미지 업로드</span></label>
-            <input type="file" multiple accept="image/*" @change="handleImageUpload" />
+            <div class="file-box">
+              <input type="file" multiple accept="image/*" @change="handleImageUpload" />
+            </div>
           </div>
 
           <div class="image-preview">
@@ -171,10 +182,24 @@ function handleImageUpload(event) {
     font-weight: bold;
     text-align: center;
   }
-  p {
-    font-size: $text-font-XL;
-    font-weight: bold;
+  .left-text-box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 10px;
+    p {
+      font-size: $text-font-XL;
+      font-weight: bold;
+      color: $font-light-gray;
+      line-height: 28px;
+    }
+  }
+  .coupon {
+    padding-left: 5px;
+    font-size: $text-font-S;
     color: $font-light-gray;
+    cursor: pointer;
   }
 }
 //오른쪽
@@ -190,7 +215,7 @@ function handleImageUpload(event) {
     gap: 25px;
     // 인풋
     input {
-      border-radius: 10px;
+      // border-radius: 10px;
       outline: none;
       border: none;
       color: $font-light-gray;
@@ -198,20 +223,22 @@ function handleImageUpload(event) {
     }
     .input-title {
       max-width: 600px;
-      width: 90%;
+      width: 100%;
       font-size: 16px;
       padding: 11.5px 10px;
+      border-radius: 10px;
     }
     .name-rating-box {
       display: flex;
       gap: 30px;
       max-width: 600px;
-      width: 90%;
+      width: 100%;
 
       .input-name {
         width: 100%;
         font-size: 16px;
         padding: 11.5px 10px;
+        border-radius: 10px;
       }
       .input-rating {
         padding: 8.5px 8.5px;
@@ -219,7 +246,7 @@ function handleImageUpload(event) {
     }
     .input-content {
       max-width: 600px;
-      width: 90%;
+      width: 100%;
       height: 400px;
       padding: 11.5px 10px;
       resize: none;
@@ -227,7 +254,7 @@ function handleImageUpload(event) {
     }
     .post-group {
       width: 100%;
-      max-width: 500px;
+      max-width: 600px;
       display: flex;
       flex-direction: column;
       gap: 5px;
@@ -238,19 +265,39 @@ function handleImageUpload(event) {
           color: $font-light-gray;
         }
       }
+      textarea {
+        border: none;
+        outline: none;
+        resize: none;
+        border-radius: 10px;
+        color: $font-light-gray;
+        font-size: $text-font-S;
+        font-weight: 500;
+        padding: 10px;
+      }
+      .file-box {
+        width: 100%;
+        background-color: $white;
+        border-radius: 10px;
+        padding: 10px 10px;
+      }
     }
 
     .submitBtn {
-      max-width: 240px;
       width: 100%;
-      font-size: 14px;
-      font-weight: bold;
-      padding: 6px 12px;
+      max-width: 240px;
       background-color: $primary-color;
-      color: $white;
+      border-radius: 10px;
+      font-weight: bold;
       border: none;
-      border-radius: 6px;
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 14px;
+      margin-top: 20px;
       cursor: pointer;
+      &:hover {
+        background-color: $primary-hover;
+      }
     }
     // 이미지 미리보기
     .image-preview {
@@ -294,6 +341,17 @@ function handleImageUpload(event) {
     .input-content {
       height: 250px;
     }
+  }
+}
+@media screen and (max-width: 420px) {
+  .review-form-right {
+    max-width: 360px;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 380px) {
+  .review-form-right {
+    max-width: 340px;
   }
 }
 </style>
