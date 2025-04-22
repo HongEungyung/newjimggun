@@ -1,36 +1,36 @@
 <script setup>
-import { computed, ref, watch, onUnmounted, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import ModalInquire from "@/components/ModalInquire.vue"; // 모달 컴포넌트 임포트
-import DatePicker from "@/components/DatePicker.vue"; // 날짜 선택 컴포넌트 임포트
-import TimePicker from "@/components/TimePicker.vue";
+import { computed, ref, watch, onUnmounted, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import ModalInquire from '@/components/ModalInquire.vue'; // 모달 컴포넌트 임포트
+import DatePicker from '@/components/DatePicker.vue'; // 날짜 선택 컴포넌트 임포트
+import TimePicker from '@/components/TimePicker.vue';
 
 const isModalOpen = ref(false);
 const route = useRoute();
 // useRouter() 라우트를 변경(이동)할때 사용 (push(), replace(), go())
 const router = useRouter();
 // console.log(route.params);
-const emit = defineEmits(["next", "prev"]);
+const emit = defineEmits(['next', 'prev']);
 const props = defineProps({
   resevationData: Object,
   editMode: Boolean,
   reservationDetails: Object,
 });
-const name = ref("");
-const phone = ref("");
+const name = ref('');
+const phone = ref('');
 const luggageCount = ref(1);
 //입력값 저장
 const reservationDetails = ref({
-  departurePlace: "",
-  departureDate: "",
-  departureTime: "",
-  arrivalPlace: "",
-  arrivalDate: "",
-  arrivalTime: "",
+  departurePlace: '',
+  departureDate: '',
+  departureTime: '',
+  arrivalPlace: '',
+  arrivalDate: '',
+  arrivalTime: '',
   luggage: [],
   totalPrice: 0,
 });
-const prevStep = () => emit("prev");
+const prevStep = () => emit('prev');
 const nextStep = () => {
   // 현재 선택된 값들을 reservationDetails에 저장
   reservationDetails.value = {
@@ -44,7 +44,7 @@ const nextStep = () => {
     totalPrice: totalPrice.value,
   };
 
-  emit("next", {
+  emit('next', {
     name: name.value,
     phone: phone.value,
     luggageCount: luggageCount.value,
@@ -85,23 +85,23 @@ const toggleSection = (section) => {
 const products = ref([
   {
     id: 1,
-    name: "S",
+    name: 'S',
     price: 11000,
-    description: "최장변 길이 55cm이하",
+    description: '최장변 길이 55cm이하',
     quantity: 0,
   },
   {
     id: 2,
-    name: "M",
+    name: 'M',
     price: 16000,
-    description: "최장변 길이 65cm미만",
+    description: '최장변 길이 65cm미만',
     quantity: 0,
   },
   {
     id: 3,
-    name: "L",
+    name: 'L',
     price: 21000,
-    description: "최장변 길이 65cm이상",
+    description: '최장변 길이 65cm이상',
     quantity: 0,
   },
 ]);
@@ -116,7 +116,7 @@ const product = computed(() => {
 
 // 가격 포맷 함수 ,
 const formatPrice = (price) => {
-  if (!price) return "0";
+  if (!price) return '0';
   return `${price.toLocaleString()}`;
 };
 // 수량 상태 변수
@@ -139,9 +139,9 @@ const totalPrice = computed(() => {
 
 // 날짜 선택 관련 상태
 const isDatePickerOpen = ref(false);
-const selectedDepartureDate = ref("");
-const selectedArrivalDate = ref("");
-const datePickerType = ref(""); // 'departure' 또는 'arrival'
+const selectedDepartureDate = ref('');
+const selectedArrivalDate = ref('');
+const datePickerType = ref(''); // 'departure' 또는 'arrival'
 //위치잡기
 const datePickerPosition = ref({ top: 0, left: 0 });
 //팝업 열기
@@ -159,9 +159,9 @@ const openDatePicker = (type, event) => {
 
 // 날짜 선택 완료
 const handleDateSelect = (date) => {
-  if (datePickerType.value === "departure") {
+  if (datePickerType.value === 'departure') {
     selectedDepartureDate.value = date;
-  } else if (datePickerType.value === "arrival") {
+  } else if (datePickerType.value === 'arrival') {
     selectedArrivalDate.value = date;
   }
   isDatePickerOpen.value = false;
@@ -169,14 +169,10 @@ const handleDateSelect = (date) => {
 
 // 외부 클릭 감지 함수
 const handleClickOutside = (event) => {
-  const datePicker = document.querySelector(".date-picker");
-  const dateInput = document.querySelector(".date_input");
+  const datePicker = document.querySelector('.date-picker');
+  const dateInput = document.querySelector('.date_input');
 
-  if (
-    datePicker &&
-    !datePicker.contains(event.target) &&
-    !dateInput.contains(event.target)
-  ) {
+  if (datePicker && !datePicker.contains(event.target) && !dateInput.contains(event.target)) {
     isDatePickerOpen.value = false;
   }
 };
@@ -186,17 +182,17 @@ watch(isDatePickerOpen, (newValue) => {
   if (newValue) {
     // setTimeout을 사용하여 이벤트 버블링을 피함
     setTimeout(() => {
-      document.addEventListener("click", handleClickOutside);
+      document.addEventListener('click', handleClickOutside);
     }, 0);
   } else {
-    document.removeEventListener("click", handleClickOutside);
+    document.removeEventListener('click', handleClickOutside);
   }
 });
 // 시간 선택 팝업
 const isTimePickerOpen = ref(false);
-const departureTime = ref("");
-const arrivalTime = ref("");
-const timePickerType = ref(""); // 'departure' 또는 'arrival'
+const departureTime = ref('');
+const arrivalTime = ref('');
+const timePickerType = ref(''); // 'departure' 또는 'arrival'
 const timePickerPosition = ref({ top: 0, left: 0 });
 
 const openTimePicker = (type, event) => {
@@ -209,15 +205,15 @@ const openTimePicker = (type, event) => {
   };
 
   // departure_time 클릭 시 현재 시간 기준으로, arrival_time 클릭 시 departure_time 값 기준으로 설정
-  if (type === "departure") {
+  if (type === 'departure') {
     const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
+    const hours = now.getHours().toString().padStart(2, '0');
     const minutes = Math.round(now.getMinutes() / 10) * 10;
-    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedMinutes = minutes.toString().padStart(2, '0');
     departureTime.value = `${hours}:${formattedMinutes}`;
-  } else if (type === "arrival") {
+  } else if (type === 'arrival') {
     if (!departureTime.value) {
-      openModal("출발 시간을 먼저 선택해주세요.");
+      openModal('출발 시간을 먼저 선택해주세요.');
       return;
     }
     arrivalTime.value = departureTime.value;
@@ -227,9 +223,9 @@ const openTimePicker = (type, event) => {
 };
 
 const handleTimeSelect = (time) => {
-  if (timePickerType.value === "departure") {
+  if (timePickerType.value === 'departure') {
     departureTime.value = time;
-  } else if (timePickerType.value === "arrival") {
+  } else if (timePickerType.value === 'arrival') {
     arrivalTime.value = time;
   }
   // isTimePickerOpen.value = false;
@@ -237,14 +233,10 @@ const handleTimeSelect = (time) => {
 
 // 시간 팝업 닫기
 const handleTimeClickOutside = (event) => {
-  const timePicker = document.querySelector(".time-picker");
-  const timeInput = document.querySelector(".time_input");
+  const timePicker = document.querySelector('.time-picker');
+  const timeInput = document.querySelector('.time_input');
 
-  if (
-    timePicker &&
-    !timePicker.contains(event.target) &&
-    !timeInput.contains(event.target)
-  ) {
+  if (timePicker && !timePicker.contains(event.target) && !timeInput.contains(event.target)) {
     isTimePickerOpen.value = false;
   }
 };
@@ -254,17 +246,17 @@ watch(isTimePickerOpen, (newValue) => {
   if (newValue) {
     // setTimeout을 사용하여 이벤트 버블링을 피함
     setTimeout(() => {
-      document.addEventListener("click", handleTimeClickOutside);
+      document.addEventListener('click', handleTimeClickOutside);
     }, 0);
   } else {
-    document.removeEventListener("click", handleTimeClickOutside);
+    document.removeEventListener('click', handleTimeClickOutside);
   }
 });
 
 const isDepartureModalOpen = ref(false);
 const isArrivalModalOpen = ref(false);
-const departurePlace = ref("");
-const arrivalPlace = ref("");
+const departurePlace = ref('');
+const arrivalPlace = ref('');
 
 const handleDepartureSelect = (area) => {
   departurePlace.value = area;
@@ -280,7 +272,7 @@ const selectedLuggage = computed(() => {
   return products.value
     .filter((product) => product.quantity > 0)
     .map((product) => `${product.name} ${product.quantity}개`)
-    .join(", ");
+    .join(', ');
 });
 
 const isArrivalDateModalOpen = ref(false);
@@ -288,7 +280,7 @@ const isArrivalDateModalOpen = ref(false);
 // 찾을 날짜 모달 열기
 const openArrivalDateModal = (event) => {
   if (!selectedDepartureDate.value) {
-    alert("먼저 맡기는 날짜를 선택해주세요.");
+    alert('먼저 맡기는 날짜를 선택해주세요.');
     return;
   }
   isArrivalDateModalOpen.value = true;
@@ -302,8 +294,8 @@ const confirmArrivalDate = () => {
 
   // 날짜 포맷팅
   const year = nextDay.getFullYear();
-  const month = String(nextDay.getMonth() + 1).padStart(2, "0");
-  const day = String(nextDay.getDate()).padStart(2, "0");
+  const month = String(nextDay.getMonth() + 1).padStart(2, '0');
+  const day = String(nextDay.getDate()).padStart(2, '0');
   const formattedNextDay = `${year}-${month}-${day}`;
 
   // 찾을 날짜를 다음 날로 설정
@@ -335,17 +327,17 @@ const handleResize = () => {
 // 컴포넌트 마운트 시 초기 체크
 onMounted(() => {
   handleResize();
-  window.addEventListener("resize", handleResize);
+  window.addEventListener('resize', handleResize);
 
   // 이전 데이터 불러오기
   if (props.resevationData?.reservationDetails) {
     const details = props.resevationData.reservationDetails;
-    departurePlace.value = details.departurePlace || "";
-    selectedDepartureDate.value = details.departureDate || "";
-    departureTime.value = details.departureTime || "";
-    arrivalPlace.value = details.arrivalPlace || "";
-    selectedArrivalDate.value = details.arrivalDate || "";
-    arrivalTime.value = details.arrivalTime || "";
+    departurePlace.value = details.departurePlace || '';
+    selectedDepartureDate.value = details.departureDate || '';
+    departureTime.value = details.departureTime || '';
+    arrivalPlace.value = details.arrivalPlace || '';
+    selectedArrivalDate.value = details.arrivalDate || '';
+    arrivalTime.value = details.arrivalTime || '';
 
     // 수하물 데이터 복원
     if (details.luggage && Array.isArray(details.luggage)) {
@@ -361,7 +353,7 @@ onMounted(() => {
 
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
 onUnmounted(() => {
-  window.removeEventListener("resize", handleResize);
+  window.removeEventListener('resize', handleResize);
 });
 </script>
 
@@ -391,24 +383,16 @@ onUnmounted(() => {
         <div id="res_content">
           <div>
             <!-- 출발지 -->
-            <div
-              class="row_box item_line"
-              :class="{ active: toggleStates.departure.isVisible }">
+            <div class="row_box item_line" :class="{ active: toggleStates.departure.isVisible }">
               <div @click="toggleSection('departure')">
                 <div>
                   <h3 v-if="toggleStates.departure.awesome">출발지</h3>
                   <h3 v-else>어디서 짐을 가져갈까요?</h3>
-                  <span
-                    v-if="toggleStates.departure.awesome"
-                    class="fa accordion_icon">
-                    <img
-                      src="/images/icon/toggleDown_icon.png"
-                      alt="아래아이콘" />
+                  <span v-if="toggleStates.departure.awesome" class="fa accordion_icon">
+                    <img src="/images/icon/toggleDown_icon.png" alt="아래아이콘" />
                   </span>
                   <span v-else class="fa accordion_icon">
-                    <img
-                      src="/images/icon/toggleUp_icon.png"
-                      alt="아래아이콘" />
+                    <img src="/images/icon/toggleUp_icon.png" alt="아래아이콘" />
                   </span>
                 </div>
               </div>
@@ -426,11 +410,13 @@ onUnmounted(() => {
                       autocomplete="off"
                       placeholder="출발장소"
                       class="departure_input"
-                      @click="isDepartureModalOpen = true" />
+                      @click="isDepartureModalOpen = true"
+                    />
                     <ModalInquire
                       :isOpen="isDepartureModalOpen"
                       @close="isDepartureModalOpen = false"
-                      @select="handleDepartureSelect" />
+                      @select="handleDepartureSelect"
+                    />
                   </div>
                 </div>
                 <!-- 맡길 날짜 선택 -->
@@ -445,7 +431,8 @@ onUnmounted(() => {
                       readonly
                       autocomplete="off"
                       placeholder="맡길 날짜"
-                      @click="openDatePicker('departure', $event)" />
+                      @click="openDatePicker('departure', $event)"
+                    />
                   </div>
                 </div>
                 <!-- 맡길 시간 선택 -->
@@ -461,31 +448,24 @@ onUnmounted(() => {
                       readonly
                       autocomplete="off"
                       placeholder="맡길 시간"
-                      @click="openTimePicker('departure', $event)" />
+                      @click="openTimePicker('departure', $event)"
+                    />
                   </div>
                 </div>
               </div>
               <!-- 도착지 -->
             </div>
             <!-- 도착지 -->
-            <div
-              class="row_box item_line"
-              :class="{ active: toggleStates.arrival.isVisible }">
+            <div class="row_box item_line" :class="{ active: toggleStates.arrival.isVisible }">
               <div @click="toggleSection('arrival')">
                 <div>
                   <h3 v-if="toggleStates.arrival.awesome">도착지</h3>
                   <h3 v-else>어디에 짐을 놔둘까요?</h3>
-                  <span
-                    v-if="toggleStates.arrival.awesome"
-                    class="fa accordion_icon">
-                    <img
-                      src="/images/icon/toggleDown_icon.png"
-                      alt="아래아이콘" />
+                  <span v-if="toggleStates.arrival.awesome" class="fa accordion_icon">
+                    <img src="/images/icon/toggleDown_icon.png" alt="아래아이콘" />
                   </span>
                   <span v-else class="fa accordion_icon">
-                    <img
-                      src="/images/icon/toggleUp_icon.png"
-                      alt="아래아이콘" />
+                    <img src="/images/icon/toggleUp_icon.png" alt="아래아이콘" />
                   </span>
                 </div>
               </div>
@@ -503,11 +483,13 @@ onUnmounted(() => {
                       autocomplete="off"
                       placeholder="도착장소"
                       class="arrival_input"
-                      @click="isArrivalModalOpen = true" />
+                      @click="isArrivalModalOpen = true"
+                    />
                     <ModalInquire
                       :isOpen="isArrivalModalOpen"
                       @close="isArrivalModalOpen = false"
-                      @select="handleArrivalSelect" />
+                      @select="handleArrivalSelect"
+                    />
                   </div>
                 </div>
                 <!-- 찾을 날짜 선택 -->
@@ -523,7 +505,8 @@ onUnmounted(() => {
                       readonly
                       autocomplete="off"
                       placeholder="찾을 날짜"
-                      @click="openArrivalDateModal" />
+                      @click="openArrivalDateModal"
+                    />
                   </div>
                 </div>
                 <!-- 찾을 시간 선택 -->
@@ -539,30 +522,23 @@ onUnmounted(() => {
                       readonly
                       autocomplete="off"
                       placeholder="찾을 시간"
-                      @click="openTimePicker('arrival', $event)" />
+                      @click="openTimePicker('arrival', $event)"
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <!-- 수하물 -->
-            <div
-              class="luggage_box"
-              :class="{ active: toggleStates.luggage.isVisible }">
+            <div class="luggage_box" :class="{ active: toggleStates.luggage.isVisible }">
               <div @click="toggleSection('luggage')">
                 <div>
                   <h3 v-if="toggleStates.luggage.awesome">수하물</h3>
                   <h3 v-else>보내는 짐의 크기와 갯수를 알려주세요</h3>
-                  <span
-                    v-if="toggleStates.luggage.awesome"
-                    class="fa accordion_icon">
-                    <img
-                      src="/images/icon/toggleDown_icon.png"
-                      alt="아래아이콘" />
+                  <span v-if="toggleStates.luggage.awesome" class="fa accordion_icon">
+                    <img src="/images/icon/toggleDown_icon.png" alt="아래아이콘" />
                   </span>
                   <span v-else class="fa accordion_icon">
-                    <img
-                      src="/images/icon/toggleUp_icon.png"
-                      alt="아래아이콘" />
+                    <img src="/images/icon/toggleUp_icon.png" alt="아래아이콘" />
                   </span>
                 </div>
               </div>
@@ -573,22 +549,16 @@ onUnmounted(() => {
                   <li v-for="product in products" :key="product.id">
                     <div class="cr_name_area">
                       <p>
-                        <span class="product cr_name"
-                          >{{ product.name }}사이즈</span
-                        >
+                        <span class="product cr_name">{{ product.name }}사이즈</span>
                         <span class="cr_txt">{{ product.description }}</span>
                       </p>
                     </div>
                     <div class="cr_btn_area">
-                      <button
-                        type="button"
-                        @click="changeQuantity(product.id, -1)">
+                      <button type="button" @click="changeQuantity(product.id, -1)">
                         <i><img src="/images/icon/minus_icon.png" alt="" /></i>
                       </button>
                       <input v-model="product.quantity" min="0" max="5" />
-                      <button
-                        type="button"
-                        @click="changeQuantity(product.id, 1)">
+                      <button type="button" @click="changeQuantity(product.id, 1)">
                         <i><img src="/images/icon/plus_icon.png" alt="" /></i>
                       </button>
                     </div>
@@ -604,9 +574,7 @@ onUnmounted(() => {
                   아래의 물건이 포함되어 있다면
                   <b>배송을 거부당할 수 있어요.</b>
                   <ul>
-                    <li>
-                      비닐/종이 쇼핑백, 우산, 박스 등 파손 위험이 있는 물품
-                    </li>
+                    <li>비닐/종이 쇼핑백, 우산, 박스 등 파손 위험이 있는 물품</li>
                     <li>부재성 및 악취가 심한 물품</li>
                     <li>타인에게 해를 가할 수 있는 물품</li>
                     <li>일반 위탁 수하물 허용량을 초과한 물품</li>
@@ -622,47 +590,36 @@ onUnmounted(() => {
           <div class="rrb_mb" @click="toggleDetail">
             <div class="mb_toggle_btn">
               <img
-                :src="
-                  isDetailVisible
-                    ? '/images/icon/toggleDown_icon.png'
-                    : '/images/icon/toggleUp_icon.png'
-                "
-                alt="모바일토글아이콘" />
+                :src="isDetailVisible ? '/images/icon/toggleDown_icon.png' : '/images/icon/toggleUp_icon.png'"
+                alt="모바일토글아이콘"
+              />
             </div>
           </div>
           <!-- 웹 -->
           <ul class="rrb_detail" v-show="isDetailVisible">
             <li class="rrb_fr">
               <label>출발지</label>
-              <div>{{ departurePlace || "-" }}</div>
+              <div>{{ departurePlace || '-' }}</div>
             </li>
             <li class="rrb_fr_data">
               <label>짐 맡길 일정</label>
               <div>
-                {{
-                  selectedDepartureDate && departureTime
-                    ? `${selectedDepartureDate} / ${departureTime}`
-                    : "-"
-                }}
+                {{ selectedDepartureDate && departureTime ? `${selectedDepartureDate} / ${departureTime}` : '-' }}
               </div>
             </li>
             <li class="rrb_to">
               <label>도착지</label>
-              <div>{{ arrivalPlace || "-" }}</div>
+              <div>{{ arrivalPlace || '-' }}</div>
             </li>
             <li class="rrb_to_data">
               <label>짐 찾을 일정</label>
               <div>
-                {{
-                  selectedArrivalDate && arrivalTime
-                    ? `${selectedArrivalDate} / ${arrivalTime}`
-                    : "-"
-                }}
+                {{ selectedArrivalDate && arrivalTime ? `${selectedArrivalDate} / ${arrivalTime}` : '-' }}
               </div>
             </li>
             <li class="rrb_cr">
               <label>수하물</label>
-              <div>{{ selectedLuggage || "-" }}</div>
+              <div>{{ selectedLuggage || '-' }}</div>
             </li>
           </ul>
           <!-- 총 금액 -->
@@ -692,7 +649,8 @@ onUnmounted(() => {
       top: `${datePickerPosition.top}px`,
       left: `${datePickerPosition.left}px`,
       zIndex: 1000,
-    }" />
+    }"
+  />
 
   <!-- 시간 선택 팝업 -->
   <TimePicker
@@ -706,7 +664,8 @@ onUnmounted(() => {
       top: `${timePickerPosition.top}px`,
       left: `${timePickerPosition.left}px`,
       zIndex: 1000,
-    }" />
+    }"
+  />
 
   <!-- 찾을 날짜 모달 -->
   <div v-if="isArrivalDateModalOpen" class="modal-overlay">
@@ -720,9 +679,9 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import "/src/assets/cards";
-@import "/src/assets/variables"; // 반드시 최상단!
-@import "/src/assets/resTop.scss";
+@import '/src/assets/cards';
+@import '/src/assets/variables'; // 반드시 최상단!
+@import '/src/assets/resTop.scss';
 .progress_text p:first-child {
   // font-size: 1.875rem;
   font-weight: 600;
@@ -881,9 +840,8 @@ onUnmounted(() => {
         height: 12px;
         display: block;
         margin: auto;
-        img{
+        img {
           width: 100%;
-          
         }
       }
     }
@@ -923,7 +881,7 @@ onUnmounted(() => {
     align-items: center;
     gap: 12px;
     &::before {
-      content: "";
+      content: '';
       display: block;
       width: 5px;
       height: 5px;
@@ -1138,7 +1096,7 @@ onUnmounted(() => {
 
       .mb_toggle_btn {
         width: 16px;
-       
+
         img {
           width: 100%;
         }
