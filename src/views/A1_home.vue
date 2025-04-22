@@ -92,7 +92,7 @@ const mainBannerData = ref([
     </div>-->
   </div>
 
-  <div class="main-wrap">
+  <main class="main-wrap">
     <!-- 메인배너 슬라이드 -->
     <section class="visual">
       <!-- 메인베너 -->
@@ -137,7 +137,7 @@ const mainBannerData = ref([
           </div>
         </form>
         <router-link to="/reservation" class="mini-button">
-          <p>바로 예약</p>
+          <span>바로 예약</span>
         </router-link>
       </div>
     </section>
@@ -278,7 +278,7 @@ const mainBannerData = ref([
           <!-- 2 -->
           <div class="t-content2">
             <!-- 말풍선 영역 -->
-            <div class="t-2-bubble p2-underline p2-underline2">
+            <div class="t-2-bubble p2-underline">
               <h2>주말여행 갈 때, <span>더 빠르게 짐꾼!</span></h2>
               <p>짧은 주말을 이용해 떠나는 여행! <br />회사에 들고가자니 눈치보이는 <br />캐리어 짐꾼이 먼저 옮겨드릴게요!</p>
             </div>
@@ -296,7 +296,7 @@ const mainBannerData = ref([
               <h3>골프투어</h3>
             </div>
             <!-- 말풍선 영역 -->
-            <div class="t-1-bubble p2-underline p2-underline2">
+            <div class="t-1-bubble p2-underline">
               <h2>골프투어도, <span>더 즐겁게 짐꾼!</span></h2>
               <p>골프, 스쿠버다이빙, 서핑, 스키! <br />즐거운만큼 무거운 취미 용품들 <br />짐꾼이 안전하게 배송해드릴게요!</p>
             </div>
@@ -304,7 +304,7 @@ const mainBannerData = ref([
           <!-- 4 -->
           <div class="t-content4">
             <!-- 말풍선 영역 -->
-            <div class="t-2-bubble p2-underline p2-underline2">
+            <div class="t-2-bubble p2-underline">
               <h2>퇴근 후 여행, <span>더 가볍게 짐꾼!</span></h2>
               <p>사람 많고, 정신없는 출근시간 <br />지옥철에 크고 무거운 캐리어와 <br />함께 타는 건 이제 그만!</p>
             </div>
@@ -377,7 +377,7 @@ const mainBannerData = ref([
         </div>
       </div>
     </section>
-  </div>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -456,7 +456,7 @@ const mainBannerData = ref([
         }
         @media screen and (max-width: 390px) {
           gap: 0 !important;
-          padding: 20px 10px !important;
+          padding: 30px 20px 20px 20px !important;
         }
 
         .mainbannerText {
@@ -674,7 +674,7 @@ const mainBannerData = ref([
         cursor: pointer;
         // border-radius: 50px;
         // margin: 10px;
-        p {
+        span {
           font-size: $text-font-L;
           color: $white;
           font-weight: 700;
@@ -1034,18 +1034,7 @@ const mainBannerData = ref([
             }
           }
         }
-        // 말풍선 underline 2
-        .p2-underline2 {
-          span {
-            @media screen and (max-width: 390px) {
-              // text-decoration: underline;
-              // text-decoration-color: rgba(255, 111, 0, 0.5);
-              // text-underline-offset: -1px;
-              // text-decoration-thickness: 6px;
-              box-shadow: inset 0 -6px 0 rgba(255, 111, 0, 0.5);
-            }
-          }
-        }
+        
         // 1
         .t-content1 {
           display: flex;
@@ -1128,7 +1117,7 @@ const mainBannerData = ref([
             width: 300px !important;
           }
           @media screen and (max-width: 390px) {
-            width: 200px !important;
+            width: 220px !important;
             padding: 20px 25px !important;
           }
           &::after {
@@ -1172,7 +1161,7 @@ const mainBannerData = ref([
             width: 300px !important;
           }
           @media screen and (max-width: 390px) {
-            width: 200px !important;
+            width: 220px !important;
             padding: 20px 25px !important;
           }
           &::after {
@@ -1470,9 +1459,10 @@ const mainBannerData = ref([
 }
 @media screen and (max-width: 768px) {
   // gotop 버튼
-  // .topBtnWrap {
-  //   display: none !important;
-  // }
+  .topBtnWrap {
+    // display: none !important;
+    right: 60px !important;
+  }
   // 파트1 영역
   .a1-part1 {
     display: flex !important;
@@ -1585,6 +1575,16 @@ const mainBannerData = ref([
 @media screen and (max-width: 403px) {
   .a1-part1-title h3 {
     font-size: 20px !important;
+  }
+}
+@media screen and (max-width: 390px) {
+  .topBtnWrap {
+    // display: none !important;
+    right: 20px !important;
+    bottom: 30px !important;
+  }
+  .box-text p {
+    margin-bottom: 0 !important;
   }
 }
 </style>

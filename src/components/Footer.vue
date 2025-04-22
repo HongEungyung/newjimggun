@@ -28,7 +28,7 @@
             <p>(토요일, 공휴일 휴무)</p>
           </div>
           <div class="footerRightButtons">
-            <a>제휴문의</a>
+            <a href="#">제휴문의</a>
             <router-link to="/cs">고객센터</router-link>
           </div>
           <div class="footerRightServices">
