@@ -436,7 +436,7 @@ watch(activeTap, (newValue) => {
           <li>
             <div class="safe-list safe-list1">
               <div class="safe-text">
-                <h4>위치확인</h4>
+                <h4>지점확인</h4>
                 <p>
                   <span
                     >희망하는 지역의<br />
@@ -472,7 +472,7 @@ watch(activeTap, (newValue) => {
           <li>
             <div class="safe-list safe-list3">
               <div class="safe-text">
-                <h4>위치확인</h4>
+                <h4>선택 및 결제</h4>
                 <p>
                   <span>보관함 선택 및 <br />암호 설정 후 <strong>결제</strong></span>
                 </p>
@@ -487,7 +487,7 @@ watch(activeTap, (newValue) => {
           <li>
             <div class="safe-list safe-list4">
               <div class="safe-text">
-                <h4>위치확인</h4>
+                <h4>내짐보관</h4>
                 <p>
                   <span>짐을 안전하게 <br /><strong>보관</strong> 시작</span>
                 </p>
