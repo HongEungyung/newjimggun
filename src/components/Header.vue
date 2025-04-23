@@ -1,8 +1,14 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth'; // auth.js 경로에 맞게 수정
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth"; // auth.js 경로에 맞게 수정
+import { useI18n } from "vue-i18n";
 
+const { t, locale } = useI18n();
+
+const changeLang = (lang) => {
+  locale.value = lang;
+};
 const authStore = useAuthStore();
 const router = useRouter();
 
@@ -12,14 +18,14 @@ const isLoggedIn = computed(() => authStore.getIsLoggedIn);
 // 로그아웃 후 리다이렉트
 const handleLogout = () => {
   authStore.logout();
-  router.push('/'); // 원하면 '/login'으로 변경 가능
+  router.push("/"); // 원하면 '/login'으로 변경 가능
 };
 
 // 예약하기 클릭 시 첫 화면으로 이동
 const handleReservationClick = () => {
-  router.push('/reservation');
+  router.push("/reservation");
   // 예약 페이지의 첫 화면으로 이동하기 위해 이벤트 발생
-  window.dispatchEvent(new CustomEvent('resetToFirstStep'));
+  window.dispatchEvent(new CustomEvent("resetToFirstStep"));
 };
 
 // 모바일
@@ -39,43 +45,56 @@ const toggleMenu = () => {
         <img src="/public/images/jimggun_logo.png" alt="짐꾼로고" />
       </router-link>
       <!-- 모바일 -->
-
       <div class="mobile-wrap">
         <!-- 메뉴 -->
         <ul class="headerNav" :class="{ open: isMenuOpen }">
-          <li><router-link to="/information">이용안내</router-link></li>
-          <li><router-link to="/charge">요금안내</router-link></li>
           <li>
-            <router-link to="/reservation" @click="handleReservationClick">예약하기</router-link>
+            <router-link to="/information">{{ t("info") }}</router-link>
           </li>
-          <li><router-link to="/review">고객후기</router-link></li>
-          <li><router-link to="/cs">고객센터</router-link></li>
+          <li>
+            <router-link to="/charge">{{ t("price") }}</router-link>
+          </li>
+          <li>
+            <router-link to="/reservation" @click="handleReservationClick">{{
+              t("reserve")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/review">{{ t("review") }}</router-link>
+          </li>
+          <li>
+            <router-link to="/cs">{{ t("cs") }}</router-link>
+          </li>
         </ul>
         <div class="headerSubnav">
           <!-- 로그인 상태일 때 -->
           <template v-if="isLoggedIn">
-            <router-link to="/mypage">마이페이지</router-link>
-            <router-link to="/" @click.prevent="handleLogout">로그아웃</router-link>
+            <router-link to="/mypage">{{ t("mypage") }}</router-link>
+            <router-link to="/" @click.prevent="handleLogout">{{
+              t("logout")
+            }}</router-link>
           </template>
 
           <!-- 로그아웃 상태일 때 -->
           <template v-else>
-            <router-link to="/login">로그인</router-link>
+            <router-link to="/login">{{ t("login") }}</router-link>
           </template>
 
-          <!-- 햄버거바 (열기용)-->
-          <div class="hamburger-menu" @click="toggleMenu" :class="{ active: isMenuOpen }">
+          <!-- 햄버거바 -->
+          <div
+            class="hamburger-menu"
+            @click="toggleMenu"
+            :class="{ active: isMenuOpen }">
             <span></span>
             <span></span>
             <span></span>
           </div>
-          <!-- X 아이콘 (닫기용) -->
-          <div class="close-menu" v-if="isMenuOpen" @click="toggleMenu">✕</div>
+
           <!-- 언어 선택 -->
           <div class="headerSubLangs">
-            <a href="#">KOR</a>
+            <a href="#" @click.prevent="changeLang('kor')">KOR</a>
             <span>|</span>
-            <a href="#">ENG</a>
+            <a href="#" @click.prevent="changeLang('eng')">ENG</a>
           </div>
         </div>
       </div>
@@ -84,7 +103,7 @@ const toggleMenu = () => {
 </template>
 
 <style lang="scss" scoped>
-@import '/src/assets/variables';
+@import "/src/assets/variables";
 // 전체 레이아웃
 .headerWrap {
   width: 100%;
@@ -131,17 +150,6 @@ const toggleMenu = () => {
           background-color: $font-primary;
         }
       }
-      .close-menu {
-        display: none;
-        font-size: 28px;
-        font-weight: bold;
-        color: $font-primary;
-        cursor: pointer;
-        position: absolute;
-        top: 25px;
-        right: 20px;
-        z-index: 999;
-      }
       // 메뉴
       .headerNav {
         width: 750px;
@@ -179,44 +187,20 @@ const toggleMenu = () => {
     }
   }
 }
-@media screen and (max-width: 768px) {
-  // gotop 버튼
-  .topBtnWrap {
-    display: none !important;
-  }
+@media screen and (max-width: 760px) {
   .hamburger-menu {
     display: flex !important;
   }
-  .close-menu {
-    display: block !important;
-  }
   .headerNav {
     display: none !important;
-    width: 100% !important;
     flex-direction: column !important;
     position: absolute !important;
-    top: 0px !important;
+    top: 90px !important;
     right: 0px !important;
-    gap: 30px !important;
-    background-color: $sub-color !important;
+    background-color: #fff !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     padding: 1rem !important;
-    border-radius: 6px !important;
-    padding: 40px 0px !important;
-    align-items: flex-end !important;
-
-    li {
-      width: auto !important;
-      text-align: right !important;
-
-      // border-bottom: 1px solid $input-select !important;
-      a {
-        font-size: $title-font-S;
-        padding: 10px 0 !important;
-        display: block;
-        text-align: right !important;
-      }
-    }
+    border-radius: 4px !important;
   }
   .headerNav.open {
     display: flex !important;
