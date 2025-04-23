@@ -1,8 +1,16 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
 // top버튼
+const router = useRouter();
+const handleGoToReservation = () => {
+  router.push("/reservation");
+};
 const smoothlyBtn = ref(null);
+const topBtnWrap = ref(null);
+const isFooterVisible = ref(false);
+
 onMounted(() => {
   smoothlyBtn.value?.addEventListener("click", (e) => {
     e.preventDefault();
@@ -11,6 +19,25 @@ onMounted(() => {
       behavior: "smooth",
     });
   });
+
+  // Intersection Observer 설정
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isFooterVisible.value = entry.isIntersecting;
+      });
+    },
+    {
+      threshold: 0.01,
+      rootMargin: "-100px 0px 0px 0px",
+    }
+  );
+
+  // 푸터 요소 관찰 시작
+  const footer = document.querySelector("footer");
+  if (footer) {
+    observer.observe(footer);
+  }
 });
 
 const activeTap = ref("delivery");
@@ -168,12 +195,12 @@ watch(activeTap, (newValue) => {
 
 <template>
 <!-- gotop 버튼 -->
-<div class="topBtnWrap">
+<div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <router-link to="/reservation" class="resBtn">
-      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <p>고용하기</p>
-    </router-link>
+    <div class="resBtn" style="cursor: pointer" @click.prevent="handleGoToReservation">
+      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <span>고용하기</span>
+    </div>
   </div>
 
   <!-- 전체 레이아웃 -->
@@ -650,6 +677,11 @@ watch(activeTap, (newValue) => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+
+  &.footer-visible {
+    transform: translateY(-250px);
+  }
+
   @media screen and (max-width: 768px) {
   // gotop 버튼
     display: none !important;
@@ -675,7 +707,8 @@ watch(activeTap, (newValue) => {
     box-shadow: $info-boxShadow;
     text-decoration: none;
     padding: 13.5px 0;
-    p {
+    span {
+      display: inline-block;
       color: $white;
       font-size: 12px;
       margin-bottom: 2px;
