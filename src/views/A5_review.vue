@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, watchEffect, onMounted } from 'vue';
+import { useRouter } from "vue-router";
 import StarRating from '@/components/StarRating.vue';
 
 const STORAGE_KEY = 'userReviews';
@@ -13,7 +14,14 @@ onMounted(() => {
 });
 
 // gotop버튼
+const router = useRouter();
+const handleGoToReservation = () => {
+  router.push("/reservation");
+};
 const smoothlyBtn = ref(null);
+const topBtnWrap = ref(null);
+const isFooterVisible = ref(false);
+
 onMounted(() => {
   smoothlyBtn.value?.addEventListener("click", (e) => {
     e.preventDefault();
@@ -22,6 +30,25 @@ onMounted(() => {
       behavior: "smooth",
     });
   });
+
+  // Intersection Observer 설정
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isFooterVisible.value = entry.isIntersecting;
+      });
+    },
+    {
+      threshold: 0.01,
+      rootMargin: "-100px 0px 0px 0px",
+    }
+  );
+
+  // 푸터 요소 관찰 시작
+  const footer = document.querySelector("footer");
+  if (footer) {
+    observer.observe(footer);
+  }
 });
 
 // 더미 데이터 (변경되지 않는 초기 데이터)
@@ -117,12 +144,12 @@ const toggleReviews = () => {
 
 <template>
 <!-- gotop 버튼 -->
-<div class="topBtnWrap">
+<div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <router-link to="/reservation" class="resBtn">
-      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <p>고용하기</p>
-    </router-link>
+    <div class="resBtn" style="cursor: pointer" @click.prevent="handleGoToReservation">
+      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <span>고용하기</span>
+    </div>
   </div>
 
   <div class="A5-wrap">
@@ -181,6 +208,15 @@ const toggleReviews = () => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  @media screen and (max-width: 768px) {
+    // gotop 버튼
+    display: none !important;
+  }
+
+  &.footer-visible {
+    transform: translateY(-250px);
+  }
+
   .topBtn {
     color: $primary-color;
     font-size: 40px;
@@ -202,7 +238,8 @@ const toggleReviews = () => {
     box-shadow: $info-boxShadow;
     text-decoration: none;
     padding: 13.5px 0;
-    p {
+    span {
+      display: inline-block;
       color: $white;
       font-size: 12px;
       margin-bottom: 2px;
