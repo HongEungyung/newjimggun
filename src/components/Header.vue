@@ -1,16 +1,18 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth"; // auth.js 경로에 맞게 수정
 import { useI18n } from "vue-i18n";
 
+const authStore = useAuthStore();
+const router = useRouter();
+
+// 언어변경
 const { t, locale } = useI18n();
 
 const changeLang = (lang) => {
   locale.value = lang;
 };
-const authStore = useAuthStore();
-const router = useRouter();
 
 // 로그인 상태 계산
 const isLoggedIn = computed(() => authStore.getIsLoggedIn);
@@ -26,13 +28,35 @@ const handleReservationClick = () => {
   router.push("/reservation");
   // 예약 페이지의 첫 화면으로 이동하기 위해 이벤트 발생
   window.dispatchEvent(new CustomEvent("resetToFirstStep"));
+  isMenuOpen.value = false;
 };
-
+// 
+const closeMenu = () => {
+  isMenuOpen.value = false;
+};
 // 모바일
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
+
+// 외부 클릭 감지
+const handleOutsideClick = (e) => {
+
+  const clickedInsideNav = e.target.closest(".headerNav");
+  const clickedHamburger = e.target.closest(".hamburger-menu");
+
+  if (isMenuOpen.value && !clickedInsideNav && !clickedHamburger) {
+    isMenuOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleOutsideClick, true);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleOutsideClick, true);
+});
 </script>
 
 <template>
@@ -48,43 +72,30 @@ const toggleMenu = () => {
       <div class="mobile-wrap">
         <!-- 메뉴 -->
         <ul class="headerNav" :class="{ open: isMenuOpen }">
-          <li>
-            <router-link to="/information">{{ t("info") }}</router-link>
-          </li>
-          <li>
-            <router-link to="/charge">{{ t("price") }}</router-link>
-          </li>
+          <li><router-link to="/information" @click="closeMenu">{{ t("info") }}</router-link></li>
+          <li><router-link to="/charge" @click="closeMenu">{{ t("price") }}</router-link></li>
           <li>
             <router-link to="/reservation" @click="handleReservationClick">{{
               t("reserve")
             }}</router-link>
           </li>
-          <li>
-            <router-link to="/review">{{ t("review") }}</router-link>
-          </li>
-          <li>
-            <router-link to="/cs">{{ t("cs") }}</router-link>
-          </li>
+          <li><router-link to="/review" @click="closeMenu">{{ t("review") }}</router-link></li>
+          <li><router-link to="/cs" @click="closeMenu">{{ t("cs") }}</router-link></li>
         </ul>
         <div class="headerSubnav">
           <!-- 로그인 상태일 때 -->
           <template v-if="isLoggedIn">
             <router-link to="/mypage">{{ t("mypage") }}</router-link>
-            <router-link to="/" @click.prevent="handleLogout">{{
-              t("logout")
-            }}</router-link>
+            <router-link to="/" @click.prevent="handleLogout">로그아웃</router-link>
           </template>
 
           <!-- 로그아웃 상태일 때 -->
           <template v-else>
-            <router-link to="/login">{{ t("login") }}</router-link>
+            <router-link to="/login">로그인</router-link>
           </template>
 
           <!-- 햄버거바 -->
-          <div
-            class="hamburger-menu"
-            @click="toggleMenu"
-            :class="{ active: isMenuOpen }">
+          <div class="hamburger-menu" @click="toggleMenu" :class="{ active: isMenuOpen }">
             <span></span>
             <span></span>
             <span></span>
@@ -142,12 +153,12 @@ const toggleMenu = () => {
       .hamburger-menu {
         display: none;
         flex-direction: column;
-        gap: 4px;
+        gap: 5px;
         cursor: pointer;
         span {
           width: 25px;
-          height: 2px;
-          background-color: $font-primary;
+          height: 3px;
+          background-color: $font-gray;
         }
       }
       // 메뉴
@@ -195,12 +206,19 @@ const toggleMenu = () => {
     display: none !important;
     flex-direction: column !important;
     position: absolute !important;
-    top: 90px !important;
+    top:90px !important;
     right: 0px !important;
     background-color: #fff !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    padding: 1rem !important;
-    border-radius: 4px !important;
+    padding: 25px 20px !important;
+    border-radius: 10px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    max-width: 150px !important;
+    gap: 30px !important;
+    li{
+      width: 100% !important;
+    }
   }
   .headerNav.open {
     display: flex !important;
