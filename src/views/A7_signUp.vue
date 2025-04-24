@@ -396,7 +396,6 @@ h1 {
 .moreView {
   width: 20px;
   height: 20px;
-
   margin-left: auto;
   margin-right: 21px;
   cursor: pointer;
@@ -428,8 +427,7 @@ h1 {
   margin-right: auto;
   text-align: left;
   line-height: 1.6;
-  // max-height: 200px;
-  // overflow-y: auto;
+ 
 }
 //개인정보 입력
 h2 {
