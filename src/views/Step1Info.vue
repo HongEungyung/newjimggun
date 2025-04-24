@@ -14,7 +14,7 @@ const emit = defineEmits(['next', 'prev']);
 const props = defineProps({
   resevationData: Object,
   editMode: Boolean,
-  reservationDetails: Object,
+  reservationDetails: Object,a
 });
 const name = ref('');
 const phone = ref('');
