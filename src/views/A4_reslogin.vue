@@ -32,7 +32,7 @@ const handleLogin = () => {
       userId: userData.userId,
       password: userData.password,
     });
-    router.push('/');
+    router.push('/reservation');
   } else {
     alert('아이디 또는 비밀번호가 일치하지 않습니다.');
   }
@@ -58,9 +58,9 @@ const handleLogin = () => {
     </form>
 
     <button class="loginBtn" @click="handleLogin">로그인</button>
-    <div class="routerBtn routerBtn4">
-      <button @click="confirmPayment" class="loginBtn nonAccount" id="nonAccount">비회원으로 예약하기</button>
-    </div>
+    <router-link to="/reservation" class="routerBtn routerBtn4">
+      <button class="loginBtn nonAccount" id="nonAccount">비회원으로 예약하기</button>
+    </router-link>
     <div class="textContainer">
       <p>아이디 찾기</p>
       <p>비밀번호 찾기</p>

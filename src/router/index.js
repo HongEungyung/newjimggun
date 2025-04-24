@@ -12,6 +12,7 @@ import A7_signUpFinish from "@/views/A7_signUpFinish.vue";
 import A8_mypage from "@/views/A8_mypage.vue";
 import A9_inquire from "@/views/A9_inquire.vue";
 import Step1Info from "@/views/Step1Info.vue";
+import A4_reslogin from "@/views/A4_reslogin.vue";
 
 const routes = [
   { path: "/", component: A1_home },
@@ -26,7 +27,8 @@ const routes = [
   { path: "/signUpFinish", component: A7_signUpFinish },
   { path: "/mypage", component: A8_mypage },
   { path: "/inquire", component: A9_inquire },
-  { path: "/Info", component: Step1Info}
+  { path: "/Info", component: Step1Info},
+  { path: "/reslogin", component: A4_reslogin}
 ];
 const router = createRouter({
   history: createWebHistory(),

@@ -1,12 +1,11 @@
 <script setup>
 import Step1Info from "./Step1Info.vue";
-import Step2Login from "./Step2Login.vue";
 import Step3Payment from "./Step3Payment.vue";
 import Step4Confirmation from "./Step4Confirmation.vue";
 import { computed, ref, onMounted, onUnmounted } from "vue";
 // 현재 단계
 const currentStep = ref(1);
-const steps = [Step2Login, Step1Info, Step3Payment, Step4Confirmation];
+const steps = [Step1Info, Step3Payment, Step4Confirmation];
 // 현재 표시할 컴포넌트
 const currentStepComponent = computed(() => steps[currentStep.value - 1]);
 // 예약 진행 데이터 (출발지 도착지 예약 정보)

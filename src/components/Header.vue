@@ -30,7 +30,7 @@ const handleReservationClick = () => {
   window.dispatchEvent(new CustomEvent("resetToFirstStep"));
   isMenuOpen.value = false;
 };
-// 
+//
 const closeMenu = () => {
   isMenuOpen.value = false;
 };
@@ -42,7 +42,6 @@ const toggleMenu = () => {
 
 // 외부 클릭 감지
 const handleOutsideClick = (e) => {
-
   const clickedInsideNav = e.target.closest(".headerNav");
   const clickedHamburger = e.target.closest(".hamburger-menu");
 
@@ -57,6 +56,16 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener("click", handleOutsideClick, true);
 });
+// 예약하기 로그인 상태 관리
+
+//로그인 상태에 따라서 다른 곳으로 이동하게 하는 함수
+function goToReservation() {
+  if (isLoggedIn.value) {
+    router.push("/reservation");
+  } else {
+    router.push("/reslogin");
+  }
+}
 </script>
 
 <template>
@@ -72,21 +81,37 @@ onBeforeUnmount(() => {
       <div class="mobile-wrap">
         <!-- 메뉴 -->
         <ul class="headerNav" :class="{ open: isMenuOpen }">
-          <li><router-link to="/information" @click="closeMenu">{{ t("info") }}</router-link></li>
-          <li><router-link to="/charge" @click="closeMenu">{{ t("price") }}</router-link></li>
           <li>
-            <router-link to="/reservation" @click="handleReservationClick">{{
+            <router-link to="/information" @click="closeMenu">{{
+              t("info")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/charge" @click="closeMenu">{{
+              t("price")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/reservation" @click.prevent="goToReservation">{{
               t("reserve")
             }}</router-link>
           </li>
-          <li><router-link to="/review" @click="closeMenu">{{ t("review") }}</router-link></li>
-          <li><router-link to="/cs" @click="closeMenu">{{ t("cs") }}</router-link></li>
+          <li>
+            <router-link to="/review" @click="closeMenu">{{
+              t("review")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/cs" @click="closeMenu">{{ t("cs") }}</router-link>
+          </li>
         </ul>
         <div class="headerSubnav">
           <!-- 로그인 상태일 때 -->
           <template v-if="isLoggedIn">
             <router-link to="/mypage">{{ t("mypage") }}</router-link>
-            <router-link to="/" @click.prevent="handleLogout">로그아웃</router-link>
+            <router-link to="/" @click.prevent="handleLogout"
+              >로그아웃</router-link
+            >
           </template>
 
           <!-- 로그아웃 상태일 때 -->
@@ -95,7 +120,10 @@ onBeforeUnmount(() => {
           </template>
 
           <!-- 햄버거바 -->
-          <div class="hamburger-menu" @click="toggleMenu" :class="{ active: isMenuOpen }">
+          <div
+            class="hamburger-menu"
+            @click="toggleMenu"
+            :class="{ active: isMenuOpen }">
             <span></span>
             <span></span>
             <span></span>
@@ -198,7 +226,7 @@ onBeforeUnmount(() => {
     }
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 760px) {
   .hamburger-menu {
     display: flex !important;
   }
@@ -206,7 +234,7 @@ onBeforeUnmount(() => {
     display: none !important;
     flex-direction: column !important;
     position: absolute !important;
-    top:90px !important;
+    top: 90px !important;
     right: 0px !important;
     background-color: #fff !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
@@ -216,7 +244,7 @@ onBeforeUnmount(() => {
     border-top-right-radius: 0 !important;
     max-width: 150px !important;
     gap: 30px !important;
-    li{
+    li {
       width: 100% !important;
     }
   }
