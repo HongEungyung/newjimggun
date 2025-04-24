@@ -205,7 +205,6 @@ watch(activeTap, (newValue) => {
 
   <!-- 전체 레이아웃 -->
   <div class="info-wrap">
-    <!--  -->
     <!-- 탭 메뉴 -->
     <div class="info-tap inner">
       <h3 @click="activeTap = 'delivery'" class="delivery-tap" :class="{ active: activeTap === 'delivery' }">
@@ -215,17 +214,14 @@ watch(activeTap, (newValue) => {
         <span>보관 서비스</span>
       </h3>
     </div>
-    <!--  -->
     <!-- 짐배송 영역 -->
     <section v-if="activeTap === 'delivery'" class="delivery-wrap">
-      <!--  -->
       <!-- 1. 빠른 배송 서비스 -->
       <div class="fast-delivery inner">
         <h4 class="fast-dv-title">짐꾼의 빠른 <span>배송</span> 서비스</h4>
         <!-- 빠른 배송 서비스 순서 -->
         <ul class="fast-index">
           <li>
-            <!-- <div class="a2-next-1"></div> -->
             <div class="fast-list1 fast-list">
               <h4>예약/결제</h4>
               <p>
@@ -237,9 +233,6 @@ watch(activeTap, (newValue) => {
                 <img src="/images/lee/fastIcon1.png" alt="예약/결제 이미지" />
               </div>
             </div>
-            <!-- <div class="a2-next">
-              <img src="/images/lee/nextstep.png" alt="화살표" />
-            </div> -->
           </li>
           <li>
             <div class="fast-list2 fast-list">
