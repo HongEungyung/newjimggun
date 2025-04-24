@@ -14,7 +14,7 @@ const emit = defineEmits(['next', 'prev']);
 const props = defineProps({
   resevationData: Object,
   editMode: Boolean,
-  reservationDetails: Object,a
+  reservationDetails: Object,
 });
 const name = ref('');
 const phone = ref('');
@@ -555,18 +555,18 @@ onUnmounted(() => {
                     </div>
                     <div class="cr_btn_area">
                       <button type="button" @click="changeQuantity(product.id, -1)">
-                        <i><img src="/images/icon/minus_icon.png" alt="" /></i>
+                        <i><img src="/images/icon/minus_icon.png" alt="이미지" /></i>
                       </button>
                       <input v-model="product.quantity" min="0" max="5" />
                       <button type="button" @click="changeQuantity(product.id, 1)">
-                        <i><img src="/images/icon/plus_icon.png" alt="" /></i>
+                        <i><img src="/images/icon/plus_icon.png" alt="이미지" /></i>
                       </button>
                     </div>
                   </li>
                 </ul>
                 <!-- 주의문 -->
                 <div class="cr_warning">
-                  <i><img src="/images/icon/warning_icon.png" alt="" /></i>
+                  <i><img src="/images/icon/warning_icon.png" alt="이미지" /></i>
                   <span><strong>수하물 개당요금입니다.</strong></span>
                 </div>
                 <!-- 도움말 -->
@@ -1096,7 +1096,6 @@ onUnmounted(() => {
 
       .mb_toggle_btn {
         width: 16px;
-
         img {
           width: 100%;
         }
