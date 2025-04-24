@@ -226,7 +226,7 @@ function goToReservation() {
     }
   }
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .hamburger-menu {
     display: flex !important;
   }
