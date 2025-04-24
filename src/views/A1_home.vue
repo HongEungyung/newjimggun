@@ -427,7 +427,7 @@ const mainBannerData = ref([
   transition: transform 0.3s ease-in-out;
   @media screen and (max-width: 768px) {
     // gotop 버튼
-    // display: none !important;
+    display: none !important;
     right: 60px !important;
     bottom: 60px !important;
   }
