@@ -188,7 +188,7 @@ const mainBannerData = ref([
         </li>
         <li class="part1-box2 part1-box">
           <div class="part1-img">
-            <img src="/images/hong/s-banner-2.png" alt="혜택2" />
+            <img src="/images/hong/s-banner-3.png" alt="혜택2" />
           </div>
           <div class="box-text box2-text">
             <h3>꼼꼼하게 지키는 짐꾼 케어</h3>
@@ -197,7 +197,7 @@ const mainBannerData = ref([
         </li>
         <li class="part1-box3 part1-box">
           <div class="part1-img">
-            <img src="/images/hong/s-banner-3.png" alt="혜택3" />
+            <img src="/images/hong/s-banner-2.png" alt="혜택3" />
           </div>
           <div class="box-text box3-text">
             <h3>Guid for Foreign Users</h3>
