@@ -170,8 +170,18 @@ function goToReservation() {
       max-width: 200px;
       padding: 10px 0;
       box-sizing: border-box;
+      @media screen and (max-width: 390px){
+        width: 95px !important;
+        height: 56px !important;
+        padding: 0 !important;
+        margin-top: 17px !important;
+      }
       img {
         height: 100%;
+        @media screen and (max-width: 390px){
+          width: 100% !important;
+          height: 100% !important;
+        }
       }
     }
     .mobile-wrap {
