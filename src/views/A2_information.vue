@@ -41,6 +41,8 @@ onMounted(() => {
 });
 
 const activeTap = ref("delivery");
+const selectedPlace = ref(null);
+const modalOpen = ref(false);
 
 // 지도 객체를 전역 변수로 선언
 let map = null; // 재할당하려고 let 씀
@@ -74,11 +76,23 @@ const initMap = () => {
 
       // 사용자 이미지 마커 설정
       if (imageUrl) {
-        markerOptions.image = new kakao.maps.MarkerImage(imageUrl, new kakao.maps.Size(44, 51));
+        markerOptions.image = new kakao.maps.MarkerImage(
+          imageUrl,
+          new kakao.maps.Size(44, 51)
+        );
       }
 
       const marker = new kakao.maps.Marker(markerOptions);
       marker.setMap(map);
+
+      console.log(marker.Gb);
+      kakao.maps.event.addListener(marker, "click", () => {
+        selectedPlace.value = {
+          title,
+        };
+        console.log("된다", selectedPlace.value);
+        modalOpen.value = true;
+      });
     };
 
     // 서울시청, 서울역, 김포공항 마커 생성
@@ -194,10 +208,25 @@ watch(activeTap, (newValue) => {
 </script>
 
 <template>
-<!-- gotop 버튼 -->
-<div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
+  <!-- 지도 마커 클릭 시 모달창 구현 -->
+  <article v-if="modalOpen" class="selectMarkerModal">
+    <div class="modal">
+      <h2>{{ selectedPlace.title }}</h2>
+    </div>
+    <div class="modal_background"></div>
+  </article>
+  <!-- gotop 버튼 -->
+  <div
+    class="topBtnWrap"
+    ref="topBtnWrap"
+    :class="{ 'footer-visible': isFooterVisible }"
+  >
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <div class="resBtn" style="cursor: pointer" @click.prevent="handleGoToReservation">
+    <div
+      class="resBtn"
+      style="cursor: pointer"
+      @click.prevent="handleGoToReservation"
+    >
       <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <span>고용하기</span>
     </div>
@@ -207,10 +236,18 @@ watch(activeTap, (newValue) => {
   <div class="info-wrap">
     <!-- 탭 메뉴 -->
     <div class="info-tap inner">
-      <h3 @click="activeTap = 'delivery'" class="delivery-tap" :class="{ active: activeTap === 'delivery' }">
+      <h3
+        @click="activeTap = 'delivery'"
+        class="delivery-tap"
+        :class="{ active: activeTap === 'delivery' }"
+      >
         <span>배송 서비스</span>
       </h3>
-      <h3 @click="activeTap = 'keep'" class="keep-tap" :class="{ active: activeTap === 'keep' }">
+      <h3
+        @click="activeTap = 'keep'"
+        class="keep-tap"
+        :class="{ active: activeTap === 'keep' }"
+      >
         <span>보관 서비스</span>
       </h3>
     </div>
@@ -349,7 +386,9 @@ watch(activeTap, (newValue) => {
                   <img src="/images/lee/bike.png" alt="자전거아이콘" />
                 </div>
                 <div class="iq-text">
-                  <p class="iq-textp"><span>비포장</span> 또는 <span>부피가 큰</span> 품목</p>
+                  <p class="iq-textp">
+                    <span>비포장</span> 또는 <span>부피가 큰</span> 품목
+                  </p>
                   <p class="iq-textp iq-textp2">(ex) 자전거, 악기 등)</p>
                 </div>
               </li>
@@ -367,7 +406,9 @@ watch(activeTap, (newValue) => {
                   <img src="/images/lee/icebox.png" alt="아이스박스아이콘" />
                 </div>
                 <div class="iq-text">
-                  <p class="iq-textp"><span>식품, 식음료</span>를 포장한 박스</p>
+                  <p class="iq-textp">
+                    <span>식품, 식음료</span>를 포장한 박스
+                  </p>
                   <p class="iq-textp iq-textp2">(ex) 아이스박스 등)</p>
                 </div>
               </li>
@@ -383,7 +424,9 @@ watch(activeTap, (newValue) => {
                     <img src="/images/lee/plant.png" alt="식물" />
                   </div>
                   <div class="dc-text">
-                    <p class="dc-textp dc-textp1"><span>호흡</span>을 하는 모든 생명체</p>
+                    <p class="dc-textp dc-textp1">
+                      <span>호흡</span>을 하는 모든 생명체
+                    </p>
                     <p class="dc-textp dc-textp2">(ex) 동물, 식물 등)</p>
                   </div>
                 </li>
@@ -392,7 +435,9 @@ watch(activeTap, (newValue) => {
                     <img src="/images/lee/jewel.png" alt="귀중품" />
                   </div>
                   <div class="dc-text">
-                    <p class="dc-textp dc-textp1"><span>도난</span>의 우려가 있는 품목</p>
+                    <p class="dc-textp dc-textp1">
+                      <span>도난</span>의 우려가 있는 품목
+                    </p>
                     <p class="dc-textp dc-textp2">(ex) 현금, 귀중품 등)</p>
                   </div>
                 </li>
@@ -401,7 +446,9 @@ watch(activeTap, (newValue) => {
                     <img src="/images/lee/fire.png" alt="성냥" />
                   </div>
                   <div class="dc-text">
-                    <p class="dc-textp dc-textp1"><span>폭발</span>의 위험이 있는 품목</p>
+                    <p class="dc-textp dc-textp1">
+                      <span>폭발</span>의 위험이 있는 품목
+                    </p>
                     <p class="dc-textp dc-textp2">(ex) 라이터, 부탄가스 등)</p>
                   </div>
                 </li>
@@ -418,31 +465,36 @@ watch(activeTap, (newValue) => {
         <h2 class="careful-title">유의사항</h2>
         <ul class="careful-box">
           <li class="careful-list">
-            예약시 숙소명과 주소가 불일치 시 작성해주신 주소로 배송되며, 잘못된 예약으로 인해 발생한 문제는 책임지지
-            않습니다.
+            예약시 숙소명과 주소가 불일치 시 작성해주신 주소로 배송되며, 잘못된
+            예약으로 인해 발생한 문제는 책임지지 않습니다.
           </li>
           <li class="careful-list">
-            직접 투숙하는 숙소 이외에 짐을 두었다가 파손 및 분실사고 발생 시 책임지지 않습니다.
+            직접 투숙하는 숙소 이외에 짐을 두었다가 파손 및 분실사고 발생 시
+            책임지지 않습니다.
           </li>
           <li class="careful-list">
-            취급하지 않는 품목을 가방에 함께 넣을 경우 파손 및 분실 시 짐꾼은 책임지지 않습니다.
+            취급하지 않는 품목을 가방에 함께 넣을 경우 파손 및 분실 시 짐꾼은
+            책임지지 않습니다.
           </li>
           <li class="careful-list">
-            수화물의 결함, 교통장애, 천재지변 등의 이유로 수화물의 문제가 발생할 시 '짐꾼'에서 책정한 보상특약에 따라
-            처리합니다.
+            수화물의 결함, 교통장애, 천재지변 등의 이유로 수화물의 문제가 발생할
+            시 '짐꾼'에서 책정한 보상특약에 따라 처리합니다.
           </li>
           <li class="careful-list">
-            픽업시 픽업장소에 짐이 없고, 고객님과 연락이 되지 않을 경우 서비스 이용은 취소되며, 환불은 되지 않습니다.
+            픽업시 픽업장소에 짐이 없고, 고객님과 연락이 되지 않을 경우 서비스
+            이용은 취소되며, 환불은 되지 않습니다.
           </li>
           <li class="careful-list">
-            고객님의 개인사유로 인해 픽업이 늦어질 경우 미리 고객센터에 연락 주시기 바랍니다.
+            고객님의 개인사유로 인해 픽업이 늦어질 경우 미리 고객센터에 연락
+            주시기 바랍니다.
           </li>
           <li class="careful-list">
-            여러개의 짐을 하나로 묶어서 예약한 경우 서비스 이용이 거절될 수 있으며, 거절 될 시 환불이 불가합니다.
+            여러개의 짐을 하나로 묶어서 예약한 경우 서비스 이용이 거절될 수
+            있으며, 거절 될 시 환불이 불가합니다.
           </li>
           <li class="careful-list">
-            정확한 가방배송을 위해 카카오톡 가방사진 링크에 가방과 보관장소를 첨부해주시고 업로드 하지 않을 시 발생한
-            문제는 책임지지 않습니다.
+            정확한 가방배송을 위해 카카오톡 가방사진 링크에 가방과 보관장소를
+            첨부해주시고 업로드 하지 않을 시 발생한 문제는 책임지지 않습니다.
           </li>
         </ul>
       </div>
@@ -494,7 +546,10 @@ watch(activeTap, (newValue) => {
               <div class="safe-text">
                 <h4>선택 및 결제</h4>
                 <p>
-                  <span>보관함 선택 및 <br />암호 설정 후 <strong>결제</strong></span>
+                  <span
+                    >보관함 선택 및 <br />암호 설정 후
+                    <strong>결제</strong></span
+                  >
                 </p>
               </div>
               <div class="safe-line"></div>
@@ -541,7 +596,10 @@ watch(activeTap, (newValue) => {
               <div class="cabinet-img">
                 <div class="cabinetPicA">
                   <img src="/images/lee/cabinetPicA.png" alt="캐비넷실사A" />
-                  <p>가로 : 100cm, 세로 : 100cm, 높이 : 100cm / 우체국 5호 박스 8개 정도 들어갑니다.</p>
+                  <p>
+                    가로 : 100cm, 세로 : 100cm, 높이 : 100cm / 우체국 5호 박스
+                    8개 정도 들어갑니다.
+                  </p>
                 </div>
                 <div class="cabinetA">
                   <img src="/images/lee/cabinetA.png" alt="캐비넷A" />
@@ -555,7 +613,10 @@ watch(activeTap, (newValue) => {
               <div class="cabinet-img">
                 <div class="cabinetPicB">
                   <img src="/images/lee/cabinetPicB.png" alt="캐비넷실사B" />
-                  <p>가로 : 100cm, 세로 : 100cm, 높이 : 200cm / 우체국 5호 박스 20개 정도 들어갑니다.</p>
+                  <p>
+                    가로 : 100cm, 세로 : 100cm, 높이 : 200cm / 우체국 5호 박스
+                    20개 정도 들어갑니다.
+                  </p>
                 </div>
                 <div class="cabinetB">
                   <img src="/images/lee/cabinetB.png" alt="캐비넷B" />
@@ -587,7 +648,9 @@ watch(activeTap, (newValue) => {
                 </div>
                 <div class="hard1-text">
                   <p class="hard1-textp"><span>변질</span> 우려가 있는 품목</p>
-                  <p class="hard1-textp hard1-textp2">(ex) 신선식품, 유제품 등)</p>
+                  <p class="hard1-textp hard1-textp2">
+                    (ex) 신선식품, 유제품 등)
+                  </p>
                 </div>
               </li>
               <li class="hard1-list">
@@ -596,7 +659,9 @@ watch(activeTap, (newValue) => {
                 </div>
                 <div class="hard1-text">
                   <p class="hard1-textp"><span>폭발</span> 위험이 있는 품목</p>
-                  <p class="hard1-textp hard1-textp2">(ex) 라이터, 부탄가스 등)</p>
+                  <p class="hard1-textp hard1-textp2">
+                    (ex) 라이터, 부탄가스 등)
+                  </p>
                 </div>
               </li>
             </ul>
@@ -606,13 +671,19 @@ watch(activeTap, (newValue) => {
                   <img src="/images/lee/plant.png" alt="식물" />
                 </div>
                 <div class="hard2-text">
-                  <p class="hard2-textp"><span>호흡</span>을 하는 모든 생명체</p>
+                  <p class="hard2-textp">
+                    <span>호흡</span>을 하는 모든 생명체
+                  </p>
                   <p class="hard2-textp hard2-textp2">(ex) 동물, 식물 등)</p>
                 </div>
               </li>
               <li class="hard2-list">
                 <div class="hard2-img hard2-bike">
-                  <img src="/images/lee/bike.png" class="hard2-bike" alt="자전거아이콘" />
+                  <img
+                    src="/images/lee/bike.png"
+                    class="hard2-bike"
+                    alt="자전거아이콘"
+                  />
                 </div>
                 <div class="hard2-text">
                   <p class="hard2-textp"><span>부피가 큰</span> 품목</p>
@@ -637,18 +708,29 @@ watch(activeTap, (newValue) => {
       <div class="careful inner">
         <h2 class="careful-title">유의사항</h2>
         <ul class="careful-box">
-          <li class="careful-list">보관 후 7일이 지난 물품은 관리자의 요청에 따라 이동될 수 있습니다.</li>
+          <li class="careful-list">
+            보관 후 7일이 지난 물품은 관리자의 요청에 따라 이동될 수 있습니다.
+          </li>
 
           <li class="careful-list">
-            보관함의 문을 제대로 닫지않아 발생한 문제에 대해서는 ‘짐꾼’은 책임지지 않습니다. 문을 꼭 확인해주세요.
+            보관함의 문을 제대로 닫지않아 발생한 문제에 대해서는 ‘짐꾼’은
+            책임지지 않습니다. 문을 꼭 확인해주세요.
           </li>
-          <li class="careful-list">유사시 보관함 관리를 위해 보관함을 임시로 열어 점검할 수 있습니다.</li>
           <li class="careful-list">
-            수화물의 결함, 교통장애, 천재지변 등의 이유로 수화물의 문제가 발생할 시 ‘짐꾼’에서 책정한 보상특약에 따라
-            처리합니다.
+            유사시 보관함 관리를 위해 보관함을 임시로 열어 점검할 수 있습니다.
           </li>
-          <li class="careful-list">보관함 이용중 발생한 문제는 고객센터 또는 현장 관리자에게 신고해 주십시오.</li>
-          <li class="careful-list">보관불가 품목을 보관하여 발생한 책임에 대해서 짐꾼은 책임지지 않습니다.</li>
+          <li class="careful-list">
+            수화물의 결함, 교통장애, 천재지변 등의 이유로 수화물의 문제가 발생할
+            시 ‘짐꾼’에서 책정한 보상특약에 따라 처리합니다.
+          </li>
+          <li class="careful-list">
+            보관함 이용중 발생한 문제는 고객센터 또는 현장 관리자에게 신고해
+            주십시오.
+          </li>
+          <li class="careful-list">
+            보관불가 품목을 보관하여 발생한 책임에 대해서 짐꾼은 책임지지
+            않습니다.
+          </li>
         </ul>
       </div>
     </section>
@@ -660,6 +742,39 @@ watch(activeTap, (newValue) => {
 
 <style lang="scss" scoped>
 @import "/src/assets/variables";
+// 마커 모달창 구현
+.selectMarkerModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+}
+.modal_background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -300px;
+  margin-left: -200px;
+  width: 400px;
+  height: 500px;
+  border-radius: 1.2rem;
+  background-color:antiquewhite;
+  z-index: 11;
+}
+.modal h2{
+  text-align: center;
+}
 // gotop 버튼
 .topBtnWrap {
   position: fixed;
@@ -676,9 +791,9 @@ watch(activeTap, (newValue) => {
   }
 
   @media screen and (max-width: 768px) {
-  // gotop 버튼
+    // gotop 버튼
     display: none !important;
-}
+  }
   .topBtn {
     color: $primary-color;
     font-size: 40px;
@@ -770,12 +885,12 @@ watch(activeTap, (newValue) => {
     span {
       color: $primary-color;
     }
-    @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-S;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-XS;
+    }
   }
   .fast-index {
     width: 100%;
@@ -978,14 +1093,14 @@ watch(activeTap, (newValue) => {
         font-size: $title-font-M;
         font-weight: bold;
         min-width: 240px;
-        
+
         span {
           color: $primary-color;
         }
-        @media screen and (max-width : 768px){
+        @media screen and (max-width: 768px) {
           font-size: $title-font-S;
         }
-        @media screen and (max-width : 390px){
+        @media screen and (max-width: 390px) {
           font-size: $title-font-XS;
         }
       }
@@ -1056,12 +1171,12 @@ watch(activeTap, (newValue) => {
           span {
             color: $primary-color;
           }
-          @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+          @media screen and (max-width: 768px) {
+            font-size: $title-font-S;
+          }
+          @media screen and (max-width: 390px) {
+            font-size: $title-font-XS;
+          }
         }
         .diffcult-menu {
           display: flex;
@@ -1133,12 +1248,12 @@ watch(activeTap, (newValue) => {
   .careful-title {
     font-size: $title-font-XL;
     font-weight: bold;
-    @media screen and (max-width : 768px){
-          font-size: $title-font-L;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-M;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-L;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-M;
+    }
   }
   .careful-box {
     display: flex;
@@ -1388,12 +1503,12 @@ watch(activeTap, (newValue) => {
     span {
       color: $primary-color;
     }
-    @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-S;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-XS;
+    }
   }
   .safe-index {
     width: 100%;
@@ -1423,9 +1538,9 @@ watch(activeTap, (newValue) => {
         border-radius: 10px;
         box-shadow: $info-boxShadow;
         padding: 0 25px;
-        @media screen and (max-width: 430px){
-                min-width: 160px;
-              }
+        @media screen and (max-width: 430px) {
+          min-width: 160px;
+        }
         .safe-text {
           h4 {
             font-size: $text-font-XL;
@@ -1440,7 +1555,7 @@ watch(activeTap, (newValue) => {
             min-height: 45px;
             display: flex;
             align-items: center;
-            @media screen and (max-width: 430px){
+            @media screen and (max-width: 430px) {
               font-size: $text-font-S;
             }
             span {
@@ -1469,14 +1584,14 @@ watch(activeTap, (newValue) => {
             font-weight: bold;
             font-size: $text-font-XL;
             color: $primary-color;
-            @media screen and (max-width: 430px){
+            @media screen and (max-width: 430px) {
               font-size: $text-font-L;
             }
           }
           img {
             margin-top: 25px;
             margin-bottom: 30px;
-            @media screen and (max-width: 430px){
+            @media screen and (max-width: 430px) {
               width: 70%;
             }
           }
@@ -1516,12 +1631,12 @@ watch(activeTap, (newValue) => {
       font-size: $title-font-M;
       color: $font-primary;
       margin-bottom: 50px;
-      @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+      @media screen and (max-width: 768px) {
+        font-size: $title-font-S;
+      }
+      @media screen and (max-width: 390px) {
+        font-size: $title-font-XS;
+      }
       span {
         color: $primary-color;
       }
@@ -1561,12 +1676,12 @@ watch(activeTap, (newValue) => {
     span {
       color: $primary-color;
     }
-    @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-S;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-XS;
+    }
   }
   .cabinet-list {
     width: 100%;
@@ -1587,17 +1702,17 @@ watch(activeTap, (newValue) => {
         span {
           color: $font-primary;
           font-size: 26px;
-          @media screen and (max-width : 768px){
-          font-size: $title-font-S;
+          @media screen and (max-width: 768px) {
+            font-size: $title-font-S;
+          }
+          @media screen and (max-width: 390px) {
+            font-size: $title-font-XS;
+          }
         }
-        @media screen and (max-width : 390px){
+        @media screen and (max-width: 768px) {
           font-size: $title-font-XS;
         }
-        }
-        @media screen and (max-width : 768px){
-          font-size: $title-font-XS;
-        }
-        @media screen and (max-width : 390px){
+        @media screen and (max-width: 390px) {
           font-size: $text-font-XL;
         }
       }
@@ -1620,22 +1735,22 @@ watch(activeTap, (newValue) => {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            p{
+            p {
               font-size: $text-font-M;
               color: $font-light-gray;
               font-weight: 600;
-              @media screen and (max-width: 768px){
+              @media screen and (max-width: 768px) {
                 font-size: $text-font-S;
               }
-              @media screen and (max-width: 390px){
+              @media screen and (max-width: 390px) {
                 font-size: $text-font-XS;
               }
             }
-            @media screen and (max-width: 768px){
-                max-width: 450px;
-              }
-            img{
-              @media screen and (max-width: 768px){
+            @media screen and (max-width: 768px) {
+              max-width: 450px;
+            }
+            img {
+              @media screen and (max-width: 768px) {
                 max-width: 100%;
               }
             }
@@ -1679,12 +1794,12 @@ watch(activeTap, (newValue) => {
       span {
         color: $primary-color;
       }
-      @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+      @media screen and (max-width: 768px) {
+        font-size: $title-font-S;
+      }
+      @media screen and (max-width: 390px) {
+        font-size: $title-font-XS;
+      }
     }
     .hard-menu-wrap {
       width: 100%;
@@ -1766,7 +1881,7 @@ watch(activeTap, (newValue) => {
               @media screen and (max-width: 768px) {
                 font-size: $text-font-S;
               }
-              @media screen and (max-width: 430px){
+              @media screen and (max-width: 430px) {
                 font-size: $text-font-XS;
               }
               span {
@@ -1776,18 +1891,18 @@ watch(activeTap, (newValue) => {
                 @media screen and (max-width: 768px) {
                   font-size: $text-font-M;
                 }
-                @media screen and (max-width: 430px){
-                font-size: $text-font-S;
-              }
+                @media screen and (max-width: 430px) {
+                  font-size: $text-font-S;
+                }
               }
             }
             .hard1-textp2 {
               color: rgba(118, 118, 118, 0.8);
               font-size: $text-font-M;
               @media screen and (max-width: 768px) {
-                  font-size: $text-font-XS !important;
-                }
-                @media screen and (max-width: 430px){
+                font-size: $text-font-XS !important;
+              }
+              @media screen and (max-width: 430px) {
                 font-size: $text-font-XS;
               }
             }
@@ -1852,13 +1967,12 @@ watch(activeTap, (newValue) => {
             }
             .hard2-bike {
               @media screen and (max-width: 768px) {
-                width: 60px ;
+                width: 60px;
               }
               @media screen and (max-width: 560px) {
                 width: 102px;
                 // height: 70px;
               }
-              
             }
           }
         }
@@ -1874,9 +1988,9 @@ watch(activeTap, (newValue) => {
             @media screen and (max-width: 768px) {
               font-size: $text-font-S;
             }
-            @media screen and (max-width: 430px){
-                font-size: $text-font-XS;
-              }
+            @media screen and (max-width: 430px) {
+              font-size: $text-font-XS;
+            }
             span {
               font-size: $text-font-XL;
               color: $font-primary;
@@ -1884,7 +1998,7 @@ watch(activeTap, (newValue) => {
               @media screen and (max-width: 768px) {
                 font-size: $text-font-M;
               }
-              @media screen and (max-width: 430px){
+              @media screen and (max-width: 430px) {
                 font-size: $text-font-S;
               }
             }
@@ -1893,8 +2007,8 @@ watch(activeTap, (newValue) => {
             color: rgba(118, 118, 118, 0.8);
             font-size: $text-font-M;
             @media screen and (max-width: 768px) {
-                  font-size: $text-font-XS !important;
-                }
+              font-size: $text-font-XS !important;
+            }
           }
         }
       }

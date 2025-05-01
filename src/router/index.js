@@ -27,15 +27,15 @@ const routes = [
   { path: "/signUpFinish", component: A7_signUpFinish },
   { path: "/mypage", component: A8_mypage },
   { path: "/inquire", component: A9_inquire },
-  { path: "/Info", component: Step1Info},
-  { path: "/reslogin", component: A4_reslogin}
+  { path: "/Info", component: Step1Info },
+  { path: "/reslogin", component: A4_reslogin },
 ];
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // 항상 페이지 이동 시 스크롤을 top으로 이동
-    return { top: 0 }
+    return { top: 0 };
   },
 });
 export default router;
