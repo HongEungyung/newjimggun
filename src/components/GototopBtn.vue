@@ -1,14 +1,13 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { storeToRefs } from "pinia";
 
 // 플로팅 버튼들 전체
 // 로그인 상태 기반 라우터 설정
 const router = useRouter();
 const authStore = useAuthStore();
-const { isLoggedIn } = storeToRefs(authStore);
+const isLoggedIn = computed(() => authStore.getIsLoggedIn);
 
 // gotop 버튼
 const smoothlyBtn = ref(null);

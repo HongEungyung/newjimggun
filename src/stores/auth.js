@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
     userEmail: localStorage.getItem('userEmail') || '',
    
     // 전화번호
-    userPhone: localStorage.getItem('userPhone') | '',
+    userPhone: localStorage.getItem('userPhone') || '',
     
   }),
 
@@ -55,6 +55,7 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userName', this.userName);
       localStorage.setItem('userEmail', this.userEmail);
+      localStorage.setItem('userPhone', this.userPhone);
      
       console.log(userData);
     },
@@ -76,7 +77,7 @@ export const useAuthStore = defineStore('auth', {
     },
     // 프로필 업데이트
     updatedProfile(profileData) {
-      console.log(updatedData);
+      console.log(profileData);
       this.userName = profileData.name;
       this.userPhone = profileData.phone;
 

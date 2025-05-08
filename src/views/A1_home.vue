@@ -1,8 +1,7 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 // 상태관리
-import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth";
 // 라이브러리
 import { Autoplay } from "swiper/modules";
@@ -13,7 +12,7 @@ import "swiper/css/autoplay";
 // top 버튼 로그인 연결
 const router = useRouter();
 const authStore = useAuthStore();
-const { isLoggedIn } = storeToRefs(authStore);
+const isLoggedIn = computed(() => authStore.getIsLoggedIn);
 
 // top버튼
 const smoothlyBtn = ref(null);
