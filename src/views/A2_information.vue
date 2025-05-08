@@ -48,6 +48,8 @@ onMounted(() => {
 });
 
 const activeTap = ref("delivery");
+const selectedPlace = ref(null);
+const modalOpen = ref(false);
 
 // 지도 객체를 전역 변수로 선언
 let map = null; // 재할당하려고 let 씀
@@ -86,6 +88,15 @@ const initMap = () => {
 
       const marker = new kakao.maps.Marker(markerOptions);
       marker.setMap(map);
+
+      console.log(marker.Gb);
+      kakao.maps.event.addListener(marker, "click", () => {
+        selectedPlace.value = {
+          title,
+        };
+        console.log("된다", selectedPlace.value);
+        modalOpen.value = true;
+      });
     };
 
     // 서울시청, 서울역, 김포공항 마커 생성
@@ -201,14 +212,23 @@ watch(activeTap, (newValue) => {
 </script>
 
 <template>
-<!-- gotop 버튼 -->
-<div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
+  <!-- gotop 버튼 -->
+  <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
     <div class="resBtn" @click="handleGoToReservation">
       <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <span>고용하기</span>
     </div>
   </div>
+
+  <!-- 지도 마커 클릭 시 모달창 구현 -->
+  <article v-if="modalOpen" class="selectMarkerModal">
+    <div class="modal">
+      <h2>{{ selectedPlace.title }}</h2>
+      <span @click="modalOpen = false">닫기</span>
+    </div>
+    <div @click="modalOpen = false" class="modal_background"></div>
+  </article>
 
   <!-- 전체 레이아웃 -->
   <div class="info-wrap">
@@ -683,9 +703,9 @@ watch(activeTap, (newValue) => {
   }
 
   @media screen and (max-width: 768px) {
-  // gotop 버튼
+    // gotop 버튼
     display: none !important;
-}
+  }
   .topBtn {
     color: $primary-color;
     font-size: 40px;
@@ -714,6 +734,40 @@ watch(activeTap, (newValue) => {
       margin-bottom: 2px;
     }
   }
+}
+
+// 마커 모달창 구현
+.selectMarkerModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+}
+.modal_background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -300px;
+  margin-left: -200px;
+  width: 400px;
+  height: 500px;
+  border-radius: 1.2rem;
+  background-color: antiquewhite;
+  z-index: 11;
+}
+.modal h2 {
+  text-align: center;
 }
 
 // 전체 레이아웃
@@ -777,12 +831,12 @@ watch(activeTap, (newValue) => {
     span {
       color: $primary-color;
     }
-    @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-S;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-XS;
+    }
   }
   .fast-index {
     width: 100%;
@@ -985,14 +1039,14 @@ watch(activeTap, (newValue) => {
         font-size: $title-font-M;
         font-weight: bold;
         min-width: 240px;
-        
+
         span {
           color: $primary-color;
         }
-        @media screen and (max-width : 768px){
+        @media screen and (max-width: 768px) {
           font-size: $title-font-S;
         }
-        @media screen and (max-width : 390px){
+        @media screen and (max-width: 390px) {
           font-size: $title-font-XS;
         }
       }
@@ -1063,12 +1117,12 @@ watch(activeTap, (newValue) => {
           span {
             color: $primary-color;
           }
-          @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+          @media screen and (max-width: 768px) {
+            font-size: $title-font-S;
+          }
+          @media screen and (max-width: 390px) {
+            font-size: $title-font-XS;
+          }
         }
         .diffcult-menu {
           display: flex;
@@ -1140,12 +1194,12 @@ watch(activeTap, (newValue) => {
   .careful-title {
     font-size: $title-font-XL;
     font-weight: bold;
-    @media screen and (max-width : 768px){
-          font-size: $title-font-L;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-M;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-L;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-M;
+    }
   }
   .careful-box {
     display: flex;
@@ -1395,12 +1449,12 @@ watch(activeTap, (newValue) => {
     span {
       color: $primary-color;
     }
-    @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-S;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-XS;
+    }
   }
   .safe-index {
     width: 100%;
@@ -1430,9 +1484,9 @@ watch(activeTap, (newValue) => {
         border-radius: 10px;
         box-shadow: $info-boxShadow;
         padding: 0 25px;
-        @media screen and (max-width: 430px){
-                min-width: 160px;
-              }
+        @media screen and (max-width: 430px) {
+          min-width: 160px;
+        }
         .safe-text {
           h4 {
             font-size: $text-font-XL;
@@ -1447,7 +1501,7 @@ watch(activeTap, (newValue) => {
             min-height: 45px;
             display: flex;
             align-items: center;
-            @media screen and (max-width: 430px){
+            @media screen and (max-width: 430px) {
               font-size: $text-font-S;
             }
             span {
@@ -1476,14 +1530,14 @@ watch(activeTap, (newValue) => {
             font-weight: bold;
             font-size: $text-font-XL;
             color: $primary-color;
-            @media screen and (max-width: 430px){
+            @media screen and (max-width: 430px) {
               font-size: $text-font-L;
             }
           }
           img {
             margin-top: 25px;
             margin-bottom: 30px;
-            @media screen and (max-width: 430px){
+            @media screen and (max-width: 430px) {
               width: 70%;
             }
           }
@@ -1523,12 +1577,12 @@ watch(activeTap, (newValue) => {
       font-size: $title-font-M;
       color: $font-primary;
       margin-bottom: 50px;
-      @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+      @media screen and (max-width: 768px) {
+        font-size: $title-font-S;
+      }
+      @media screen and (max-width: 390px) {
+        font-size: $title-font-XS;
+      }
       span {
         color: $primary-color;
       }
@@ -1568,12 +1622,12 @@ watch(activeTap, (newValue) => {
     span {
       color: $primary-color;
     }
-    @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: $title-font-S;
+    }
+    @media screen and (max-width: 390px) {
+      font-size: $title-font-XS;
+    }
   }
   .cabinet-list {
     width: 100%;
@@ -1594,17 +1648,17 @@ watch(activeTap, (newValue) => {
         span {
           color: $font-primary;
           font-size: 26px;
-          @media screen and (max-width : 768px){
-          font-size: $title-font-S;
+          @media screen and (max-width: 768px) {
+            font-size: $title-font-S;
+          }
+          @media screen and (max-width: 390px) {
+            font-size: $title-font-XS;
+          }
         }
-        @media screen and (max-width : 390px){
+        @media screen and (max-width: 768px) {
           font-size: $title-font-XS;
         }
-        }
-        @media screen and (max-width : 768px){
-          font-size: $title-font-XS;
-        }
-        @media screen and (max-width : 390px){
+        @media screen and (max-width: 390px) {
           font-size: $text-font-XL;
         }
       }
@@ -1627,22 +1681,22 @@ watch(activeTap, (newValue) => {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            p{
+            p {
               font-size: $text-font-M;
               color: $font-light-gray;
               font-weight: 600;
-              @media screen and (max-width: 768px){
+              @media screen and (max-width: 768px) {
                 font-size: $text-font-S;
               }
-              @media screen and (max-width: 390px){
+              @media screen and (max-width: 390px) {
                 font-size: $text-font-XS;
               }
             }
-            @media screen and (max-width: 768px){
-                max-width: 450px;
-              }
-            img{
-              @media screen and (max-width: 768px){
+            @media screen and (max-width: 768px) {
+              max-width: 450px;
+            }
+            img {
+              @media screen and (max-width: 768px) {
                 max-width: 100%;
               }
             }
@@ -1686,12 +1740,12 @@ watch(activeTap, (newValue) => {
       span {
         color: $primary-color;
       }
-      @media screen and (max-width : 768px){
-          font-size: $title-font-S;
-        }
-        @media screen and (max-width : 390px){
-          font-size: $title-font-XS;
-        }
+      @media screen and (max-width: 768px) {
+        font-size: $title-font-S;
+      }
+      @media screen and (max-width: 390px) {
+        font-size: $title-font-XS;
+      }
     }
     .hard-menu-wrap {
       width: 100%;
@@ -1773,7 +1827,7 @@ watch(activeTap, (newValue) => {
               @media screen and (max-width: 768px) {
                 font-size: $text-font-S;
               }
-              @media screen and (max-width: 430px){
+              @media screen and (max-width: 430px) {
                 font-size: $text-font-XS;
               }
               span {
@@ -1783,18 +1837,18 @@ watch(activeTap, (newValue) => {
                 @media screen and (max-width: 768px) {
                   font-size: $text-font-M;
                 }
-                @media screen and (max-width: 430px){
-                font-size: $text-font-S;
-              }
+                @media screen and (max-width: 430px) {
+                  font-size: $text-font-S;
+                }
               }
             }
             .hard1-textp2 {
               color: rgba(118, 118, 118, 0.8);
               font-size: $text-font-M;
               @media screen and (max-width: 768px) {
-                  font-size: $text-font-XS !important;
-                }
-                @media screen and (max-width: 430px){
+                font-size: $text-font-XS !important;
+              }
+              @media screen and (max-width: 430px) {
                 font-size: $text-font-XS;
               }
             }
@@ -1859,13 +1913,12 @@ watch(activeTap, (newValue) => {
             }
             .hard2-bike {
               @media screen and (max-width: 768px) {
-                width: 60px ;
+                width: 60px;
               }
               @media screen and (max-width: 560px) {
                 width: 102px;
                 // height: 70px;
               }
-              
             }
           }
         }
@@ -1881,9 +1934,9 @@ watch(activeTap, (newValue) => {
             @media screen and (max-width: 768px) {
               font-size: $text-font-S;
             }
-            @media screen and (max-width: 430px){
-                font-size: $text-font-XS;
-              }
+            @media screen and (max-width: 430px) {
+              font-size: $text-font-XS;
+            }
             span {
               font-size: $text-font-XL;
               color: $font-primary;
@@ -1891,7 +1944,7 @@ watch(activeTap, (newValue) => {
               @media screen and (max-width: 768px) {
                 font-size: $text-font-M;
               }
-              @media screen and (max-width: 430px){
+              @media screen and (max-width: 430px) {
                 font-size: $text-font-S;
               }
             }
@@ -1900,8 +1953,8 @@ watch(activeTap, (newValue) => {
             color: rgba(118, 118, 118, 0.8);
             font-size: $text-font-M;
             @media screen and (max-width: 768px) {
-                  font-size: $text-font-XS !important;
-                }
+              font-size: $text-font-XS !important;
+            }
           }
         }
       }
