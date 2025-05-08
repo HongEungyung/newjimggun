@@ -93,7 +93,6 @@ const initMap = () => {
         selectedPlace.value = {
           title,
         };
-        console.log("된다", selectedPlace.value);
         modalOpen.value = true;
       });
     };
