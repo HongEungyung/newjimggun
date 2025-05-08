@@ -1,44 +1,81 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import StarRating from '@/components/StarRating.vue';
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
+import StarRating from "@/components/StarRating.vue";
 
+// 플로팅버튼들 관련 전체
+// 로그인 상태 기반 라우터 설정
+const router = useRouter();
+const authStore = useAuthStore();
+const { isLoggedIn } = storeToRefs(authStore);
+
+// gotop 버튼
 const smoothlyBtn = ref(null);
+const topBtnWrap = ref(null);
+const isFooterVisible = ref(false);
 
-const userName = ref('');
-const REVIEW_KEY = 'userReviews'; // 로컬스토리지 키
+// resBtn 버튼 클릭 시 라우팅
+function handleGoToReservation() {
+  if (isLoggedIn.value) {
+    router.push("/reservation");
+  } else {
+    router.push("/reslogin");
+  }
+}
+
+onMounted(() => {
+  smoothlyBtn.value?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  const footer = document.querySelector("footer");
+  if (footer) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isFooterVisible.value = entry.isIntersecting;
+        });
+      },
+      {
+        threshold: 0.01,
+        rootMargin: "-100px 0px 0px 0px",
+      }
+    );
+    observer.observe(footer);
+  }
+});
+
+const userName = ref("");
+const REVIEW_KEY = "userReviews"; // 로컬스토리지 키
 const reviewCount = ref(0); // 작성 후기 수
 const myReviews = ref([]);
 
 onMounted(() => {
-  const savedUser = JSON.parse(localStorage.getItem('user') || '{}');
-  userName.value = savedUser.name || '사용자';
-  const savedReviews = JSON.parse(localStorage.getItem(REVIEW_KEY) || '[]');
+  const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
+  userName.value = savedUser.name || "사용자";
+  const savedReviews = JSON.parse(localStorage.getItem(REVIEW_KEY) || "[]");
   reviewCount.value = savedReviews.length;
 
-  const saved = JSON.parse(localStorage.getItem(REVIEW_KEY) || '[]');
+  const saved = JSON.parse(localStorage.getItem(REVIEW_KEY) || "[]");
   myReviews.value = saved.map((review) => ({
     ...review,
     rating: Number(review.rating),
   }));
-  // gotop버튼
-  smoothlyBtn.value?.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  });
+
 });
 </script>
 
 <template>
   <!-- gotop 버튼 -->
-  <div class="topBtnWrap">
+  <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <router-link to="/reservation" class="resBtn">
-      <img src="/public/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <p>고용하기</p>
-    </router-link>
+    <div class="resBtn" @click="handleGoToReservation">
+      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
+      <span>고용하기</span>
+    </div>
   </div>
 
   <!-- 페이지 전체 -->
@@ -199,10 +236,12 @@ onMounted(() => {
 
           <!-- 후기 있을 때 -->
           <ul v-else class="my-review-list">
-            <li v-for="(review, index) in myReviews.slice(0, 2)" :key="index">
-              <div>{{ review.title }}</div>
-              <StarRating :rating="review.rating" class="review-rating" />
-            </li>
+            <router-link v-for="(review, index) in myReviews.slice(0, 2)" :key="index" :to="{ path: '/review' }" class="review-item-link">
+              <li>
+                <div>{{ review.title }}</div>
+                <StarRating :rating="review.rating" class="review-rating" />
+              </li>
+            </router-link>
           </ul>
         </div>
 
@@ -253,8 +292,8 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '/src/assets/variables';
-// gotop 버튼
+@import "/src/assets/variables";
+// GoTop 버튼
 .topBtnWrap {
   position: fixed;
   right: 100px;
@@ -264,18 +303,25 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  transition: transform 0.3s ease-in-out;
+
+  &.footer-visible {
+    transform: translateY(-250px);
+  }
+
   .topBtn {
-    color: $primary-color;
+    color: #ff6f00;
     font-size: 40px;
     text-decoration: none;
     width: 70px;
     height: 70px;
     line-height: 70px;
     border-radius: 50%;
-    background-color: $white;
+    background-color: #fff;
     text-align: center;
-    box-shadow: $info-boxShadow;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
+
   .resBtn {
     width: 70px;
     height: 70px;
@@ -285,11 +331,15 @@ onMounted(() => {
     box-shadow: $info-boxShadow;
     text-decoration: none;
     padding: 13.5px 0;
-    p {
+    span {
+      display: inline-block;
       color: $white;
       font-size: 12px;
-      margin-bottom: 2px;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none !important;
   }
 }
 
@@ -502,7 +552,6 @@ onMounted(() => {
             gap: 10px;
             .status3-1 {
               padding: 5px 12px;
-
               background-color: #fff3fa;
               border-radius: 50px;
               a {
@@ -576,6 +625,7 @@ onMounted(() => {
           list-style: none;
           padding: 0;
           margin-top: 10px;
+          cursor: pointer;
 
           li {
             border: 1px solid $input-select;

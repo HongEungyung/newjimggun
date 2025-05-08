@@ -1,41 +1,48 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
 
 // top버튼
+// 로그인 상태 기반 라우터 설정
 const router = useRouter();
-const handleGoToReservation = () => {
-  router.push("/reservation");
-};
+const authStore = useAuthStore();
+const { isLoggedIn } = storeToRefs(authStore);
+
+// gotop 버튼
 const smoothlyBtn = ref(null);
 const topBtnWrap = ref(null);
 const isFooterVisible = ref(false);
 
+// 고용하기 버튼 클릭 시 라우팅
+function handleGoToReservation() {
+  if (isLoggedIn.value) {
+    router.push("/reservation");
+  } else {
+    router.push("/reslogin");
+  }
+}
+
 onMounted(() => {
   smoothlyBtn.value?.addEventListener("click", (e) => {
     e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // Intersection Observer 설정
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        isFooterVisible.value = entry.isIntersecting;
-      });
-    },
-    {
-      threshold: 0.01,
-      rootMargin: "-100px 0px 0px 0px",
-    }
-  );
-
-  // 푸터 요소 관찰 시작
   const footer = document.querySelector("footer");
   if (footer) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isFooterVisible.value = entry.isIntersecting;
+        });
+      },
+      {
+        threshold: 0.01,
+        rootMargin: "-100px 0px 0px 0px",
+      }
+    );
     observer.observe(footer);
   }
 });
@@ -197,7 +204,7 @@ watch(activeTap, (newValue) => {
 <!-- gotop 버튼 -->
 <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <div class="resBtn" style="cursor: pointer" @click.prevent="handleGoToReservation">
+    <div class="resBtn" @click="handleGoToReservation">
       <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <span>고용하기</span>
     </div>

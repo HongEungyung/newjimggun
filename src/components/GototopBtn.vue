@@ -1,78 +1,66 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
 
-// gotop버튼
+// 플로팅 버튼들 전체
+// 로그인 상태 기반 라우터 설정
 const router = useRouter();
-const handleGoToReservation = () => {
-  router.push("/reservation");
-};
+const authStore = useAuthStore();
+const { isLoggedIn } = storeToRefs(authStore);
+
+// gotop 버튼
 const smoothlyBtn = ref(null);
 const topBtnWrap = ref(null);
 const isFooterVisible = ref(false);
 
+// resBtn 버튼 클릭 시 라우팅
+function handleGoToReservation() {
+  if (isLoggedIn.value) {
+    router.push("/reservation");
+  } else {
+    router.push("/reslogin");
+  }
+}
+
+// top 버튼 부드럽게
 onMounted(() => {
   smoothlyBtn.value?.addEventListener("click", (e) => {
     e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // Intersection Observer 설정
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        isFooterVisible.value = entry.isIntersecting;
-      });
-    },
-    {
-      threshold: 0.01,
-      rootMargin: "-100px 0px 0px 0px",
-    }
-  );
-
-  // 푸터 요소 관찰 시작
+  // 푸터요소 관찰
   const footer = document.querySelector("footer");
   if (footer) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isFooterVisible.value = entry.isIntersecting;
+        });
+      },
+      {
+        threshold: 0.01,
+        rootMargin: "-100px 0px 0px 0px",
+      }
+    );
     observer.observe(footer);
   }
 });
 </script>
 <template>
-  <!-- gotop 버튼 -->
-  <!-- <div class="topBtnWrap">
-    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <router-link to="isLoggedIn ? '/reservation' : '/login'" @click.prevent="handleGoToReservation" class="resBtn">
-      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <p>고용하기</p>
-    </router-link>
-  </div> -->
-
-<!-- 메인페이지 용 클릭 차단 -->
   <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <div class="resBtn" style="cursor: pointer">
+    <div class="resBtn" @click="handleGoToReservation">
       <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <span>고용하기</span>
     </div>
   </div>
-
-<!-- 메인페이지 외 다른 페이지용들 -->
-  <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
-    <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <div class="resBtn" style="cursor: pointer" @click.prevent="handleGoToReservation">
-      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <span>고용하기</span>
-    </div>
-  </div>
-  
-  
 </template>
 <style lang="scss" scoped>
 @import "/src/assets/variables";
-// gotop 버튼
+// GoTop 버튼
 .topBtnWrap {
   position: fixed;
   right: 100px;
@@ -82,23 +70,25 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  transition: transform 0.3s ease-in-out;
 
   &.footer-visible {
     transform: translateY(-250px);
   }
 
   .topBtn {
-    color: $primary-color;
+    color: #ff6f00;
     font-size: 40px;
     text-decoration: none;
     width: 70px;
     height: 70px;
     line-height: 70px;
     border-radius: 50%;
-    background-color: $white;
+    background-color: #fff;
     text-align: center;
-    box-shadow: $info-boxShadow;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
+
   .resBtn {
     width: 70px;
     height: 70px;
@@ -112,8 +102,11 @@ onMounted(() => {
       display: inline-block;
       color: $white;
       font-size: 12px;
-      margin-bottom: 2px;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none !important;
   }
 }
 </style>
