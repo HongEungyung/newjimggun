@@ -1,20 +1,32 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+// 상태관리
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/auth";
+// 라이브러리
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/autoplay";
-// import { useRouter } from "vue-router";
 
-// const router = useRouter();
+// top 버튼 로그인 연결
+const router = useRouter();
+const authStore = useAuthStore();
+const { isLoggedIn } = storeToRefs(authStore);
 
-// const goToReservation = () => {
-//   router.push("/reservation");
-// };
 // top버튼
 const smoothlyBtn = ref(null);
 const topBtnWrap = ref(null);
 const isFooterVisible = ref(false);
+
+function handleGoToReservation() {
+  if (isLoggedIn.value) {
+    router.push("/reservation");
+  } else {
+    router.push("/reslogin");
+  }
+}
 
 onMounted(() => {
   smoothlyBtn.value?.addEventListener("click", (e) => {
@@ -103,20 +115,10 @@ const mainBannerData = ref([
   <!-- gotop 버튼 -->
   <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <!-- <div class="resBtn" style="cursor: pointer">
+    <div class="resBtn" @click="handleGoToReservation" style="cursor: pointer">
       <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <span>고용하기</span>
-    </div> -->
-    <router-link to="/Info" class="resBtn" style="cursor: pointer">
-      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <span>고용하기</span>
-    </router-link>
-    <!-- 발표날에는 다시 ↓ (집어넣기) 이걸로 바꿔놓기 -->
-    <!-- @click="goToReservation" -->
-    <!-- <div class="resBtn" @click="goToReservation" style="cursor: pointer">
-      <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
-      <p>고용하기</p>
-    </div>-->
+    </div>
   </div>
 
   <div class="main-wrap">
@@ -163,7 +165,7 @@ const mainBannerData = ref([
             <input type="text" id="mini1" placeholder="2025.03.22 / 11:00" />
           </div>
         </form>
-        <router-link to="/reservation" class="mini-button">
+        <router-link :to="isLoggedIn ? '/reservation' : '/reslogin'" class="mini-button">
           <p>바로 예약</p>
         </router-link>
       </div>
@@ -212,8 +214,8 @@ const mainBannerData = ref([
       <!-- 파트2 - 제목 -->
       <div class="part2-title">
         <h3>여행가방 걱정 끝</h3>
-        <p>짐꾼은 집앞에서 역/공항으로 역/공항에서 숙소로 여행짐을</p>
-        <p>배송하는 캐리어 딜리버리 서비스입니다.</p>
+        <p>짐꾼은 집 앞에서 역·공항으로, 역·공항에서 숙소로</p>
+        <p>여행 짐을 안전하게 옮겨주는 캐리어 운반 서비스입니다.</p>
       </div>
 
       <!-- 파트2 - 내용 -->
@@ -467,7 +469,6 @@ const mainBannerData = ref([
       display: inline-block;
       color: $white;
       font-size: 12px;
-      margin-bottom: 2px;
     }
   }
 }
@@ -738,7 +739,6 @@ const mainBannerData = ref([
     padding: 100px 0;
     /* 타이틀 */
     .a1-part1-title {
-      width: 25%;
       h3 {
         font-size: $title-font-M;
         font-weight: bold;
@@ -813,11 +813,16 @@ const mainBannerData = ref([
         font-size: $title-font-L;
         font-weight: bold;
         margin-bottom: 12px;
+        @media screen and (max-width: 390px) {
+          font-size: 28px !important;
+        }
       }
       p {
-        font-size: $text-font-XS;
-        line-height: 16px;
+        line-height: 20px;
         color: $font-gray;
+        @media screen and (max-width: 390px) {
+          display: none;
+        }
       }
     }
 
@@ -1490,17 +1495,6 @@ const mainBannerData = ref([
     width: 100% !important;
   }
 }
-@media screen and (max-width: 867px) {
-}
-@media screen and (max-width: 859px) {
-  .a1-part1-title h3 {
-    font-size: 24px !important;
-  }
-  .a1-part1-title p {
-    font-size: 14px !important;
-    line-height: 18px !important;
-  }
-}
 @media screen and (max-width: 801px) {
   .box1-text h3 {
     margin-bottom: 22px !important;
@@ -1515,10 +1509,6 @@ const mainBannerData = ref([
   }
 }
 @media screen and (max-width: 768px) {
-  // gotop 버튼
-  // .topBtnWrap {
-  //   display: none !important;
-  // }
   // 파트1 영역
   .a1-part1 {
     display: flex !important;
@@ -1576,13 +1566,9 @@ const mainBannerData = ref([
     min-width: 165px !important;
     max-width: unset !important;
     gap: 10px !important;
-    // max-height: 61px;
   }
   .part1-img {
-    // width: 50% !important;
-    // width: 140px !important;
     flex: 1 !important;
-    // object-fit: cover !important;
   }
   .part1-img img {
     display: block !important;
@@ -1601,6 +1587,7 @@ const mainBannerData = ref([
   }
   .box-text p {
     font-size: 16px !important;
+    margin-bottom: 0 !important;
   }
 }
 @media screen and (max-width: 550px) {
@@ -1628,9 +1615,9 @@ const mainBannerData = ref([
     font-size: 12px !important;
   }
 }
-@media screen and (max-width: 403px) {
-  .a1-part1-title h3 {
-    font-size: 20px !important;
+@media screen and (max-width: 390px) {
+  .box-text p {
+    font-size: 12px !important;
   }
 }
 </style>

@@ -1,40 +1,49 @@
 <script setup>
 import { reactive, ref, computed, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from "@/stores/auth";
 
-// gotop버튼
-const handleGoToReservation = () => {
-  router.push("/reservation");
-};
+// 플로팅 버튼들 전체
+// 로그인 상태 기반 라우터 설정
+const authStore = useAuthStore();
+const isLoggedIn = computed(() => authStore.getIsLoggedIn);
+const router = useRouter();
+
+// gotop 버튼
 const smoothlyBtn = ref(null);
 const topBtnWrap = ref(null);
 const isFooterVisible = ref(false);
 
+// resBtn 버튼 클릭 시 라우팅
+function handleGoToReservation() {
+  if (isLoggedIn.value) {
+    router.push("/reservation");
+  } else {
+    router.push("/reslogin");
+  }
+}
+
+// top 버튼 부드럽게
 onMounted(() => {
   smoothlyBtn.value?.addEventListener("click", (e) => {
     e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // Intersection Observer 설정
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        isFooterVisible.value = entry.isIntersecting;
-      });
-    },
-    {
-      threshold: 0.01,
-      rootMargin: "-100px 0px 0px 0px",
-    }
-  );
-
-  // 푸터 요소 관찰 시작
+  // 푸터요소 관찰
   const footer = document.querySelector("footer");
   if (footer) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isFooterVisible.value = entry.isIntersecting;
+        });
+      },
+      {
+        threshold: 0.01,
+        rootMargin: "-100px 0px 0px 0px",
+      }
+    );
     observer.observe(footer);
   }
 });
@@ -331,12 +340,6 @@ const nextPage = () => {
   }
 };
 
-// 로그인 상태 관리
-// 로그인 상태 정의
-const isLoggedIn = computed(() => {
-  return localStorage.getItem('isLoggedIn') === 'true';
-});
-const router = useRouter();
 //로그인 상태에 따라서 다른 곳으로 이동하게 하는 함수
 function goToInquire() {
   if (isLoggedIn.value) {
@@ -348,10 +351,10 @@ function goToInquire() {
 </script>
 
 <template>
-  <!-- gotop 버튼 -->
-  <div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
+<!-- gotop 버튼 -->
+<div class="topBtnWrap" ref="topBtnWrap" :class="{ 'footer-visible': isFooterVisible }">
     <a href="#" class="topBtn" ref="smoothlyBtn">↑</a>
-    <div class="resBtn" style="cursor: pointer" @click.prevent="handleGoToReservation">
+    <div class="resBtn" @click="handleGoToReservation">
       <img src="/images/hong/gotopBtn-logo-w.png" alt="gotopBtn로고" />
       <span>고용하기</span>
     </div>
@@ -656,7 +659,7 @@ a {
     // 1. cs 제목
     .cs-title {
       font-size: $title-font-M;
-      font-weight: bold;
+      font-weight: 200;
       min-width: 240px;
       text-align: center;
       margin-top: 100px;
@@ -729,9 +732,13 @@ a {
           justify-content: center;
           align-items: center;
         }
-        &:hover,
-        &.active {
+        &:hover {
           background-color: $primary-hover;
+          color: $white;
+          border: 1px solid $white;
+        }
+        &.active{
+          background-color: $primary-color;
           color: $white;
           border: 1px solid $white;
         }
@@ -832,22 +839,20 @@ a {
       }
       a {
         display: block;
-        width: 90px;
-        height: 40px;
+        width: 130px;
+        height: 45px;
         background-color: $primary-color;
         color: $white;
-        border: 1px solid rgba(118, 118, 118, 0.5);
         border-radius: 10px;
         font-size: $text-font-M;
         font-weight: bold;
         text-align: center;
         text-decoration: none;
-        line-height: 40px;
+        line-height: 45px;
         cursor: pointer;
         &:hover {
           background-color: $primary-hover;
           color: $white;
-          border: 1px solid $white;
         }
       }
     }
