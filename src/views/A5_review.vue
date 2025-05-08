@@ -2,7 +2,6 @@
 import { computed, ref, watchEffect, onMounted } from 'vue';
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { storeToRefs } from "pinia";
 
 import StarRating from '@/components/StarRating.vue';
 
@@ -20,7 +19,7 @@ onMounted(() => {
 // 로그인 상태 기반 라우터 설정
 const router = useRouter();
 const authStore = useAuthStore();
-const { isLoggedIn } = storeToRefs(authStore);
+const isLoggedIn = computed(() => authStore.getIsLoggedIn);
 
 // gotop 버튼
 const smoothlyBtn = ref(null);
